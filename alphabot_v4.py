@@ -41,6 +41,25 @@ matplotlib.use('Agg')  # Non-interactive backend
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
+# Import new modules (Trade Journal, Multi-Coin, ML Model)
+try:
+    from trade_journal import TradeJournal
+    JOURNAL_AVAILABLE = True
+except ImportError:
+    JOURNAL_AVAILABLE = False
+
+try:
+    from multi_coin import MultiCoinScanner
+    MULTI_COIN_AVAILABLE = True
+except ImportError:
+    MULTI_COIN_AVAILABLE = False
+
+try:
+    from ml_model import MLPatternModel
+    ML_MODEL_AVAILABLE = True
+except ImportError:
+    ML_MODEL_AVAILABLE = False
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONFIGURATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -464,6 +483,15 @@ class TelegramNotifier:
         elif cmd == "/alerts":
             self.show_alerts()
         
+        elif cmd == "/journal":
+            self.send_journal_stats()
+        
+        elif cmd == "/scan":
+            self.send_multi_coin_scan()
+        
+        elif cmd == "/ml":
+            self.send_ml_stats()
+        
         elif text.startswith("/"):
             self.send_message("❓ ไม่รู้จัก command นี้\nพิมพ์ /help เพื่อดูวิธีใช้")
         
@@ -493,6 +521,11 @@ class TelegramNotifier:
 <b>🚨 Alerts:</b>
 /alert [ราคา] - ตั้ง Price Alert
 /alerts - ดู alerts ทั้งหมด
+
+<b>📈 Advanced:</b>
+/journal - 📓 สถิติ Trade Journal
+/scan - 🔍 Multi-Coin Scanner
+/ml - 🤖 ML Model Status
 
 <b>⚙️ Settings:</b>
 /settings - ดูการตั้งค่า
@@ -744,6 +777,46 @@ class TelegramNotifier:
 ⏳ เข้าใน 5 วินาที..."""
         
         self.send_message(msg)
+    
+    def send_journal_stats(self):
+        """Send Trade Journal statistics"""
+        if not JOURNAL_AVAILABLE:
+            self.send_message("❌ Trade Journal module not available")
+            return
+        
+        try:
+            journal = TradeJournal()
+            summary = journal.get_telegram_summary()
+            self.send_message(summary)
+        except Exception as e:
+            self.send_message(f"❌ Error loading journal: {e}")
+    
+    def send_multi_coin_scan(self):
+        """Send Multi-Coin scan results"""
+        if not MULTI_COIN_AVAILABLE:
+            self.send_message("❌ Multi-Coin Scanner module not available")
+            return
+        
+        try:
+            self.send_message("🔍 กำลังสแกน coins...")
+            scanner = MultiCoinScanner()
+            summary = scanner.get_telegram_summary()
+            self.send_message(summary)
+        except Exception as e:
+            self.send_message(f"❌ Error scanning coins: {e}")
+    
+    def send_ml_stats(self):
+        """Send ML Model statistics"""
+        if not ML_MODEL_AVAILABLE:
+            self.send_message("❌ ML Model module not available")
+            return
+        
+        try:
+            model = MLPatternModel()
+            summary = model.get_telegram_summary()
+            self.send_message(summary)
+        except Exception as e:
+            self.send_message(f"❌ Error loading ML model: {e}")
     
     def send_photo(self, photo_bytes: bytes, caption: str = "") -> bool:
         """Send photo to Telegram"""
