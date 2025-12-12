@@ -85,6 +85,10 @@ class Config:
     PARTIAL_TP_CLOSE_PCT: float = 0.50      # Close 50% at first TP
     AUTO_COMPOUND: bool = True              # Auto increase position with profit
     
+    # Live PnL Updates
+    LIVE_PNL_INTERVAL: int = 300            # Send PnL update every 5 minutes (300 sec)
+    SIGNAL_PREVIEW: bool = True             # Notify before entering trade
+    
     # Live Trading Mode
     LIVE_MODE: bool = False                 # True = send real orders, False = simulation
     
@@ -451,6 +455,15 @@ class TelegramNotifier:
         elif cmd == "/settings":
             self.send_settings()
         
+        elif cmd == "/stop":
+            self.kill_switch()
+        
+        elif cmd == "/alert":
+            self.set_price_alert(args)
+        
+        elif cmd == "/alerts":
+            self.show_alerts()
+        
         elif text.startswith("/"):
             self.send_message("❓ ไม่รู้จัก command นี้\nพิมพ์ /help เพื่อดูวิธีใช้")
         
@@ -466,20 +479,26 @@ class TelegramNotifier:
 
 <b>💬 ถามอะไรก็ได้!</b>
 พิมพ์คำถามเลย AI ตอบให้ทันที
-เช่น: "BTC จะขึ้นไหม?" "มีข่าวอะไรบ้าง?"
 
-<b>📊 Trading Commands:</b>
+<b>📊 Trading:</b>
 /status - สถานะบอท
 /balance - ยอดเงิน
 /position - Position ปัจจุบัน
 
-<b>🔥 Quick Commands:</b>
-/btc - ราคา BTC ล่าสุด
-/news - ข่าว Crypto วันนี้
+<b>🔥 Quick:</b>
+/btc - ราคา BTC
+/news - ข่าว Crypto
 /analyze - วิเคราะห์ตลาด
-/settings - ดูการตั้งค่าบอท
 
-🧠 AI: Perplexity Pro (ฉลาดที่สุด)"""
+<b>🚨 Alerts:</b>
+/alert [ราคา] - ตั้ง Price Alert
+/alerts - ดู alerts ทั้งหมด
+
+<b>⚙️ Settings:</b>
+/settings - ดูการตั้งค่า
+/stop - 🛑 หยุดบอททันที
+
+🧠 AI: Perplexity Pro"""
         self.send_message(msg)
     
     def send_settings(self):
@@ -578,6 +597,151 @@ class TelegramNotifier:
 
 ไม่มี Position ตอนนี้
 ⏳ รอสัญญาณเข้าเทรด..."""
+        
+        self.send_message(msg)
+    
+    # ===== NEW FEATURES =====
+    
+    def kill_switch(self):
+        """Emergency stop - close all positions and halt trading"""
+        if self.bot_ref:
+            # Close position if any
+            if self.bot_ref.agent_c.position:
+                self.send_message("🛑 <b>KILL SWITCH ACTIVATED!</b>\n\n⏳ กำลังปิด Position...")
+                # Force close
+                current_price = self.bot_ref.agent_a.df['close'].iloc[-1] if self.bot_ref.agent_a.df is not None else 0
+                self.bot_ref.agent_c._close_position(current_price, "KILL_SWITCH")
+            
+            # Halt trading
+            self.bot_ref.agent_c.halt_trading("Kill switch activated by user")
+            self.bot_ref.is_running = False
+            
+            self.send_message("""🛑 <b>บอทหยุดทำงานแล้ว!</b>
+
+✅ ปิด Position แล้ว
+✅ หยุดเทรดแล้ว
+
+🔄 รัน START_BOT.bat ใหม่เพื่อเริ่มต้นใหม่""")
+        else:
+            self.send_message("❌ ไม่สามารถหยุดบอทได้ - ไม่พบ bot reference")
+    
+    def set_price_alert(self, args: str):
+        """Set price alert: /alert 100000 or /alert 95000"""
+        if not args:
+            self.send_message("""🚨 <b>Price Alert</b>
+
+วิธีใช้: /alert [ราคา]
+
+ตัวอย่าง:
+/alert 100000 - แจ้งเมื่อถึง $100,000
+/alert 95000 - แจ้งเมื่อถึง $95,000""")
+            return
+        
+        try:
+            price = float(args.replace(",", "").replace("$", ""))
+            
+            # Store alert (initialize if not exists)
+            if not hasattr(self, 'price_alerts'):
+                self.price_alerts = []
+            
+            self.price_alerts.append(price)
+            
+            self.send_message(f"""🚨 <b>Alert ตั้งแล้ว!</b>
+
+💰 แจ้งเตือนเมื่อ BTC ถึง: <b>${price:,.0f}</b>
+
+📋 มี {len(self.price_alerts)} alerts ทั้งหมด
+พิมพ์ /alerts เพื่อดูทั้งหมด""")
+            
+        except ValueError:
+            self.send_message("❌ ราคาไม่ถูกต้อง\nตัวอย่าง: /alert 100000")
+    
+    def show_alerts(self):
+        """Show all price alerts"""
+        if not hasattr(self, 'price_alerts') or not self.price_alerts:
+            self.send_message("📋 ไม่มี Price Alert\n\nใช้ /alert [ราคา] เพื่อตั้ง")
+            return
+        
+        alerts_text = "\n".join([f"  • ${p:,.0f}" for p in sorted(self.price_alerts)])
+        self.send_message(f"""🚨 <b>Price Alerts ({len(self.price_alerts)})</b>
+
+{alerts_text}
+
+❌ พิมพ์ /clearalerts เพื่อลบทั้งหมด""")
+    
+    def check_price_alerts(self, current_price: float):
+        """Check and trigger price alerts"""
+        if not hasattr(self, 'price_alerts') or not self.price_alerts:
+            return
+        
+        triggered = []
+        for alert_price in self.price_alerts:
+            # Check if price crossed the alert level
+            if abs(current_price - alert_price) / alert_price < 0.001:  # Within 0.1%
+                triggered.append(alert_price)
+                self.send_message(f"""🚨🚨🚨 <b>PRICE ALERT!</b>
+
+💰 BTC ถึง <b>${alert_price:,.0f}</b> แล้ว!
+📊 ราคาปัจจุบัน: ${current_price:,.2f}
+
+🕐 {datetime.now().strftime('%H:%M:%S')}""")
+        
+        # Remove triggered alerts
+        for p in triggered:
+            self.price_alerts.remove(p)
+    
+    def send_live_pnl(self, current_price: float):
+        """Send live PnL update"""
+        if not self.bot_ref or not self.bot_ref.agent_c.position:
+            return
+        
+        pos = self.bot_ref.agent_c.position
+        pnl = pos.unrealized_pnl(current_price)
+        pnl_pct = pos.unrealized_pnl_pct(current_price) * 100
+        
+        emoji = "🟢" if pnl >= 0 else "🔴"
+        direction = "📈" if pos.side == "long" else "📉"
+        
+        # Calculate distance to SL/TP
+        if pos.side == "long":
+            sl_dist = (current_price - pos.stop_loss) / current_price * 100
+            tp_dist = (pos.take_profit - current_price) / current_price * 100
+        else:
+            sl_dist = (pos.stop_loss - current_price) / current_price * 100
+            tp_dist = (current_price - pos.take_profit) / current_price * 100
+        
+        msg = f"""{direction} <b>Live PnL Update</b>
+
+{emoji} PnL: <b>{pnl_pct:+.2f}%</b> (${pnl:+.3f})
+💰 ราคา: ${current_price:,.2f}
+
+🛡️ SL: {sl_dist:.1f}% away
+🎯 TP: {tp_dist:.1f}% away
+
+🕐 {datetime.now().strftime('%H:%M:%S')}"""
+        
+        self.send_message(msg)
+    
+    def send_signal_preview(self, side: str, entry_price: float, sl: float, tp: float, confidence: float):
+        """Send signal preview before entering trade"""
+        emoji = "🟢" if side == "long" else "🔴"
+        
+        risk_pct = abs(entry_price - sl) / entry_price * 100
+        reward_pct = abs(tp - entry_price) / entry_price * 100
+        rr_ratio = reward_pct / risk_pct if risk_pct > 0 else 0
+        
+        msg = f"""🎯 <b>Signal Preview!</b>
+
+{emoji} กำลังจะเปิด <b>{side.upper()}</b>
+
+💰 Entry: ${entry_price:,.2f}
+🛡️ Stop Loss: ${sl:,.2f} (-{risk_pct:.1f}%)
+🎯 Take Profit: ${tp:,.2f} (+{reward_pct:.1f}%)
+
+📊 R:R Ratio: 1:{rr_ratio:.1f}
+🎯 Confidence: {confidence*100:.0f}%
+
+⏳ เข้าใน 5 วินาที..."""
         
         self.send_message(msg)
     
@@ -1969,6 +2133,17 @@ class AgentC:
         # Create position
         side = 'long' if signal.type == SignalType.BUY else 'short'
         
+        # ===== SIGNAL PREVIEW =====
+        if self.config.SIGNAL_PREVIEW and self.telegram:
+            self.telegram.send_signal_preview(
+                side=side,
+                entry_price=current_price,
+                sl=signal.stop_loss,
+                tp=signal.take_profit,
+                confidence=signal.confidence
+            )
+            time.sleep(3)  # Wait 3 seconds before entering
+        
         # ===== LIVE TRADING: Send real order to exchange =====
         if self.config.LIVE_MODE and self.executor:
             # Set leverage
@@ -2473,10 +2648,13 @@ class AlphaBotV4:
         )
         
         # Send help message
+        # Track for live PnL updates
+        self.last_pnl_update = time.time()
+        
         self.telegram.send_message("""📱 <b>AI Chat พร้อมใช้งาน!</b>
 
 พิมพ์ /help เพื่อดู commands
-หรือ /ask [คำถาม] เพื่อถาม AI""")
+หรือถามอะไรก็ได้!""")
         
         try:
             while self.is_running:
@@ -2486,6 +2664,18 @@ class AlphaBotV4:
                     break
                 
                 result = self.run_cycle()
+                
+                # Get current price for alerts and PnL
+                current_price = self.agent_a.df['close'].iloc[-1] if self.agent_a.df is not None else 0
+                
+                # ===== CHECK PRICE ALERTS =====
+                if current_price > 0:
+                    self.telegram.check_price_alerts(current_price)
+                
+                # ===== LIVE PNL UPDATE (every 5 min) =====
+                if self.agent_c.position and time.time() - self.last_pnl_update >= self.config.LIVE_PNL_INTERVAL:
+                    self.telegram.send_live_pnl(current_price)
+                    self.last_pnl_update = time.time()
                 
                 if result['action'] not in ['HOLD', 'DATA_ERROR']:
                     stats = self.agent_c.get_stats()
