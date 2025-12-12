@@ -253,11 +253,11 @@ If there's HIGH IMPACT news in next 2 hours, set safe_to_trade to false."""
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# TELEGRAM NOTIFIER
+# TELEGRAM NOTIFIER WITH AI CHAT
 # ═══════════════════════════════════════════════════════════════════════════════
 
 class TelegramNotifier:
-    """Telegram Bot Notification System"""
+    """Telegram Bot Notification System with AI Chat"""
     
     def __init__(self, config: Config):
         self.config = config
@@ -265,6 +265,9 @@ class TelegramNotifier:
         self.chat_id = config.TELEGRAM_CHAT_ID
         self.enabled = config.TELEGRAM_ENABLED and self.bot_token and self.chat_id
         self.base_url = f"https://api.telegram.org/bot{self.bot_token}"
+        self.last_update_id = None
+        self.perplexity_api_key = config.PERPLEXITY_API_KEY
+        self.bot_ref = None  # Reference to main bot for status
         
     def send_message(self, text: str, parse_mode: str = "HTML") -> bool:
         """Send text message to Telegram"""
@@ -282,6 +285,228 @@ class TelegramNotifier:
         except Exception as e:
             print(f"[Telegram] Error sending message: {e}")
             return False
+    
+    def get_updates(self) -> list:
+        """Get new messages from Telegram"""
+        try:
+            url = f"{self.base_url}/getUpdates"
+            params = {"timeout": 1}  # Short timeout for non-blocking
+            if self.last_update_id:
+                params["offset"] = self.last_update_id + 1
+            
+            response = requests.get(url, params=params, timeout=3)
+            if response.status_code == 200:
+                return response.json().get("result", [])
+            return []
+        except:
+            return []
+    
+    def ask_perplexity(self, question: str) -> str:
+        """Ask Perplexity AI"""
+        if not self.perplexity_api_key:
+            return "❌ Perplexity API Key ไม่ได้ตั้งค่า"
+        
+        try:
+            headers = {
+                "Authorization": f"Bearer {self.perplexity_api_key}",
+                "Content-Type": "application/json"
+            }
+            
+            system_prompt = """คุณเป็น AI ผู้เชี่ยวชาญ Cryptocurrency โดยเฉพาะ Bitcoin
+ตอบเป็นภาษาไทย กระชับ ชัดเจน ไม่เกิน 150 คำ
+ถ้าถามเรื่องราคา ให้หาข้อมูล Real-time"""
+
+            data = {
+                "model": "sonar-pro",
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": question}
+                ],
+                "temperature": 0.7,
+                "max_tokens": 400
+            }
+            
+            response = requests.post(
+                "https://api.perplexity.ai/chat/completions",
+                headers=headers,
+                json=data,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                return response.json()['choices'][0]['message']['content']
+            else:
+                return f"❌ API Error: {response.status_code}"
+                
+        except Exception as e:
+            return f"❌ Error: {str(e)}"
+    
+    def process_commands(self):
+        """Process incoming Telegram commands"""
+        updates = self.get_updates()
+        
+        for update in updates:
+            self.last_update_id = update["update_id"]
+            
+            if "message" in update:
+                message = update["message"]
+                chat_id = str(message["chat"]["id"])
+                
+                # Only process from authorized chat
+                if chat_id != self.chat_id:
+                    continue
+                
+                text = message.get("text", "").strip()
+                if not text:
+                    continue
+                
+                print(f"[Telegram] Received: {text}")
+                
+                # Process command
+                self.handle_command(text)
+    
+    def handle_command(self, text: str):
+        """Handle Telegram commands"""
+        cmd = text.lower().split()[0] if text.startswith("/") else ""
+        args = text.split(maxsplit=1)[1] if len(text.split()) > 1 else ""
+        
+        if cmd == "/start" or cmd == "/help":
+            self.send_help()
+        
+        elif cmd == "/status":
+            self.send_status()
+        
+        elif cmd == "/balance":
+            self.send_balance()
+        
+        elif cmd == "/btc":
+            self.send_message("🔍 กำลังดูราคา BTC...")
+            answer = self.ask_perplexity("ราคา Bitcoin ตอนนี้เท่าไหร่? ตอบสั้นๆ พร้อมบอก % เปลี่ยนแปลง 24h")
+            self.send_message(f"💹 <b>BTC Price:</b>\n\n{answer}")
+        
+        elif cmd == "/news":
+            self.send_message("📰 กำลังหาข่าว...")
+            answer = self.ask_perplexity("ข่าว Bitcoin และ Crypto สำคัญวันนี้ สรุป 3-5 ข้อ")
+            self.send_message(f"📰 <b>Crypto News:</b>\n\n{answer}")
+        
+        elif cmd == "/analyze":
+            self.send_message("📊 กำลังวิเคราะห์ตลาด...")
+            answer = self.ask_perplexity("""วิเคราะห์ BTC ตอนนี้:
+1. ราคาปัจจุบัน
+2. Trend (Bullish/Bearish/Sideways)
+3. ควรซื้อ/ขาย/รอ?
+ตอบสั้นกระชับ""")
+            self.send_message(f"📊 <b>Market Analysis:</b>\n\n{answer}")
+        
+        elif cmd == "/ask":
+            if args:
+                self.send_message("🤔 กำลังคิด...")
+                answer = self.ask_perplexity(args)
+                self.send_message(f"🤖 <b>AI ตอบ:</b>\n\n{answer}")
+            else:
+                self.send_message("❓ ใช้: /ask คำถามของคุณ\nเช่น /ask BTC จะขึ้นไหม?")
+        
+        elif cmd == "/position":
+            self.send_position()
+        
+        elif text.startswith("/"):
+            self.send_message("❓ ไม่รู้จัก command นี้\nพิมพ์ /help เพื่อดูวิธีใช้")
+    
+    def send_help(self):
+        """Send help message"""
+        msg = """🤖 <b>AlphaBot-Scalper V4 Commands</b>
+
+<b>📊 Trading:</b>
+/status - สถานะบอท
+/balance - ยอดเงิน
+/position - Position ปัจจุบัน
+
+<b>🤖 AI Assistant:</b>
+/ask [คำถาม] - ถาม AI
+/btc - ราคา BTC ล่าสุด
+/news - ข่าว Crypto วันนี้
+/analyze - วิเคราะห์ตลาด
+
+<b>💡 ตัวอย่าง:</b>
+/ask BTC จะขึ้นหรือลง?
+/ask มีข่าวอะไรที่ต้องระวัง?
+
+🧠 AI: Perplexity Pro (ฉลาดที่สุด)"""
+        self.send_message(msg)
+    
+    def send_status(self):
+        """Send bot status"""
+        if self.bot_ref:
+            stats = self.bot_ref.agent_c.get_stats()
+            position = self.bot_ref.agent_c.position
+            
+            pos_text = "ไม่มี Position"
+            if position:
+                pos_text = f"{position.side.upper()} @ ${position.entry_price:,.2f}"
+            
+            msg = f"""🤖 <b>Bot Status</b>
+
+✅ สถานะ: <b>กำลังทำงาน</b>
+💰 ยอดเงิน: <b>${stats['balance']:.2f}</b>
+📈 ROI: {stats['roi']*100:+.2f}%
+📊 Position: {pos_text}
+
+📈 เทรดทั้งหมด: {stats['total_trades']}
+✅ ชนะ: {stats.get('wins', 0)} | ❌ แพ้: {stats.get('losses', 0)}
+🎯 Win Rate: {stats['win_rate']*100:.1f}%
+
+🕐 {datetime.now().strftime('%H:%M:%S')}"""
+        else:
+            msg = """🤖 <b>Bot Status</b>
+            
+⏳ กำลังโหลดข้อมูล..."""
+        
+        self.send_message(msg)
+    
+    def send_balance(self):
+        """Send balance info"""
+        if self.bot_ref:
+            stats = self.bot_ref.agent_c.get_stats()
+            msg = f"""💰 <b>Balance Info</b>
+
+💵 ยอดเงิน: <b>${stats['balance']:.2f}</b>
+📈 ROI: {stats['roi']*100:+.2f}%
+💹 กำไร/ขาดทุน: ${stats['total_pnl']:.2f}
+
+🕐 {datetime.now().strftime('%H:%M:%S')}"""
+        else:
+            msg = "⏳ กำลังโหลดข้อมูล..."
+        
+        self.send_message(msg)
+    
+    def send_position(self):
+        """Send current position info"""
+        if self.bot_ref and self.bot_ref.agent_c.position:
+            pos = self.bot_ref.agent_c.position
+            current_price = self.bot_ref.agent_a.df['close'].iloc[-1] if self.bot_ref.agent_a.df is not None else pos.entry_price
+            pnl = pos.unrealized_pnl(current_price)
+            pnl_pct = pos.unrealized_pnl_pct(current_price) * 100
+            
+            emoji = "🟢" if pos.side == "long" else "🔴"
+            
+            msg = f"""{emoji} <b>Current Position</b>
+
+📊 Side: <b>{pos.side.upper()}</b>
+📍 Entry: <b>${pos.entry_price:,.2f}</b>
+💹 Current: <b>${current_price:,.2f}</b>
+💵 Size: ${pos.size:.2f}
+
+{'🟢' if pnl >= 0 else '🔴'} PnL: <b>{'+' if pnl >= 0 else ''}{pnl:.2f}$</b> ({'+' if pnl_pct >= 0 else ''}{pnl_pct:.2f}%)
+
+🎯 TP: ${pos.take_profit:,.2f}
+🛡️ SL: ${pos.stop_loss:,.2f}"""
+        else:
+            msg = """📊 <b>Position</b>
+
+ไม่มี Position ตอนนี้
+⏳ รอสัญญาณเข้าเทรด..."""
+        
+        self.send_message(msg)
     
     def send_photo(self, photo_bytes: bytes, caption: str = "") -> bool:
         """Send photo to Telegram"""
@@ -2102,6 +2327,9 @@ class AlphaBotV4:
         self.is_running = True
         self.logger.info("🚀 Starting LIVE trading...")
         
+        # Link telegram to bot for status commands
+        self.telegram.bot_ref = self
+        
         # Send Telegram notification - Bot started
         self.telegram.notify_bot_started(
             balance=self.agent_c.balance,
@@ -2110,12 +2338,24 @@ class AlphaBotV4:
             leverage=self.config.MAX_LEVERAGE
         )
         
+        # Send help message
+        self.telegram.send_message("""📱 <b>AI Chat พร้อมใช้งาน!</b>
+
+พิมพ์ /help เพื่อดู commands
+หรือ /ask [คำถาม] เพื่อถาม AI""")
+        
         try:
             while self.is_running:
                 if self.agent_c.is_halted:
                     self.logger.error(f"Trading halted: {self.agent_c.halt_reason}")
                     self.telegram.notify_bot_stopped(self.agent_c.halt_reason)
                     break
+                
+                # ===== PROCESS TELEGRAM COMMANDS =====
+                try:
+                    self.telegram.process_commands()
+                except Exception as e:
+                    self.logger.debug(f"Telegram command error: {e}")
                 
                 result = self.run_cycle()
                 
