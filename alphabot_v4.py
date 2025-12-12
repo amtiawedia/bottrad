@@ -2919,6 +2919,17 @@ class AlphaBotV4:
         """Run backtest simulation"""
         self.logger.info(f"📊 Starting BACKTEST: {self.config.SYMBOL} {self.config.TIMEFRAME} {days}d")
         
+        # Send Telegram notification
+        self.telegram.send_message(f"""📊 <b>AlphaBot-Scalper V4 เริ่ม Backtest!</b>
+
+🪙 Symbol: {self.config.SYMBOL}
+⏰ Timeframe: {self.config.TIMEFRAME}
+📅 ทดสอบ: {days} วัน
+💰 ทุนเริ่มต้น: ${self.agent_c.balance:.2f}
+⚡ Leverage: {self.config.MAX_LEVERAGE}x
+
+⏳ กำลังประมวลผล...""")
+        
         # Fetch historical data
         df = self.agent_a.fetch_ohlcv(limit=days * 24 * 60)  # 1-min candles
         if df.empty:
