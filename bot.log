@@ -1,42 +1,15 @@
 nohup: ignoring input
-
-============================================================
-⚠️  WARNING: LIVE TRADING MODE ⚠️
-============================================================
-This will use REAL MONEY on Binance Futures!
-Make sure you have set API keys in .env file
-============================================================
-Type 'YES' to confirm: 2025-12-12 03:00:18 [INFO] 🔴 LIVE MODE ENABLED - Real Balance: $4.50
-2025-12-12 03:00:18 [INFO] ============================================================
-2025-12-12 03:00:18 [INFO] 🤖 AlphaBot-Scalper V4 Initialized
-2025-12-12 03:00:18 [INFO]    Mode: 🔴 LIVE TRADING
-2025-12-12 03:00:18 [INFO]    Symbol: BTC/USDT
-2025-12-12 03:00:18 [INFO]    Timeframe: 5m
-2025-12-12 03:00:18 [INFO]    Capital: $4.50
-2025-12-12 03:00:18 [INFO]    Leverage: 30x
-2025-12-12 03:00:18 [INFO]    DSL: 20.0%
-2025-12-12 03:00:18 [INFO]    MDD: 30.0%
-2025-12-12 03:00:18 [INFO]    Telegram: ✅ Enabled
-2025-12-12 03:00:18 [INFO] ============================================================
-2025-12-12 03:00:18 [INFO] 🚀 Starting LIVE trading...
-2025-12-12 04:00:34 [INFO] [Telegram] Sent hourly status update
-2025-12-12 05:00:46 [INFO] [Telegram] Sent hourly status update
-2025-12-12 06:00:56 [INFO] [Telegram] Sent hourly status update
-2025-12-12 06:25:00 [WARNING] [Agent-A] Data quality issue: Stale data
-2025-12-12 06:30:00 [WARNING] [Agent-A] Data quality issue: Stale data
-2025-12-12 06:35:01 [WARNING] [Agent-A] Data quality issue: Stale data
-2025-12-12 06:40:02 [WARNING] [Agent-A] Data quality issue: Stale data
-2025-12-12 06:45:03 [WARNING] [Agent-A] Data quality issue: Stale data
-2025-12-12 06:47:03 [ERROR] [Executor] Failed to set leverage: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action"}
-2025-12-12 06:47:03 [ERROR] [Executor] ❌ Failed to open position: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action"}
-2025-12-12 06:47:03 [ERROR] [Agent-C] ❌ Failed to execute live order
-2025-12-12 06:48:04 [ERROR] [Executor] Failed to set leverage: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action"}
-2025-12-12 06:48:04 [ERROR] [Executor] ❌ Failed to open position: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action"}
-2025-12-12 06:48:04 [ERROR] [Agent-C] ❌ Failed to execute live order
-2025-12-12 06:49:04 [ERROR] [Executor] Failed to set leverage: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action"}
-2025-12-12 06:49:04 [ERROR] [Executor] ❌ Failed to open position: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action"}
-2025-12-12 06:49:04 [ERROR] [Agent-C] ❌ Failed to execute live order
-2025-12-12 06:50:05 [WARNING] [Agent-A] Data quality issue: Stale data
-2025-12-12 06:51:05 [ERROR] [Executor] Failed to set leverage: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action"}
-2025-12-12 06:51:05 [ERROR] [Executor] ❌ Failed to open position: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action"}
-2025-12-12 06:51:05 [ERROR] [Agent-C] ❌ Failed to execute live order
+2025-12-12 10:21:43 [INFO] 🔴 LIVE MODE ENABLED - Real Balance: $4.50
+2025-12-12 10:21:43 [INFO] 🤖 AI News Filter: ✅ Enabled (Perplexity)
+2025-12-12 10:21:43 [INFO] ============================================================
+2025-12-12 10:21:43 [INFO] 🤖 AlphaBot-Scalper V4 Initialized
+2025-12-12 10:21:43 [INFO]    Mode: 🔴 LIVE TRADING
+2025-12-12 10:21:43 [INFO]    Symbol: BTC/USDT
+2025-12-12 10:21:43 [INFO]    Timeframe: 5m
+2025-12-12 10:21:43 [INFO]    Capital: $4.50
+2025-12-12 10:21:43 [INFO]    Leverage: 50x
+2025-12-12 10:21:43 [INFO]    DSL: 80.0%
+2025-12-12 10:21:43 [INFO]    MDD: 80.0%
+2025-12-12 10:21:43 [INFO]    Telegram: ✅ Enabled
+2025-12-12 10:21:43 [INFO] ============================================================
+2025-12-12 10:21:43 [INFO] 🚀 Starting LIVE trading...

@@ -256,6 +256,8 @@ If there's HIGH IMPACT news in next 2 hours, set safe_to_trade to false."""
 # TELEGRAM NOTIFIER WITH AI CHAT
 # ═══════════════════════════════════════════════════════════════════════════════
 
+import threading
+
 class TelegramNotifier:
     """Telegram Bot Notification System with AI Chat"""
     
@@ -268,6 +270,8 @@ class TelegramNotifier:
         self.last_update_id = None
         self.perplexity_api_key = config.PERPLEXITY_API_KEY
         self.bot_ref = None  # Reference to main bot for status
+        self.polling_thread = None
+        self.is_polling = False
         
     def send_message(self, text: str, parse_mode: str = "HTML") -> bool:
         """Send text message to Telegram"""
@@ -317,7 +321,7 @@ class TelegramNotifier:
 ถ้าถามเรื่องราคา ให้หาข้อมูล Real-time"""
 
             data = {
-                "model": "sonar-pro",
+                "model": "sonar-pro",  # Smart model
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": question}
@@ -335,11 +339,39 @@ class TelegramNotifier:
             
             if response.status_code == 200:
                 return response.json()['choices'][0]['message']['content']
+            elif response.status_code == 401:
+                return "❌ API Key ไม่ถูกต้อง"
             else:
                 return f"❌ API Error: {response.status_code}"
                 
+        except requests.exceptions.Timeout:
+            return "⏰ API ตอบช้าเกินไป กรุณาลองใหม่"
         except Exception as e:
             return f"❌ Error: {str(e)}"
+    
+    def start_polling(self):
+        """Start background polling for Telegram commands"""
+        if self.is_polling:
+            return
+        self.is_polling = True
+        self.polling_thread = threading.Thread(target=self._polling_loop, daemon=True)
+        self.polling_thread.start()
+        self.send_message("🔄 <b>Telegram Polling Started</b>\n\nพิมพ์ /help เพื่อดู commands")
+    
+    def stop_polling(self):
+        """Stop polling"""
+        self.is_polling = False
+    
+    def _polling_loop(self):
+        """Background loop to check for commands"""
+        import logging
+        logger = logging.getLogger(__name__)
+        while self.is_polling:
+            try:
+                self.process_commands()
+            except Exception as e:
+                logger.error(f"[Telegram] Polling error: {e}")
+            time.sleep(2)  # Check every 2 seconds
     
     def process_commands(self):
         """Process incoming Telegram commands"""
@@ -2330,6 +2362,9 @@ class AlphaBotV4:
         # Link telegram to bot for status commands
         self.telegram.bot_ref = self
         
+        # Start Telegram polling in background thread
+        self.telegram.start_polling()
+        
         # Send Telegram notification - Bot started
         self.telegram.notify_bot_started(
             balance=self.agent_c.balance,
@@ -2350,12 +2385,6 @@ class AlphaBotV4:
                     self.logger.error(f"Trading halted: {self.agent_c.halt_reason}")
                     self.telegram.notify_bot_stopped(self.agent_c.halt_reason)
                     break
-                
-                # ===== PROCESS TELEGRAM COMMANDS =====
-                try:
-                    self.telegram.process_commands()
-                except Exception as e:
-                    self.logger.debug(f"Telegram command error: {e}")
                 
                 result = self.run_cycle()
                 
