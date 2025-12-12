@@ -1,0 +1,56 @@
+[
+  {
+    "timestamp": "2025-12-11T18:41:12.761501",
+    "agent": "Agent-A",
+    "action": "ANALYSIS",
+    "data": {
+      "valid": true,
+      "timestamp": "2025-12-11 18:41:12.761257",
+      "price": 90467.6,
+      "volatility": 0.8650610816869109,
+      "volume_zscore": -1.0809491557187032,
+      "volume_spike": "False",
+      "pattern": "Potential Double Bottom",
+      "market_state": "RANGING",
+      "risk_level": 0,
+      "analysis_time_ms": 3056.6980838775635,
+      "indicators": {
+        "rsi": 64.5690541217501,
+        "ema_fast": 90443.6181409735,
+        "ema_slow": 90340.93861815629,
+        "adx": 23.538567170354696,
+        "macd_hist": 39.46294218122641,
+        "bb_upper": 90553.67173432287,
+        "bb_lower": 89702.52826567715,
+        "momentum": 0.0056078547760136654
+      }
+    }
+  },
+  {
+    "timestamp": "2025-12-11T18:42:12.889861",
+    "agent": "Agent-A",
+    "action": "ANALYSIS",
+    "data": {
+      "valid": true,
+      "timestamp": "2025-12-11 18:42:12.889647",
+      "price": 90566.3,
+      "volatility": 0.8610964168105294,
+      "volume_zscore": -0.8636077761692319,
+      "volume_spike": "False",
+      "pattern": "Potential Double Bottom",
+      "market_state": "RANGING",
+      "risk_level": 0,
+      "analysis_time_ms": 127.72321701049805,
+      "indicators": {
+        "rsi": 68.73070014617497,
+        "ema_fast": 90492.9681409735,
+        "ema_slow": 90362.87195148962,
+        "adx": 23.538567170354696,
+        "macd_hist": 45.76174560001965,
+        "bb_upper": 90577.07164749401,
+        "bb_lower": 89688.998352506,
+        "momentum": 0.006704971260439008
+      }
+    }
+  }
+]

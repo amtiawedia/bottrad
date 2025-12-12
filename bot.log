@@ -1,0 +1,21 @@
+nohup: ignoring input
+
+============================================================
+⚠️  WARNING: LIVE TRADING MODE ⚠️
+============================================================
+This will use REAL MONEY on Binance Futures!
+Make sure you have set API keys in .env file
+============================================================
+Type 'YES' to confirm: 2025-12-12 03:00:18 [INFO] 🔴 LIVE MODE ENABLED - Real Balance: $4.50
+2025-12-12 03:00:18 [INFO] ============================================================
+2025-12-12 03:00:18 [INFO] 🤖 AlphaBot-Scalper V4 Initialized
+2025-12-12 03:00:18 [INFO]    Mode: 🔴 LIVE TRADING
+2025-12-12 03:00:18 [INFO]    Symbol: BTC/USDT
+2025-12-12 03:00:18 [INFO]    Timeframe: 5m
+2025-12-12 03:00:18 [INFO]    Capital: $4.50
+2025-12-12 03:00:18 [INFO]    Leverage: 30x
+2025-12-12 03:00:18 [INFO]    DSL: 20.0%
+2025-12-12 03:00:18 [INFO]    MDD: 30.0%
+2025-12-12 03:00:18 [INFO]    Telegram: ✅ Enabled
+2025-12-12 03:00:18 [INFO] ============================================================
+2025-12-12 03:00:18 [INFO] 🚀 Starting LIVE trading...
