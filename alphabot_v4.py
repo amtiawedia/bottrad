@@ -57,6 +57,10 @@ class Config:
     TELEGRAM_CHAT_ID: str = os.environ.get('TELEGRAM_CHAT_ID', '')
     TELEGRAM_ENABLED: bool = True  # Enable/disable notifications
     
+    # Perplexity AI Settings (News Filter)
+    PERPLEXITY_API_KEY: str = os.environ.get('PERPLEXITY_API_KEY', '')
+    AI_NEWS_FILTER_ENABLED: bool = True  # Enable AI news analysis before trading
+    
     # Trading Pair
     SYMBOLS: List[str] = field(default_factory=lambda: ['BTC/USDT'])  # BTC only - optimized
     SYMBOL: str = 'BTC/USDT'  # Default for single mode
@@ -111,6 +115,141 @@ class MarketState(Enum):
     HIGH_VOLATILITY = "HIGH_VOLATILITY"
     LOW_VOLATILITY = "LOW_VOLATILITY"
     RISK_OFF = "RISK_OFF"
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PERPLEXITY AI NEWS FILTER
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class PerplexityNewsFilter:
+    """AI-powered news analysis using Perplexity API"""
+    
+    def __init__(self, config: Config):
+        self.config = config
+        self.api_key = config.PERPLEXITY_API_KEY
+        self.enabled = config.AI_NEWS_FILTER_ENABLED and self.api_key
+        self.base_url = "https://api.perplexity.ai/chat/completions"
+        self.last_check = None
+        self.last_result = None
+        self.cache_duration = 300  # 5 minutes cache
+        
+    def analyze_market_news(self) -> Dict[str, Any]:
+        """Analyze current BTC news and sentiment"""
+        if not self.enabled:
+            return {"safe_to_trade": True, "reason": "AI filter disabled"}
+        
+        # Check cache
+        if self.last_check and self.last_result:
+            elapsed = (datetime.now() - self.last_check).total_seconds()
+            if elapsed < self.cache_duration:
+                return self.last_result
+        
+        try:
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json"
+            }
+            
+            prompt = """Analyze Bitcoin (BTC) market RIGHT NOW. Answer in this EXACT JSON format only:
+{
+  "price": "current BTC price",
+  "sentiment": "BULLISH or BEARISH or NEUTRAL",
+  "risk_level": "LOW or MEDIUM or HIGH",
+  "major_news": true or false,
+  "news_summary": "1 sentence summary",
+  "safe_to_trade": true or false,
+  "reason": "why safe or not safe to trade"
+}
+
+Consider: Fed decisions, CPI data, major hacks, regulatory news, whale movements.
+If there's HIGH IMPACT news in next 2 hours, set safe_to_trade to false."""
+
+            data = {
+                "model": "sonar",
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.1
+            }
+            
+            response = requests.post(
+                self.base_url, 
+                headers=headers, 
+                json=data, 
+                timeout=15
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                content = result['choices'][0]['message']['content']
+                
+                # Parse AI response
+                analysis = self._parse_response(content)
+                
+                self.last_check = datetime.now()
+                self.last_result = analysis
+                
+                return analysis
+            else:
+                print(f"[Perplexity] API error: {response.status_code}")
+                return {"safe_to_trade": True, "reason": "API error, proceeding with caution"}
+                
+        except Exception as e:
+            print(f"[Perplexity] Error: {e}")
+            return {"safe_to_trade": True, "reason": f"Error: {str(e)}"}
+    
+    def _parse_response(self, content: str) -> Dict[str, Any]:
+        """Parse AI response to extract trading signal"""
+        try:
+            # Try to extract JSON from response
+            import re
+            json_match = re.search(r'\{[^{}]*\}', content, re.DOTALL)
+            if json_match:
+                return json.loads(json_match.group())
+        except:
+            pass
+        
+        # Fallback: analyze text content
+        content_lower = content.lower()
+        
+        # Check for danger keywords
+        danger_keywords = ['crash', 'hack', 'sec lawsuit', 'ban', 'investigation', 
+                          'emergency', 'breaking', 'flash crash', 'liquidation']
+        has_danger = any(kw in content_lower for kw in danger_keywords)
+        
+        # Check for high impact news
+        high_impact = ['fed', 'fomc', 'cpi', 'interest rate', 'powell']
+        has_high_impact = any(kw in content_lower for kw in high_impact)
+        
+        # Determine sentiment
+        bullish_words = ['bullish', 'surge', 'rally', 'breakout', 'moon', 'pump']
+        bearish_words = ['bearish', 'crash', 'dump', 'selloff', 'decline', 'drop']
+        
+        bullish_count = sum(1 for w in bullish_words if w in content_lower)
+        bearish_count = sum(1 for w in bearish_words if w in content_lower)
+        
+        if bullish_count > bearish_count:
+            sentiment = "BULLISH"
+        elif bearish_count > bullish_count:
+            sentiment = "BEARISH"
+        else:
+            sentiment = "NEUTRAL"
+        
+        return {
+            "sentiment": sentiment,
+            "risk_level": "HIGH" if has_danger else "MEDIUM" if has_high_impact else "LOW",
+            "major_news": has_danger or has_high_impact,
+            "safe_to_trade": not has_danger,
+            "reason": "Danger keywords detected" if has_danger else "Normal market conditions",
+            "raw_content": content[:200]
+        }
+    
+    def should_trade(self) -> Tuple[bool, str]:
+        """Quick check if it's safe to trade"""
+        analysis = self.analyze_market_news()
+        safe = analysis.get('safe_to_trade', True)
+        reason = analysis.get('reason', 'Unknown')
+        sentiment = analysis.get('sentiment', 'NEUTRAL')
+        
+        return safe, f"{sentiment} - {reason}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -1854,6 +1993,11 @@ class AlphaBotV4:
         self.agent_b = AgentB(self.config, self.logger)
         self.agent_c = AgentC(self.config, self.logger, self.executor)
         
+        # Initialize AI News Filter (Perplexity)
+        self.ai_filter = PerplexityNewsFilter(self.config)
+        if self.ai_filter.enabled:
+            self.logger.info("🤖 AI News Filter: ✅ Enabled (Perplexity)")
+        
         # Pass telegram to agent_c
         self.agent_c.telegram = self.telegram
         self.agent_c.agent_a = self.agent_a  # For chart data
@@ -1927,6 +2071,17 @@ class AlphaBotV4:
             signal = self.agent_b.generate_signal(analysis)
             
             if signal:
+                # ===== AI NEWS FILTER CHECK =====
+                if self.ai_filter and self.ai_filter.enabled:
+                    safe_to_trade, ai_reason = self.ai_filter.should_trade()
+                    if not safe_to_trade:
+                        self.logger.info(f"[AI Filter] ⚠️ Trade blocked: {ai_reason}")
+                        result['action'] = 'AI_BLOCKED'
+                        result['ai_reason'] = ai_reason
+                        return result
+                    else:
+                        self.logger.info(f"[AI Filter] ✅ Safe to trade: {ai_reason}")
+                
                 # Agent-C: Execute signal
                 executed = self.agent_c.execute_signal(signal, current_price)
                 if executed:
