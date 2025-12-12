@@ -1,56 +1,690 @@
 [
   {
-    "timestamp": "2025-12-11T18:41:12.761501",
-    "agent": "Agent-A",
-    "action": "ANALYSIS",
+    "timestamp": "2025-12-12T04:29:15.308909",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
     "data": {
-      "valid": true,
-      "timestamp": "2025-12-11 18:41:12.761257",
-      "price": 90467.6,
-      "volatility": 0.8650610816869109,
-      "volume_zscore": -1.0809491557187032,
-      "volume_spike": "False",
-      "pattern": "Potential Double Bottom",
-      "market_state": "RANGING",
-      "risk_level": 0,
-      "analysis_time_ms": 3056.6980838775635,
-      "indicators": {
-        "rsi": 64.5690541217501,
-        "ema_fast": 90443.6181409735,
-        "ema_slow": 90340.93861815629,
-        "adx": 23.538567170354696,
-        "macd_hist": 39.46294218122641,
-        "bb_upper": 90553.67173432287,
-        "bb_lower": 89702.52826567715,
-        "momentum": 0.0056078547760136654
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 88873.9,
+      "sl": 87807.4132,
+      "tp": 93317.595,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -14.7%",
+        "RSI: 29.9",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:15.309062",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 88873.9,
+      "size": 4.5,
+      "leverage": 30,
+      "sl": 87807.4132,
+      "tp": 93317.595,
+      "fees": 0.054,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -14.7%",
+        "RSI: 29.9",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:17.992645",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 88873.9,
+      "exit": 89922.9,
+      "pnl": 1.5394374433888915,
+      "pnl_pct": 0.011803240321399197,
+      "reason": "TRAILING_STOP",
+      "balance": 5.985437443388891
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:20.551100",
+    "agent": "Agent-B",
+    "action": "RL_UPDATE",
+    "data": {
+      "state": "EMA_CROSSOVER_long",
+      "reward": 1.1803240321399198,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
       }
     }
   },
   {
-    "timestamp": "2025-12-11T18:42:12.889861",
-    "agent": "Agent-A",
-    "action": "ANALYSIS",
+    "timestamp": "2025-12-12T04:29:20.552952",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
     "data": {
-      "valid": true,
-      "timestamp": "2025-12-11 18:42:12.889647",
-      "price": 90566.3,
-      "volatility": 0.8610964168105294,
-      "volume_zscore": -0.8636077761692319,
-      "volume_spike": "False",
-      "pattern": "Potential Double Bottom",
-      "market_state": "RANGING",
-      "risk_level": 0,
-      "analysis_time_ms": 127.72321701049805,
-      "indicators": {
-        "rsi": 68.73070014617497,
-        "ema_fast": 90492.9681409735,
-        "ema_slow": 90362.87195148962,
-        "adx": 23.538567170354696,
-        "macd_hist": 45.76174560001965,
-        "bb_upper": 90577.07164749401,
-        "bb_lower": 89688.998352506,
-        "momentum": 0.006704971260439008
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 90189.2,
+      "sl": 89106.9296,
+      "tp": 94698.66,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: 6.9%",
+        "RSI: 29.2",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:20.553103",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 90189.2,
+      "size": 5.985437443388891,
+      "leverage": 30,
+      "sl": 89106.9296,
+      "tp": 94698.66,
+      "fees": 0.0718252493206667,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: 6.9%",
+        "RSI: 29.2",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:23.340701",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 90189.2,
+      "exit": 90484.2,
+      "pnl": 0.5155080608095006,
+      "pnl_pct": 0.0032709016157145203,
+      "reason": "TRAILING_STOP",
+      "balance": 6.429120254877725
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:25.823590",
+    "agent": "Agent-B",
+    "action": "RL_UPDATE",
+    "data": {
+      "state": "EMA_CROSSOVER_long",
+      "reward": 0.32709016157145204,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
       }
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:25.823858",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
+    "data": {
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 90484.2,
+      "sl": 89398.3896,
+      "tp": 95008.41,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -19.4%",
+        "RSI: 31.7",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:25.824006",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 90484.2,
+      "size": 6.429120254877725,
+      "leverage": 30,
+      "sl": 89398.3896,
+      "tp": 95008.41,
+      "fees": 0.0771494430585327,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -19.4%",
+        "RSI: 31.7",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:28.713359",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 90484.2,
+      "exit": 89817.2,
+      "pnl": -1.4989081180548667,
+      "pnl_pct": -0.007371452695608736,
+      "reason": "TRAILING_STOP",
+      "balance": 4.853062693764326
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:31.335102",
+    "agent": "Agent-B",
+    "action": "RL_UPDATE",
+    "data": {
+      "state": "EMA_CROSSOVER_long",
+      "reward": -0.7371452695608736,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:31.335347",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
+    "data": {
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 89817.2,
+      "sl": 88739.3936,
+      "tp": 94308.06,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -9.4%",
+        "RSI: 32.7",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:31.335485",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 89817.2,
+      "size": 4.853062693764326,
+      "leverage": 30,
+      "sl": 88739.3936,
+      "tp": 94308.06,
+      "fees": 0.05823675232517192,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -9.4%",
+        "RSI: 32.7",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:34.299526",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 89817.2,
+      "exit": 94327.9,
+      "pnl": 7.253517530628226,
+      "pnl_pct": 0.05022089310288004,
+      "reason": "TAKE_PROFIT",
+      "balance": 12.04834347206738
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:36.907942",
+    "agent": "Agent-B",
+    "action": "RL_UPDATE",
+    "data": {
+      "state": "EMA_CROSSOVER_long",
+      "reward": 5.022089310288004,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:37.046384",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
+    "data": {
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 93288.8,
+      "sl": 92169.3344,
+      "tp": 97953.24,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -26.6%",
+        "RSI: 36.6",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:37.046645",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 93288.8,
+      "size": 6.02417173603369,
+      "leverage": 30,
+      "sl": 92169.3344,
+      "tp": 97953.24,
+      "fees": 0.07229006083240427,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -26.6%",
+        "RSI: 36.6",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:39.768137",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 93288.8,
+      "exit": 92138.5,
+      "pnl": -2.300726297966842,
+      "pnl_pct": -0.01233052627968205,
+      "reason": "STOP_LOSS",
+      "balance": 9.675327113268134
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:42.354003",
+    "agent": "Agent-B",
+    "action": "RL_UPDATE",
+    "data": {
+      "state": "EMA_CROSSOVER_long",
+      "reward": -1.233052627968205,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:42.354269",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
+    "data": {
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 92138.5,
+      "sl": 91032.838,
+      "tp": 96745.425,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -10.6%",
+        "RSI: 31.6",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:42.354429",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 92138.5,
+      "size": 9.675327113268134,
+      "leverage": 30,
+      "sl": 91032.838,
+      "tp": 96745.425,
+      "fees": 0.11610392535921761,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -10.6%",
+        "RSI: 31.6",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:45.835545",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 92138.5,
+      "exit": 92453.8,
+      "pnl": 0.877171623563373,
+      "pnl_pct": 0.003422022281673816,
+      "reason": "TRAILING_STOP",
+      "balance": 10.436394811472288
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:48.289045",
+    "agent": "Agent-B",
+    "action": "RL_UPDATE",
+    "data": {
+      "state": "EMA_CROSSOVER_long",
+      "reward": 0.3422022281673816,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:48.301927",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
+    "data": {
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 92193.4,
+      "sl": 91087.0792,
+      "tp": 96803.06999999999,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: 8.5%",
+        "RSI: 39.7",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:48.302102",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 92193.4,
+      "size": 10.436394811472288,
+      "leverage": 30,
+      "sl": 91087.0792,
+      "tp": 96803.06999999999,
+      "fees": 0.12523673773766747,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: 8.5%",
+        "RSI: 39.7",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:51.156122",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 92193.4,
+      "exit": 91177.0,
+      "pnl": -3.576964850502911,
+      "pnl_pct": -0.011024650354580634,
+      "reason": "TRAILING_STOP",
+      "balance": 6.73419322323171
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:53.609040",
+    "agent": "Agent-B",
+    "action": "RL_UPDATE",
+    "data": {
+      "state": "EMA_CROSSOVER_long",
+      "reward": -1.1024650354580634,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:54.048033",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
+    "data": {
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 90000.0,
+      "sl": 88920.0,
+      "tp": 94500.0,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -1.9%",
+        "RSI: 39.1",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:54.048386",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 90000.0,
+      "size": 6.73419322323171,
+      "leverage": 30,
+      "sl": 88920.0,
+      "tp": 94500.0,
+      "fees": 0.08081031867878052,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -1.9%",
+        "RSI: 39.1",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:29:57.612346",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 90000.0,
+      "exit": 91521.0,
+      "pnl": 3.3334256454996964,
+      "pnl_pct": 0.0169,
+      "reason": "TRAILING_STOP",
+      "balance": 9.986808550052626
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:30:00.107507",
+    "agent": "Agent-B",
+    "action": "RL_UPDATE",
+    "data": {
+      "state": "EMA_CROSSOVER_long",
+      "reward": 1.69,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:30:00.107758",
+    "agent": "Agent-B",
+    "action": "SIGNAL",
+    "data": {
+      "type": "BUY",
+      "confidence": 0.85,
+      "entry": 91521.0,
+      "sl": 90422.74799999999,
+      "tp": 96097.05,
+      "size": 1.0,
+      "leverage": 30,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -31.0%",
+        "RSI: 25.9",
+        "Trend: EMA20 > EMA50 \u2713"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:30:00.107912",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
+    "data": {
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 91521.0,
+      "size": 9.986808550052626,
+      "leverage": 30,
+      "sl": 90422.74799999999,
+      "tp": 96097.05,
+      "fees": 0.11984170260063153,
+      "reasons": [
+        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
+        "BB position: -31.0%",
+        "RSI: 25.9",
+        "Trend: EMA20 > EMA50 \u2713"
+      ],
+      "live_mode": false
+    }
+  },
+  {
+    "timestamp": "2025-12-12T04:30:03.030505",
+    "agent": "Agent-C",
+    "action": "CLOSE",
+    "data": {
+      "side": "long",
+      "entry": 91521.0,
+      "exit": 92140.8,
+      "pnl": 1.9091431006650605,
+      "pnl_pct": 0.006772216212672533,
+      "reason": "END_OF_TEST",
+      "balance": 11.776109948117055
     }
   }
 ]

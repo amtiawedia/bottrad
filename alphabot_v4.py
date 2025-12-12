@@ -60,19 +60,19 @@ class Config:
     # Trading Pair
     SYMBOLS: List[str] = field(default_factory=lambda: ['BTC/USDT'])  # BTC only - optimized
     SYMBOL: str = 'BTC/USDT'  # Default for single mode
-    TIMEFRAME: str = '5m'  # 5m for frequent signals
+    TIMEFRAME: str = '5m'  # 5m - best performance
     
     # Portfolio
-    INITIAL_CAPITAL: float = 3.0  # Current balance ~$3.24
+    INITIAL_CAPITAL: float = 4.5  # Current balance
     POSITION_SIZE_PCT: float = 1.00  # 100% per trade (full equity)
-    MAX_LEVERAGE: int = 30  # 30x leverage for small capital
+    MAX_LEVERAGE: int = 50  # 50x leverage (optimal)
     
     # Risk Management (Agent-C)
-    DAILY_STOP_LOSS_PCT: float = 0.20      # 20% DSL (higher risk tolerance)
-    MAX_DRAWDOWN_PCT: float = 0.30          # 30% MDD
-    STOP_LOSS_PCT: float = 0.003            # 0.3% SL per trade
-    TAKE_PROFIT_PCT: float = 0.015          # 1.5% TP per trade
-    TRAILING_STOP_PCT: float = 0.005        # 0.5% trailing
+    DAILY_STOP_LOSS_PCT: float = 0.80      # 80% DSL (for testing)
+    MAX_DRAWDOWN_PCT: float = 0.80          # 80% MDD limit (for testing)
+    STOP_LOSS_PCT: float = 0.012            # 1.2% SL per trade
+    TAKE_PROFIT_PCT: float = 0.050          # 5.0% TP per trade (optimal)
+    TRAILING_STOP_PCT: float = 0.015        # 1.5% trailing (tighter to lock profit)
     
     # Live Trading Mode
     LIVE_MODE: bool = False                 # True = send real orders, False = simulation
@@ -697,9 +697,13 @@ class AgentA:
         # RSI
         df.ta.rsi(close='close', length=self.config.RSI_PERIOD, append=True)
         
-        # EMAs
+        # EMAs for signals
         df.ta.ema(close='close', length=self.config.EMA_FAST, append=True)
         df.ta.ema(close='close', length=self.config.EMA_SLOW, append=True)
+        
+        # EMAs for trend direction (20/50)
+        df.ta.ema(close='close', length=20, append=True)
+        df.ta.ema(close='close', length=50, append=True)
         
         # MACD
         df.ta.macd(
@@ -923,6 +927,9 @@ class AgentA:
                 'rsi': df[f'RSI_{self.config.RSI_PERIOD}'].iloc[-1],
                 'ema_fast': df[f'EMA_{self.config.EMA_FAST}'].iloc[-1],
                 'ema_slow': df[f'EMA_{self.config.EMA_SLOW}'].iloc[-1],
+                'ema_20': df['EMA_20'].iloc[-1],
+                'ema_50': df['EMA_50'].iloc[-1],
+                'trend_up': df['EMA_20'].iloc[-1] > df['EMA_50'].iloc[-1],  # Trend direction
                 'adx': df[f'ADX_{self.config.ADX_PERIOD}'].iloc[-1],
                 'macd_hist': df['MACDh_12_26_9'].iloc[-1],
                 'bb_upper': df[f'BBU_{self.config.BB_PERIOD}_{self.config.BB_STD}_{self.config.BB_STD}'].iloc[-1],
@@ -1003,64 +1010,97 @@ class AgentB:
         bb_lower = indicators.get('bb_lower', 0)
         price = analysis['price']
         
+        # Trend direction from 20/50 EMA
+        trend_up = indicators.get('trend_up', True)
+        
         reasons = []
         
+        # ===== CRITICAL: TRADE WITH THE TREND =====
+        # In uptrend: prefer LONG or wait
+        # In downtrend: prefer SHORT or wait
+        
+        # ===== FILTER: Avoid false breakouts =====
+        # Require strong momentum to enter
+        strong_momentum_up = momentum > 0.003  # +0.3% price change
+        strong_momentum_down = momentum < -0.003  # -0.3% price change
+        
+        # EMA spread check (avoid choppy market)
+        ema_spread = abs(ema_fast - ema_slow) / ema_slow * 100
+        strong_ema_signal = ema_spread > 0.15  # 0.15% EMA spread minimum
+        
         # EMA Crossover conditions
+        ema_bullish = ema_fast > ema_slow
         ema_bearish = ema_fast < ema_slow
         
-        # ADX trend strength
-        trending = adx > 15  # Lower threshold for more signals
+        # ADX trend strength - HIGHER threshold
+        strong_trend = adx > 35  # Only trade trends when ADX very high
+        trending = adx > 25
+        ranging = adx < 30   # Most of the time is ranging
         
-        # MACD confirmation
-        macd_bearish = macd_hist < 0
+        # MACD confirmation with strength check
+        macd_bullish = macd_hist > 0.0001  # Slight buffer
+        macd_bearish = macd_hist < -0.0001
         
         # BB position
         bb_middle = (bb_upper + bb_lower) / 2 if bb_upper and bb_lower else price
-        price_high_in_bb = price >= bb_middle
-        price_low_in_bb = price <= bb_middle
-        price_near_bb_lower = price <= bb_lower * 1.005 if bb_lower else False
+        bb_range = bb_upper - bb_lower if bb_upper and bb_lower else 0
+        bb_pct_from_lower = (price - bb_lower) / bb_range * 100 if bb_range > 0 else 50
+        price_near_bb_lower = bb_pct_from_lower < 10  # Bottom 10% of BB
+        price_near_bb_upper = bb_pct_from_lower > 90  # Top 10% of BB
         
-        # LONG Signal 1 - EMA Golden Cross with MACD bullish confirmation
-        if ema_fast > ema_slow and trending and macd_hist > 0 and price_low_in_bb:
-            if rsi > 45 and rsi < 70:
-                reasons.append(f"EMA Golden Cross (ADX={adx:.1f})")
+        # ===== PRIORITY STRATEGY: TREND + PULLBACK (trade with trend) =====
+        
+        # UPTREND: Buy pullbacks to BB Lower or RSI oversold
+        if trend_up:
+            # LONG - Pullback in uptrend
+            if price_near_bb_lower and rsi < 40 and rsi > 25:
+                reasons.append("🟢 Uptrend Pullback: BB Lower")
+                reasons.append(f"BB position: {bb_pct_from_lower:.1f}%")
+                reasons.append(f"RSI: {rsi:.1f}")
+                reasons.append("Trend: EMA20 > EMA50 ✓")
+                return SignalType.BUY, 0.85, reasons
+            
+            # LONG - Strong momentum continuation
+            if ema_bullish and strong_trend and macd_bullish and strong_momentum_up:
+                if rsi > 50 and rsi < 70:
+                    reasons.append(f"📈 Trend Continuation (ADX={adx:.1f})")
+                    reasons.append(f"RSI={rsi:.1f}")
+                    reasons.append("Trend: EMA20 > EMA50 ✓")
+                    return SignalType.BUY, 0.80, reasons
+        
+        # DOWNTREND: Sell rallies to BB Upper or RSI overbought
+        else:
+            # SHORT - Rally in downtrend
+            if price_near_bb_upper and rsi > 60 and rsi < 80:
+                reasons.append("🔴 Downtrend Rally: BB Upper")
+                reasons.append(f"BB position: {bb_pct_from_lower:.1f}%")
+                reasons.append(f"RSI: {rsi:.1f}")
+                reasons.append("Trend: EMA20 < EMA50 ✓")
+                return SignalType.SELL, 0.85, reasons
+            
+            # SHORT - Strong momentum continuation
+            if ema_bearish and strong_trend and macd_bearish and strong_momentum_down:
+                if rsi > 30 and rsi < 50:
+                    reasons.append(f"📉 Trend Continuation (ADX={adx:.1f})")
+                    reasons.append(f"RSI={rsi:.1f}")
+                    reasons.append("Trend: EMA20 < EMA50 ✓")
+                    return SignalType.SELL, 0.80, reasons
+        
+        # ===== STRATEGY 2: EXTREME RSI REVERSAL (only in ranging market) =====
+        if adx < 20:
+            # Quick LONG - Extreme RSI oversold
+            if rsi < 25 and momentum > 0:
+                reasons.append("⚡ RSI Extreme Oversold (Ranging)")
                 reasons.append(f"RSI={rsi:.1f}")
-                reasons.append("MACD bullish confirms")
-                
-                confidence = 0.75
-                if momentum > 0.01:
-                    confidence = 0.85
-                    reasons.append(f"Strong momentum: {momentum*100:.1f}%")
-                
-                return SignalType.BUY, confidence, reasons
-        
-        # LONG Signal 2 - BB Lower bounce (oversold)
-        if price_near_bb_lower and rsi < 35 and rsi > 25 and macd_hist > 0:
-            reasons.append("BB Lower bounce")
-            reasons.append(f"RSI oversold: {rsi:.1f}")
-            return SignalType.BUY, 0.75, reasons
-        
-        # SHORT Signal 1 - EMA Death Cross with MACD bearish confirmation
-        if ema_bearish and trending and macd_bearish and price_high_in_bb:
-            # RSI filter - optimal range
-            if rsi > 30 and rsi < 55:
-                reasons.append(f"EMA Death Cross (ADX={adx:.1f})")
+                reasons.append(f"ADX={adx:.1f}")
+                return SignalType.BUY, 0.70, reasons
+            
+            # Quick SHORT - Extreme RSI overbought
+            if rsi > 75 and momentum < 0:
+                reasons.append("⚡ RSI Extreme Overbought (Ranging)")
                 reasons.append(f"RSI={rsi:.1f}")
-                reasons.append("MACD bearish confirms")
-                
-                confidence = 0.75
-                if momentum < -0.01:
-                    confidence = 0.85
-                    reasons.append(f"Strong momentum: {momentum*100:.1f}%")
-                
-                return SignalType.SELL, confidence, reasons
-        
-        # SHORT Signal 2 - BB Upper rejection (overbought)
-        price_near_bb_upper = price >= bb_upper * 0.995 if bb_upper else False
-        if price_near_bb_upper and rsi > 65 and rsi < 75 and macd_hist < 0:
-            reasons.append("BB Upper rejection")
-            reasons.append(f"RSI overbought: {rsi:.1f}")
-            return SignalType.SELL, 0.75, reasons
+                reasons.append(f"ADX={adx:.1f}")
+                return SignalType.SELL, 0.70, reasons
         
         return SignalType.HOLD, 0.0, ["No clear signal"]
     
@@ -1371,6 +1411,15 @@ class AgentC:
         self.is_halted = False
         self.halt_reason = ""
         self.protection_mode = False
+        
+        # Consecutive loss tracking
+        self.consecutive_losses = 0
+        self.cooldown_candles = 0  # Wait candles after 2 consecutive losses
+        self.max_cooldown_candles = 6  # Wait 6 candles (30 min on 5m tf)
+        
+        # Profit protection
+        self.last_win_pct = 0.0
+        self.risk_reduction_active = False
     
     def reset_daily_counters(self):
         """Reset daily PnL tracking"""
@@ -1449,11 +1498,23 @@ class AgentC:
             self.logger.info("[Agent-C] Already in position - skipping signal")
             return False
         
+        # Cooldown check after consecutive losses
+        if self.cooldown_candles > 0:
+            self.cooldown_candles -= 1
+            self.logger.info(f"[Agent-C] ⏳ Cooldown: {self.cooldown_candles} candles remaining after {self.consecutive_losses} losses")
+            return False
+        
         # Determine order type
         order_type = self.determine_order_type(signal, current_price)
         
         # Calculate position size in USDT
         position_value = self.balance * signal.position_size
+        
+        # PROFIT PROTECTION: Reduce position size after big win
+        if self.risk_reduction_active:
+            position_value *= 0.5  # Use only 50% of balance
+            self.logger.info(f"[Agent-C] 🔒 Risk reduction: using 50% position (${position_value:.2f})")
+            self.risk_reduction_active = False  # Reset after one trade
         
         # Create position
         side = 'long' if signal.type == SignalType.BUY else 'short'
@@ -1498,7 +1559,8 @@ class AgentC:
             leverage=signal.leverage,
             stop_loss=signal.stop_loss,
             take_profit=signal.take_profit,
-            trailing_stop=signal.stop_loss,
+            # Initialize trailing stop at entry price level (not stop loss)
+            trailing_stop=current_price * (1 - self.config.TRAILING_STOP_PCT) if side == 'long' else current_price * (1 + self.config.TRAILING_STOP_PCT),
             entry_time=datetime.now()
         )
         
@@ -1652,6 +1714,20 @@ class AgentC:
         
         # Clear position
         self.position = None
+        
+        # Track consecutive losses for cooldown
+        if pnl < 0:
+            self.consecutive_losses += 1
+            if self.consecutive_losses >= 2:
+                self.cooldown_candles = self.max_cooldown_candles
+        else:
+            self.consecutive_losses = 0
+            self.cooldown_candles = 0
+            # Track big wins for profit protection
+            if pnl_pct > 0.03:  # >3% profit
+                self.last_win_pct = pnl_pct
+                self.risk_reduction_active = True
+                self.logger.info(f"[Agent-C] 🔒 Profit protection ON: +{pnl_pct*100:.2f}%")
         
         # Log
         emoji = "🟢" if pnl > 0 else "🔴"
