@@ -532,17 +532,17 @@ class TelegramNotifier:
         
         elif cmd == "/btc":
             self.send_message("🔍 กำลังดูราคา BTC...")
-            answer = self.ask_gemini("ราคา Bitcoin ตอนนี้เท่าไหร่? ตอบสั้นๆ พร้อมบอก % เปลี่ยนแปลง 24h")
+            answer = self.ask_perplexity_fallback("ราคา Bitcoin ตอนนี้เท่าไหร่? ตอบสั้นๆ พร้อมบอก % เปลี่ยนแปลง 24h")
             self.send_message(f"💹 <b>BTC Price:</b>\n\n{answer}")
         
         elif cmd == "/news":
             self.send_message("📰 กำลังหาข่าว...")
-            answer = self.ask_gemini("ข่าว Bitcoin และ Crypto สำคัญวันนี้ สรุป 3-5 ข้อ")
+            answer = self.ask_perplexity_fallback("ข่าว Bitcoin และ Crypto สำคัญวันนี้ สรุป 3-5 ข้อ")
             self.send_message(f"📰 <b>Crypto News:</b>\n\n{answer}")
         
         elif cmd == "/analyze":
             self.send_message("📊 กำลังวิเคราะห์ตลาด...")
-            answer = self.ask_gemini("""วิเคราะห์ BTC ตอนนี้:
+            answer = self.ask_perplexity_fallback("""วิเคราะห์ BTC ตอนนี้:
 1. ราคาปัจจุบัน
 2. Trend (Bullish/Bearish/Sideways)
 3. ควรซื้อ/ขาย/รอ?
@@ -620,7 +620,7 @@ class TelegramNotifier:
 /settings - ดูการตั้งค่า
 /stop - 🛑 หยุดบอททันที
 
-🧠 AI: <b>Gemini 2.0 Flash</b> (รองรับรูป!)"""
+🧠 AI: <b>Perplexity</b> (ค้นหา) + <b>Gemini</b> (รูป)"""
         self.send_message(msg)
     
     def send_settings(self):
