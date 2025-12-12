@@ -595,6 +595,57 @@ class PaperTradeBotFull:
         }
         with open('paper_trades.json', 'w') as f:
             json.dump(state, f, indent=2)
+        
+        # บันทึกสถานะสำหรับ check_status.py
+        self.save_status_file()
+    
+    def save_status_file(self):
+        """บันทึกสถานะลงไฟล์สำหรับเช็คสถานะ"""
+        try:
+            # เตรียมข้อมูล open positions
+            open_positions = []
+            for symbol, pos in self.positions.items():
+                df = self.get_data_with_indicators(symbol)
+                current_price = float(df.iloc[-1]['close']) if df is not None else pos['entry_price']
+                
+                open_positions.append({
+                    'symbol': symbol,
+                    'side': pos['side'].lower(),
+                    'entry_price': pos['entry_price'],
+                    'current_price': current_price,
+                    'sl': pos['sl'],
+                    'tp': pos['tp'],
+                    'size': pos['size'],
+                    'open_time': pos['open_time']
+                })
+            
+            # เตรียมประวัติเทรด
+            trade_history = []
+            for trade in self.trade_history[-20:]:  # เก็บ 20 รายการล่าสุด
+                trade_history.append({
+                    'symbol': trade['symbol'],
+                    'side': trade['side'].lower(),
+                    'pnl': trade['pnl_pct'],
+                    'exit_reason': trade['exit_reason'],
+                    'time': trade['time']
+                })
+            
+            status = {
+                'last_update': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'initial_balance': INITIAL_BALANCE,
+                'current_balance': self.balance,
+                'total_trades': self.stats['total_trades'],
+                'wins': self.stats['wins'],
+                'losses': self.stats['losses'],
+                'total_pnl': self.stats['total_pnl'],
+                'open_positions': open_positions,
+                'trade_history': trade_history
+            }
+            
+            with open('paper_trade_status.json', 'w') as f:
+                json.dump(status, f, indent=2)
+        except Exception as e:
+            print(f"⚠️ Error saving status file: {e}")
     
     def load_state(self):
         """โหลด state"""
