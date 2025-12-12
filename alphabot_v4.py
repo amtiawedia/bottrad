@@ -76,8 +76,9 @@ class Config:
     TELEGRAM_CHAT_ID: str = os.environ.get('TELEGRAM_CHAT_ID', '')
     TELEGRAM_ENABLED: bool = True  # Enable/disable notifications
     
-    # Perplexity AI Settings (News Filter)
+    # AI Settings (News Filter + Chat)
     PERPLEXITY_API_KEY: str = os.environ.get('PERPLEXITY_API_KEY', '')
+    GEMINI_API_KEY: str = os.environ.get('GEMINI_API_KEY', '')
     AI_NEWS_FILTER_ENABLED: bool = True  # Enable AI news analysis before trading
     
     # Trading Pair
@@ -335,10 +336,62 @@ class TelegramNotifier:
         except:
             return []
     
-    def ask_perplexity(self, question: str) -> str:
-        """Ask Perplexity AI"""
+    def ask_gemini(self, question: str, image_data: str = None) -> str:
+        """Ask Gemini 2.0 Flash - รองรับรูปภาพ!"""
+        gemini_key = self.config.GEMINI_API_KEY if hasattr(self.config, 'GEMINI_API_KEY') else os.environ.get('GEMINI_API_KEY', '')
+        
+        if not gemini_key:
+            # Fallback to Perplexity
+            return self.ask_perplexity_fallback(question)
+        
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key={gemini_key}"
+            
+            # Build content parts
+            parts = []
+            
+            # Add image if provided (base64)
+            if image_data:
+                parts.append({
+                    "inline_data": {
+                        "mime_type": "image/jpeg",
+                        "data": image_data
+                    }
+                })
+            
+            # Add text
+            system_text = """คุณเป็น AI ผู้เชี่ยวชาญ Cryptocurrency โดยเฉพาะ Bitcoin
+ตอบเป็นภาษาไทย กระชับ ชัดเจน ไม่เกิน 200 คำ
+ถ้าส่งรูปกราฟมา ให้วิเคราะห์ Technical Analysis"""
+            parts.append({"text": f"{system_text}\n\nคำถาม: {question}"})
+            
+            data = {
+                "contents": [{
+                    "parts": parts
+                }],
+                "generationConfig": {
+                    "temperature": 0.7,
+                    "maxOutputTokens": 500
+                }
+            }
+            
+            response = requests.post(url, json=data, timeout=30)
+            
+            if response.status_code == 200:
+                result = response.json()
+                return result['candidates'][0]['content']['parts'][0]['text']
+            else:
+                return f"❌ Gemini Error: {response.status_code}"
+                
+        except requests.exceptions.Timeout:
+            return "⏰ Gemini ตอบช้าเกินไป"
+        except Exception as e:
+            return f"❌ Error: {str(e)}"
+    
+    def ask_perplexity_fallback(self, question: str) -> str:
+        """Fallback to Perplexity if no Gemini key"""
         if not self.perplexity_api_key:
-            return "❌ Perplexity API Key ไม่ได้ตั้งค่า"
+            return "❌ กรุณาตั้งค่า GEMINI_API_KEY ใน .env"
         
         try:
             headers = {
@@ -346,17 +399,11 @@ class TelegramNotifier:
                 "Content-Type": "application/json"
             }
             
-            system_prompt = """คุณเป็น AI ผู้เชี่ยวชาญ Cryptocurrency โดยเฉพาะ Bitcoin
-ตอบเป็นภาษาไทย กระชับ ชัดเจน ไม่เกิน 150 คำ
-ถ้าถามเรื่องราคา ให้หาข้อมูล Real-time"""
-
             data = {
-                "model": "sonar-pro",  # Smart model
+                "model": "sonar-pro",
                 "messages": [
-                    {"role": "system", "content": system_prompt},
                     {"role": "user", "content": question}
                 ],
-                "temperature": 0.7,
                 "max_tokens": 400
             }
             
@@ -369,13 +416,9 @@ class TelegramNotifier:
             
             if response.status_code == 200:
                 return response.json()['choices'][0]['message']['content']
-            elif response.status_code == 401:
-                return "❌ API Key ไม่ถูกต้อง"
             else:
                 return f"❌ API Error: {response.status_code}"
                 
-        except requests.exceptions.Timeout:
-            return "⏰ API ตอบช้าเกินไป กรุณาลองใหม่"
         except Exception as e:
             return f"❌ Error: {str(e)}"
     
@@ -404,7 +447,7 @@ class TelegramNotifier:
             time.sleep(2)  # Check every 2 seconds
     
     def process_commands(self):
-        """Process incoming Telegram commands"""
+        """Process incoming Telegram commands including images"""
         updates = self.get_updates()
         
         for update in updates:
@@ -419,6 +462,18 @@ class TelegramNotifier:
                     continue
                 
                 text = message.get("text", "").strip()
+                caption = message.get("caption", "").strip()
+                
+                # Check for photo
+                if "photo" in message:
+                    # Get largest photo
+                    photo = message["photo"][-1]
+                    file_id = photo["file_id"]
+                    
+                    # Get photo and analyze with Gemini
+                    self.handle_image(file_id, caption or "วิเคราะห์กราฟนี้")
+                    continue
+                
                 if not text:
                     continue
                 
@@ -426,6 +481,40 @@ class TelegramNotifier:
                 
                 # Process command
                 self.handle_command(text)
+    
+    def handle_image(self, file_id: str, question: str):
+        """Handle image with Gemini vision"""
+        try:
+            self.send_message("🖼️ กำลังวิเคราะห์รูป...")
+            
+            # Get file path from Telegram
+            url = f"{self.base_url}/getFile"
+            response = requests.get(url, params={"file_id": file_id}, timeout=10)
+            
+            if response.status_code != 200:
+                self.send_message("❌ ไม่สามารถดึงรูปได้")
+                return
+            
+            file_path = response.json()["result"]["file_path"]
+            
+            # Download image
+            image_url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
+            img_response = requests.get(image_url, timeout=30)
+            
+            if img_response.status_code != 200:
+                self.send_message("❌ ไม่สามารถดาวน์โหลดรูปได้")
+                return
+            
+            # Convert to base64
+            import base64
+            image_base64 = base64.b64encode(img_response.content).decode('utf-8')
+            
+            # Ask Gemini with image
+            answer = self.ask_gemini(question, image_data=image_base64)
+            self.send_message(f"📊 <b>AI วิเคราะห์:</b>\n\n{answer}")
+            
+        except Exception as e:
+            self.send_message(f"❌ Error: {str(e)}")
     
     def handle_command(self, text: str):
         """Handle Telegram commands"""
@@ -443,17 +532,17 @@ class TelegramNotifier:
         
         elif cmd == "/btc":
             self.send_message("🔍 กำลังดูราคา BTC...")
-            answer = self.ask_perplexity("ราคา Bitcoin ตอนนี้เท่าไหร่? ตอบสั้นๆ พร้อมบอก % เปลี่ยนแปลง 24h")
+            answer = self.ask_gemini("ราคา Bitcoin ตอนนี้เท่าไหร่? ตอบสั้นๆ พร้อมบอก % เปลี่ยนแปลง 24h")
             self.send_message(f"💹 <b>BTC Price:</b>\n\n{answer}")
         
         elif cmd == "/news":
             self.send_message("📰 กำลังหาข่าว...")
-            answer = self.ask_perplexity("ข่าว Bitcoin และ Crypto สำคัญวันนี้ สรุป 3-5 ข้อ")
+            answer = self.ask_gemini("ข่าว Bitcoin และ Crypto สำคัญวันนี้ สรุป 3-5 ข้อ")
             self.send_message(f"📰 <b>Crypto News:</b>\n\n{answer}")
         
         elif cmd == "/analyze":
             self.send_message("📊 กำลังวิเคราะห์ตลาด...")
-            answer = self.ask_perplexity("""วิเคราะห์ BTC ตอนนี้:
+            answer = self.ask_gemini("""วิเคราะห์ BTC ตอนนี้:
 1. ราคาปัจจุบัน
 2. Trend (Bullish/Bearish/Sideways)
 3. ควรซื้อ/ขาย/รอ?
@@ -463,7 +552,7 @@ class TelegramNotifier:
         elif cmd == "/ask":
             if args:
                 self.send_message("🤔 กำลังคิด...")
-                answer = self.ask_perplexity(args)
+                answer = self.ask_gemini(args)
                 self.send_message(f"🤖 <b>AI ตอบ:</b>\n\n{answer}")
             else:
                 self.send_message("❓ ใช้: /ask คำถามของคุณ\nเช่น /ask BTC จะขึ้นไหม?")
@@ -496,9 +585,9 @@ class TelegramNotifier:
             self.send_message("❓ ไม่รู้จัก command นี้\nพิมพ์ /help เพื่อดูวิธีใช้")
         
         else:
-            # ข้อความธรรมดา - ถาม AI เลย
+            # ข้อความธรรมดา - ถาม Gemini AI เลย
             self.send_message("🤔 กำลังคิด...")
-            answer = self.ask_perplexity(text)
+            answer = self.ask_gemini(text)
             self.send_message(f"🤖 {answer}")
     
     def send_help(self):
@@ -506,7 +595,7 @@ class TelegramNotifier:
         msg = """🤖 <b>AlphaBot-Scalper V4</b>
 
 <b>💬 ถามอะไรก็ได้!</b>
-พิมพ์คำถามเลย AI ตอบให้ทันที
+พิมพ์คำถาม หรือ ส่งรูปกราฟมาวิเคราะห์!
 
 <b>📊 Trading:</b>
 /status - สถานะบอท
@@ -531,7 +620,7 @@ class TelegramNotifier:
 /settings - ดูการตั้งค่า
 /stop - 🛑 หยุดบอททันที
 
-🧠 AI: Perplexity Pro"""
+🧠 AI: <b>Gemini 2.0 Flash</b> (รองรับรูป!)"""
         self.send_message(msg)
     
     def send_settings(self):
