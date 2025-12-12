@@ -18,7 +18,11 @@ import pandas_ta as ta
 import os
 import time
 import json
+import requests
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONFIGURATION - แก้ไขได้ตามต้องการ
@@ -47,6 +51,13 @@ TP_PCT = 0.050              # Take Profit 5.0%
 TIMEFRAME = '5m'            # Timeframe 5 นาที
 SCAN_INTERVAL = 30          # สแกนทุก 30 วินาที
 MAX_POSITIONS = 3           # เปิด position พร้อมกันได้สูงสุด 3
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TELEGRAM SETTINGS - แจ้งเตือน (บอกว่าเป็น Paper Trade)
+# ═══════════════════════════════════════════════════════════════════════════════
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '')
+TELEGRAM_ENABLED = True     # True = ส่งแจ้งเตือน, False = ไม่ส่ง
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PAPER TRADING ENGINE - ไม่ใช้ API KEY
@@ -82,6 +93,28 @@ class PaperTradeBot:
             print(f"✅ เชื่อมต่อสำเร็จ! โหลด {len(self.exchange.markets)} ตลาด")
         except Exception as e:
             print(f"⚠️ Warning: {e}")
+        
+        # ส่งข้อความเริ่มต้น
+        self.send_telegram("📝 *PAPER TRADE BOT เริ่มทำงาน*\n\n⚠️ นี่คือการจำลอง ไม่ใช่เงินจริง!\n\n" + 
+                          f"💰 เงินจำลอง: ${INITIAL_BALANCE}\n" +
+                          f"📊 เหรียญ: {len(COINS)} เหรียญ\n" +
+                          f"⚡ Leverage: {LEVERAGE}x")
+    
+    def send_telegram(self, message: str):
+        """ส่งข้อความไป Telegram (บอกว่าเป็น Paper Trade)"""
+        if not TELEGRAM_ENABLED or not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+            return
+        
+        try:
+            url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+            data = {
+                "chat_id": TELEGRAM_CHAT_ID,
+                "text": message,
+                "parse_mode": "Markdown"
+            }
+            requests.post(url, data=data, timeout=10)
+        except Exception as e:
+            print(f"⚠️ Telegram error: {e}")
         
     def get_signal(self, symbol: str) -> dict:
         """วิเคราะห์เหรียญและส่งสัญญาณ LONG/SHORT/NONE"""
@@ -184,6 +217,17 @@ class PaperTradeBot:
         print(f"   🛡️ SL: ${sl:,.4f} | 🎯 TP: ${tp:,.4f}")
         print(f"   💰 Size: ${position_value:.2f} x {LEVERAGE}x")
         
+        # ส่ง Telegram
+        msg = f"📝 *PAPER TRADE - เปิด {side}*\n\n"
+        msg += f"⚠️ _จำลองเท่านั้น ไม่ใช่เงินจริง!_\n\n"
+        msg += f"{emoji} *{symbol}*\n"
+        msg += f"📍 Entry: `${price:,.4f}`\n"
+        msg += f"🛡️ SL: `${sl:,.4f}`\n"
+        msg += f"🎯 TP: `${tp:,.4f}`\n"
+        msg += f"💰 Size: `${position_value:.2f}` x {LEVERAGE}x\n"
+        msg += f"📝 Reason: {reason}"
+        self.send_telegram(msg)
+        
         return True
     
     def check_positions(self):
@@ -260,6 +304,22 @@ class PaperTradeBot:
                     print(f"   💰 PnL: {'+' if pnl_usd > 0 else ''}{pnl_usd:.4f} USD ({pnl_leveraged*100:+.1f}%)")
                     print(f"   📝 {exit_type}")
                     print(f"   💵 Balance: ${self.balance:.4f}")
+                    
+                    # ส่ง Telegram เมื่อปิด position
+                    win_rate = (self.stats['wins'] / self.stats['total_trades'] * 100) if self.stats['total_trades'] > 0 else 0
+                    roi = ((self.balance - INITIAL_BALANCE) / INITIAL_BALANCE) * 100
+                    
+                    side_emoji = "🟢" if pos['side'] == 'LONG' else "🔴"
+                    msg = f"📝 *PAPER TRADE - ปิด {pos['side']}*\n\n"
+                    msg += f"⚠️ _จำลองเท่านั้น ไม่ใช่เงินจริง!_\n\n"
+                    msg += f"{emoji} *{symbol}* {exit_type}\n"
+                    msg += f"📍 Entry: `${pos['entry_price']:,.4f}`\n"
+                    msg += f"📍 Exit: `${current_price:,.4f}`\n"
+                    msg += f"💰 PnL: `{'+' if pnl_usd > 0 else ''}{pnl_usd:.4f} USD` ({pnl_leveraged*100:+.1f}%)\n\n"
+                    msg += f"💵 *Balance: ${self.balance:.4f}*\n"
+                    msg += f"📈 ROI: {roi:+.2f}%\n"
+                    msg += f"📊 Win Rate: {win_rate:.1f}% ({self.stats['wins']}W/{self.stats['losses']}L)"
+                    self.send_telegram(msg)
                     
                     closed.append(symbol)
                     
