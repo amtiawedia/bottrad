@@ -799,7 +799,10 @@ class TelegramNotifier:
         
         try:
             self.send_message("🔍 กำลังสแกน coins...")
-            scanner = MultiCoinScanner()
+            scanner = MultiCoinScanner(
+                api_key=self.config.API_KEY,
+                secret_key=self.config.SECRET_KEY
+            )
             summary = scanner.get_telegram_summary()
             self.send_message(summary)
         except Exception as e:
