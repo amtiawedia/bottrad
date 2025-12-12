@@ -81,10 +81,21 @@ class Config:
     GEMINI_API_KEY: str = os.environ.get('GEMINI_API_KEY', '')
     AI_NEWS_FILTER_ENABLED: bool = True  # Enable AI news analysis before trading
     
-    # Trading Pair
-    SYMBOLS: List[str] = field(default_factory=lambda: ['BTC/USDT'])  # BTC only - optimized
+    # Trading Pair - TOP 20-50 COINS (Best from backtest)
+    SYMBOLS: List[str] = field(default_factory=lambda: [
+        # ⭐⭐ Top performers (WR 40%+)
+        'DOGE/USDT', 'ETC/USDT', 'INJ/USDT', 'NEAR/USDT', 'RUNE/USDT',
+        # ⭐ Good performers (profitable)
+        'SOL/USDT', 'AVAX/USDT', 'FIL/USDT', 'ARB/USDT', 'OP/USDT',
+        'SEI/USDT', 'SUI/USDT', 'PEPE/USDT', 'WIF/USDT', 'ORDI/USDT',
+        'STX/USDT', 'IMX/USDT', 'FTM/USDT', 'AAVE/USDT', 'GRT/USDT',
+        # Major coins for volume
+        'BTC/USDT', 'ETH/USDT', 'XRP/USDT', 'BNB/USDT', 'ADA/USDT',
+        'LINK/USDT', 'DOT/USDT', 'MATIC/USDT', 'LTC/USDT', 'UNI/USDT',
+    ])
     SYMBOL: str = 'BTC/USDT'  # Default for single mode
     TIMEFRAME: str = '5m'  # 5m - best performance
+    MULTI_COIN_MODE: bool = True  # Enable multi-coin scanning
     
     # Portfolio
     INITIAL_CAPITAL: float = 4.5  # Current balance
@@ -110,7 +121,7 @@ class Config:
     SIGNAL_PREVIEW: bool = True             # Notify before entering trade
     
     # Live Trading Mode
-    LIVE_MODE: bool = True                  # True = send real orders to Binance
+    LIVE_MODE: bool = False                 # False = Paper Trade (no real orders)
     
     # Agent-A Settings
     DATA_LOOKBACK: int = 1500               # Candles for analysis (more data)
