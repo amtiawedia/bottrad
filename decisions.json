@@ -1,6 +1,6 @@
 [
   {
-    "timestamp": "2025-12-12T16:10:42.731737",
+    "timestamp": "2025-12-12T18:17:46.695355",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -20,267 +20,66 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:10:46.801014",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
+    "timestamp": "2025-12-12T18:17:50.398233",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91758.2,
-      "sl": 90657.1016,
-      "tp": 96346.11,
-      "size": 1.0,
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 91792.7,
+      "size": 4.5,
       "leverage": 30,
+      "sl": 90691.18759999999,
+      "tp": 96382.335,
+      "fees": 0.054,
       "reasons": [
         "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 1.0%",
-        "RSI: 36.7",
+        "BB position: 0.0%",
+        "RSI: 38.6",
         "Trend: EMA20 > EMA50 \u2713"
-      ]
+      ],
+      "live_mode": false
     }
   },
   {
-    "timestamp": "2025-12-12T16:10:50.868384",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
+    "timestamp": "2025-12-12T18:17:54.566907",
+    "agent": "Agent-C",
+    "action": "CLOSE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91739.9,
-      "sl": 90639.02119999999,
-      "tp": 96326.895,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 4.7%",
-        "RSI: 35.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
+      "side": "long",
+      "entry": 91792.7,
+      "exit": 90484.2,
+      "pnl": -1.9784177369224352,
+      "pnl_pct": -0.014254946199425444,
+      "reason": "STOP_LOSS",
+      "balance": 2.4675822630775643
     }
   },
   {
-    "timestamp": "2025-12-12T16:10:54.952610",
+    "timestamp": "2025-12-12T18:18:14.059185",
     "agent": "Agent-B",
-    "action": "SIGNAL",
+    "action": "RL_UPDATE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91626.6,
-      "sl": 90527.08080000001,
-      "tp": 96207.93000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 5.8%",
-        "RSI: 39.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
+      "state": "EMA_CROSSOVER_long",
+      "reward": -1.4254946199425444,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
     }
   },
   {
-    "timestamp": "2025-12-12T16:10:59.044158",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91570.9,
-      "sl": 90472.0492,
-      "tp": 96149.44499999999,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -1.3%",
-        "RSI: 36.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:03.111481",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91588.9,
-      "sl": 90489.8332,
-      "tp": 96168.345,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.9%",
-        "RSI: 38.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:07.245095",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91518.4,
-      "sl": 90420.1792,
-      "tp": 96094.31999999999,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -4.3%",
-        "RSI: 35.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:11.377165",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91508.6,
-      "sl": 90410.49680000001,
-      "tp": 96084.03000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 6.3%",
-        "RSI: 37.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:15.465365",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91424.0,
-      "sl": 90326.912,
-      "tp": 95995.2,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -3.3%",
-        "RSI: 34.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:19.541794",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91456.1,
-      "sl": 90358.6268,
-      "tp": 96028.90500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.2%",
-        "RSI: 36.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:23.630445",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91231.2,
-      "sl": 90136.4256,
-      "tp": 95792.76,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -10.1%",
-        "RSI: 29.0",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:27.724107",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90973.7,
-      "sl": 89882.0156,
-      "tp": 95522.385,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -22.1%",
-        "RSI: 31.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:31.786360",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90809.0,
-      "sl": 89719.292,
-      "tp": 95349.45,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -20.9%",
-        "RSI: 35.1",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:35.855687",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90923.0,
-      "sl": 89831.924,
-      "tp": 95469.15000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 1.5%",
-        "RSI: 38.3",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:11:39.914498",
+    "timestamp": "2025-12-12T18:18:14.059449",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -300,407 +99,66 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:11:43.977880",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
+    "timestamp": "2025-12-12T18:18:17.759164",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90192.6,
-      "sl": 89110.28880000001,
-      "tp": 94702.23000000001,
-      "size": 1.0,
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 90484.2,
+      "size": 2.4675822630775643,
       "leverage": 30,
+      "sl": 89398.3896,
+      "tp": 95008.41,
+      "fees": 0.029610987156930772,
       "reasons": [
         "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -18.5%",
-        "RSI: 28.2",
+        "BB position: -19.4%",
+        "RSI: 31.7",
         "Trend: EMA20 > EMA50 \u2713"
-      ]
+      ],
+      "live_mode": false
     }
   },
   {
-    "timestamp": "2025-12-12T16:11:48.045152",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
+    "timestamp": "2025-12-12T18:18:20.537147",
+    "agent": "Agent-C",
+    "action": "CLOSE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90357.8,
-      "sl": 89273.5064,
-      "tp": 94875.69,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 1.3%",
-        "RSI: 32.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
+      "side": "long",
+      "entry": 90484.2,
+      "exit": 89817.2,
+      "pnl": -0.5753009649009133,
+      "pnl_pct": -0.007371452695608736,
+      "reason": "TRAILING_STOP",
+      "balance": 1.8626703110197202
     }
   },
   {
-    "timestamp": "2025-12-12T16:11:52.113225",
+    "timestamp": "2025-12-12T18:18:23.119527",
     "agent": "Agent-B",
-    "action": "SIGNAL",
+    "action": "RL_UPDATE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89928.9,
-      "sl": 88849.75319999999,
-      "tp": 94425.345,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -8.8%",
-        "RSI: 27.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
+      "state": "EMA_CROSSOVER_long",
+      "reward": -0.7371452695608736,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
     }
   },
   {
-    "timestamp": "2025-12-12T16:11:56.174600",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89933.1,
-      "sl": 88853.90280000001,
-      "tp": 94429.755,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 0.5%",
-        "RSI: 28.0",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:00.264166",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89717.1,
-      "sl": 88640.4948,
-      "tp": 94202.95500000002,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 4.1%",
-        "RSI: 28.1",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:04.333828",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89644.5,
-      "sl": 88568.766,
-      "tp": 94126.725,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 7.6%",
-        "RSI: 27.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:08.808946",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90587.0,
-      "sl": 89499.956,
-      "tp": 95116.35,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.9%",
-        "RSI: 39.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:13.294162",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90565.2,
-      "sl": 89478.4176,
-      "tp": 95093.46,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.2%",
-        "RSI: 38.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:17.425566",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90406.6,
-      "sl": 89321.72080000001,
-      "tp": 94926.93000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -5.5%",
-        "RSI: 33.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:21.526347",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90407.5,
-      "sl": 89322.61,
-      "tp": 94927.875,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 3.0%",
-        "RSI: 35.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:25.675317",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90352.0,
-      "sl": 89267.776,
-      "tp": 94869.6,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -5.1%",
-        "RSI: 33.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:29.756705",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90332.2,
-      "sl": 89248.2136,
-      "tp": 94848.81,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -1.0%",
-        "RSI: 32.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:33.838717",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90359.4,
-      "sl": 89275.0872,
-      "tp": 94877.37,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.5%",
-        "RSI: 35.1",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:37.914713",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90299.8,
-      "sl": 89216.2024,
-      "tp": 94814.79000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 5.0%",
-        "RSI: 32.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:41.983826",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90178.1,
-      "sl": 89095.96280000001,
-      "tp": 94687.005,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 0.6%",
-        "RSI: 32.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:46.057515",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90143.9,
-      "sl": 89062.17319999999,
-      "tp": 94651.095,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 3.3%",
-        "RSI: 31.3",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:50.137843",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90014.5,
-      "sl": 88934.326,
-      "tp": 94515.225,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -0.4%",
-        "RSI: 28.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:54.196611",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89977.4,
-      "sl": 88897.6712,
-      "tp": 94476.27,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 2.8%",
-        "RSI: 27.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:12:58.345588",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89972.0,
-      "sl": 88892.336,
-      "tp": 94470.6,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.7%",
-        "RSI: 38.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:13:02.509481",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89950.8,
-      "sl": 88871.3904,
-      "tp": 94448.34000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.6%",
-        "RSI: 37.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:13:06.691817",
+    "timestamp": "2025-12-12T18:18:23.119779",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -720,7 +178,7 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:10.968383",
+    "timestamp": "2025-12-12T18:18:23.153610",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -740,7 +198,7 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:15.179387",
+    "timestamp": "2025-12-12T18:18:23.166082",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -760,7 +218,7 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:20.922243",
+    "timestamp": "2025-12-12T18:18:23.620352",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -780,7 +238,7 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:25.298741",
+    "timestamp": "2025-12-12T18:18:23.623121",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -800,7 +258,7 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:29.597123",
+    "timestamp": "2025-12-12T18:18:23.625622",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -820,7 +278,7 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:33.768717",
+    "timestamp": "2025-12-12T18:18:23.630389",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -840,727 +298,66 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:37.832728",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
+    "timestamp": "2025-12-12T18:18:27.335327",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90026.0,
-      "sl": 88945.688,
-      "tp": 94527.3,
-      "size": 1.0,
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 90099.9,
+      "size": 1.8626703110197202,
       "leverage": 30,
+      "sl": 89018.7012,
+      "tp": 94604.895,
+      "fees": 0.022352043732236645,
       "reasons": [
         "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 5.0%",
-        "RSI: 34.2",
+        "BB position: 7.9%",
+        "RSI: 36.0",
         "Trend: EMA20 > EMA50 \u2713"
-      ]
+      ],
+      "live_mode": false
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:41.911711",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
+    "timestamp": "2025-12-12T18:18:33.179471",
+    "agent": "Agent-C",
+    "action": "CLOSE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89960.6,
-      "sl": 88881.07280000001,
-      "tp": 94458.63,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -1.2%",
-        "RSI: 36.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
+      "side": "long",
+      "entry": 90099.9,
+      "exit": 91360.0,
+      "pnl": 0.37958204649732497,
+      "pnl_pct": 0.01398558710941972,
+      "reason": "TRAILING_STOP",
+      "balance": 3.041655147901711
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:46.067556",
+    "timestamp": "2025-12-12T18:18:52.720272",
     "agent": "Agent-B",
-    "action": "SIGNAL",
+    "action": "RL_UPDATE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90153.4,
-      "sl": 89071.55919999999,
-      "tp": 94661.06999999999,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -22.1%",
-        "RSI: 35.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
+      "state": "EMA_CROSSOVER_long",
+      "reward": 1.3985587109419721,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
     }
   },
   {
-    "timestamp": "2025-12-12T16:13:50.291613",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90197.8,
-      "sl": 89115.4264,
-      "tp": 94707.69,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.0%",
-        "RSI: 39.3",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:13:54.381378",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90037.6,
-      "sl": 88957.14880000001,
-      "tp": 94539.48000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -0.7%",
-        "RSI: 34.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:13:58.655813",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 93288.8,
-      "sl": 92169.3344,
-      "tp": 97953.24,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -26.6%",
-        "RSI: 36.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:02.713197",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92883.0,
-      "sl": 91768.404,
-      "tp": 97527.15000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -32.6%",
-        "RSI: 29.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:06.834957",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 93031.0,
-      "sl": 91914.628,
-      "tp": 97682.55,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -5.4%",
-        "RSI: 34.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:10.954819",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92804.2,
-      "sl": 91690.5496,
-      "tp": 97444.41,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -8.7%",
-        "RSI: 30.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:15.073292",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92631.3,
-      "sl": 91519.7244,
-      "tp": 97262.865,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 6.5%",
-        "RSI: 32.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:19.140025",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92538.2,
-      "sl": 91427.7416,
-      "tp": 97165.11,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -0.5%",
-        "RSI: 30.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:23.203391",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92240.9,
-      "sl": 91134.0092,
-      "tp": 96852.94499999999,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -23.6%",
-        "RSI: 25.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:27.348985",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92357.0,
-      "sl": 91248.716,
-      "tp": 96974.85,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -16.3%",
-        "RSI: 34.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:31.402463",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92447.0,
-      "sl": 91337.636,
-      "tp": 97069.35,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 6.3%",
-        "RSI: 39.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:35.533429",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92138.5,
-      "sl": 91032.838,
-      "tp": 96745.425,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -10.6%",
-        "RSI: 31.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:39.783434",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92084.5,
-      "sl": 90979.486,
-      "tp": 96688.725,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -1.0%",
-        "RSI: 33.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:43.927322",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92019.1,
-      "sl": 90914.8708,
-      "tp": 96620.05500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 7.8%",
-        "RSI: 36.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:48.014169",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91986.5,
-      "sl": 90882.662,
-      "tp": 96585.825,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 7.8%",
-        "RSI: 37.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:52.368570",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92420.8,
-      "sl": 91311.7504,
-      "tp": 97041.84000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -9.5%",
-        "RSI: 37.1",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:14:56.432226",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92432.7,
-      "sl": 91323.5076,
-      "tp": 97054.335,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 2.8%",
-        "RSI: 38.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:00.538910",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92291.9,
-      "sl": 91184.39719999999,
-      "tp": 96906.495,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.1%",
-        "RSI: 34.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:04.723001",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92169.0,
-      "sl": 91062.972,
-      "tp": 96777.45,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 5.6%",
-        "RSI: 31.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:08.839071",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92144.6,
-      "sl": 91038.86480000001,
-      "tp": 96751.83000000002,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 8.8%",
-        "RSI: 31.3",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:13.075325",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91804.8,
-      "sl": 90703.1424,
-      "tp": 96395.04000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 1.4%",
-        "RSI: 28.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:17.252704",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91819.9,
-      "sl": 90718.0612,
-      "tp": 96410.895,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -6.6%",
-        "RSI: 36.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:21.320727",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91799.9,
-      "sl": 90698.30119999999,
-      "tp": 96389.895,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 0.9%",
-        "RSI: 36.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:25.385173",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91780.0,
-      "sl": 90678.64,
-      "tp": 96369.0,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 3.3%",
-        "RSI: 35.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:29.498934",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91697.4,
-      "sl": 90597.0312,
-      "tp": 96282.27,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -6.8%",
-        "RSI: 35.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:33.700601",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92006.0,
-      "sl": 90901.928,
-      "tp": 96606.3,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -6.7%",
-        "RSI: 38.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:38.037393",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92193.4,
-      "sl": 91087.0792,
-      "tp": 96803.06999999999,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 8.5%",
-        "RSI: 39.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:42.102022",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92002.3,
-      "sl": 90898.2724,
-      "tp": 96602.41500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 3.8%",
-        "RSI: 37.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:46.324398",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91983.4,
-      "sl": 90879.5992,
-      "tp": 96582.56999999999,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 5.9%",
-        "RSI: 38.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:50.407737",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91961.3,
-      "sl": 90857.7644,
-      "tp": 96559.365,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 8.8%",
-        "RSI: 38.1",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:54.647444",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91924.6,
-      "sl": 90821.50480000001,
-      "tp": 96520.83000000002,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 7.5%",
-        "RSI: 37.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:15:58.817019",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91722.1,
-      "sl": 90621.4348,
-      "tp": 96308.20500000002,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 5.7%",
-        "RSI: 32.1",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:02.905290",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91453.3,
-      "sl": 90355.8604,
-      "tp": 96025.96500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -8.9%",
-        "RSI: 25.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:07.438111",
+    "timestamp": "2025-12-12T18:18:53.199040",
     "agent": "Agent-B",
     "action": "SIGNAL",
     "data": {
@@ -1580,663 +377,62 @@
     }
   },
   {
-    "timestamp": "2025-12-12T16:16:11.529387",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
+    "timestamp": "2025-12-12T18:18:56.907391",
+    "agent": "Agent-C",
+    "action": "EXECUTE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89962.4,
-      "sl": 88882.85119999999,
-      "tp": 94460.52,
-      "size": 1.0,
+      "side": "long",
+      "order_type": "MARKET",
+      "entry": 90000.0,
+      "size": 3.041655147901711,
       "leverage": 30,
+      "sl": 88920.0,
+      "tp": 94500.0,
+      "fees": 0.036499861774820536,
       "reasons": [
         "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 1.1%",
-        "RSI: 39.0",
+        "BB position: -1.9%",
+        "RSI: 39.1",
         "Trend: EMA20 > EMA50 \u2713"
-      ]
+      ],
+      "live_mode": false
     }
   },
   {
-    "timestamp": "2025-12-12T16:16:15.879233",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
+    "timestamp": "2025-12-12T18:19:02.370086",
+    "agent": "Agent-C",
+    "action": "CLOSE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90100.1,
-      "sl": 89018.89880000001,
-      "tp": 94605.10500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 1.1%",
-        "RSI: 39.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
+      "side": "long",
+      "entry": 90000.0,
+      "exit": 90795.0,
+      "pnl": 0.3847693762095664,
+      "pnl_pct": 0.008833333333333334,
+      "reason": "TRAILING_STOP",
+      "balance": 4.596650648013992
     }
   },
   {
-    "timestamp": "2025-12-12T16:16:19.988885",
+    "timestamp": "2025-12-12T18:19:06.041054",
     "agent": "Agent-B",
-    "action": "SIGNAL",
+    "action": "RL_UPDATE",
     "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90000.8,
-      "sl": 88920.7904,
-      "tp": 94500.84000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -18.8%",
-        "RSI: 33.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:24.116830",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90039.2,
-      "sl": 88958.72959999999,
-      "tp": 94541.16,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 2.1%",
-        "RSI: 37.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:28.177164",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90000.1,
-      "sl": 88920.0988,
-      "tp": 94500.10500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -0.1%",
-        "RSI: 35.3",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:32.261088",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 90010.0,
-      "sl": 88929.88,
-      "tp": 94510.5,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 8.8%",
-        "RSI: 36.3",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:36.358136",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89959.0,
-      "sl": 88879.492,
-      "tp": 94456.95,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 3.4%",
-        "RSI: 33.3",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:40.439290",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89891.2,
-      "sl": 88812.50559999999,
-      "tp": 94385.76,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 4.4%",
-        "RSI: 31.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:44.581491",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89791.6,
-      "sl": 88714.1008,
-      "tp": 94281.18000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -4.9%",
-        "RSI: 38.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:48.652151",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89441.6,
-      "sl": 88368.30080000001,
-      "tp": 93913.68000000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -30.4%",
-        "RSI: 30.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:52.719923",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89514.5,
-      "sl": 88440.326,
-      "tp": 93990.225,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -7.0%",
-        "RSI: 33.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:16:56.904707",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 89377.9,
-      "sl": 88305.3652,
-      "tp": 93846.795,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 9.0%",
-        "RSI: 37.1",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:01.719069",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92001.1,
-      "sl": 90897.0868,
-      "tp": 96601.15500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -11.4%",
-        "RSI: 35.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:05.802985",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91521.0,
-      "sl": 90422.74799999999,
-      "tp": 96097.05,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -31.0%",
-        "RSI: 25.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:09.926680",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91545.9,
-      "sl": 90447.3492,
-      "tp": 96123.19499999999,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -11.0%",
-        "RSI: 27.0",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:13.995164",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91693.8,
-      "sl": 90593.4744,
-      "tp": 96278.49,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 7.2%",
-        "RSI: 33.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:18.501839",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92234.5,
-      "sl": 91127.686,
-      "tp": 96846.225,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -12.4%",
-        "RSI: 38.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:22.657840",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92225.5,
-      "sl": 91118.794,
-      "tp": 96836.77500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -9.2%",
-        "RSI: 38.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:26.955307",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92209.5,
-      "sl": 91102.986,
-      "tp": 96819.975,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -3.2%",
-        "RSI: 37.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:31.135691",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92218.3,
-      "sl": 91111.6804,
-      "tp": 96829.21500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 5.7%",
-        "RSI: 38.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:35.194038",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92187.9,
-      "sl": 91081.6452,
-      "tp": 96797.295,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 4.1%",
-        "RSI: 36.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:39.709767",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92180.0,
-      "sl": 91073.84,
-      "tp": 96789.0,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 7.2%",
-        "RSI: 36.0",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:43.815177",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92071.0,
-      "sl": 90966.148,
-      "tp": 96674.55,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -5.0%",
-        "RSI: 36.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:47.907426",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92071.9,
-      "sl": 90967.03719999999,
-      "tp": 96675.495,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 3.7%",
-        "RSI: 38.6",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:52.278755",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92149.6,
-      "sl": 91043.8048,
-      "tp": 96757.08000000002,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 3.6%",
-        "RSI: 37.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:17:56.364391",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92141.0,
-      "sl": 91035.308,
-      "tp": 96748.05,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: 3.9%",
-        "RSI: 36.9",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:18:00.429437",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92100.1,
-      "sl": 90994.89880000001,
-      "tp": 96705.10500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -2.3%",
-        "RSI: 34.4",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:18:04.503242",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92061.9,
-      "sl": 90957.15719999999,
-      "tp": 96664.995,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -3.5%",
-        "RSI: 32.2",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:18:08.791547",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 92084.3,
-      "sl": 90979.2884,
-      "tp": 96688.51500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -1.5%",
-        "RSI: 39.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:18:12.916223",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91934.2,
-      "sl": 90830.9896,
-      "tp": 96530.91,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -9.5%",
-        "RSI: 38.8",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:18:17.015277",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91930.0,
-      "sl": 90826.84,
-      "tp": 96526.5,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -0.4%",
-        "RSI: 38.7",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:18:21.075279",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91747.3,
-      "sl": 90646.3324,
-      "tp": 96334.66500000001,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -12.1%",
-        "RSI: 34.0",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
-    }
-  },
-  {
-    "timestamp": "2025-12-12T16:18:25.143975",
-    "agent": "Agent-B",
-    "action": "SIGNAL",
-    "data": {
-      "type": "BUY",
-      "confidence": 0.85,
-      "entry": 91475.0,
-      "sl": 90377.3,
-      "tp": 96048.75,
-      "size": 1.0,
-      "leverage": 30,
-      "reasons": [
-        "\ud83d\udfe2 Uptrend Pullback: BB Lower",
-        "BB position: -20.4%",
-        "RSI: 28.5",
-        "Trend: EMA20 > EMA50 \u2713"
-      ]
+      "state": "EMA_CROSSOVER_long",
+      "reward": 0.8833333333333334,
+      "new_params": {
+        "sl_pct": 0.012,
+        "tp_pct": 0.05,
+        "trailing_pct": 0.015,
+        "position_size": 1.0,
+        "leverage": 10,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "adx_threshold": 20,
+        "ema_cross_weight": 1.0,
+        "rsi_weight": 0.8,
+        "macd_weight": 0.6,
+        "volume_weight": 0.5
+      }
     }
   }
 ]

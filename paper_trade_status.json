@@ -1,0 +1,26 @@
+{
+  "last_update": "2025-12-12 18:20:09",
+  "initial_balance": 4.5,
+  "current_balance": 2.5471049902418916,
+  "total_trades": 2,
+  "wins": 0,
+  "losses": 2,
+  "total_pnl": -1.9528950097581081,
+  "open_positions": [],
+  "trade_history": [
+    {
+      "symbol": "SEI/USDT",
+      "side": "short",
+      "pnl": -66.98187549251297,
+      "exit_reason": "SL \u274c",
+      "time": "2025-12-12T17:08:23.638183"
+    },
+    {
+      "symbol": "XRP/USDT",
+      "side": "short",
+      "pnl": -63.211125158027585,
+      "exit_reason": "SL \u274c",
+      "time": "2025-12-12T18:12:39.481392"
+    }
+  ]
+}

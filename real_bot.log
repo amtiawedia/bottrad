@@ -1,0 +1,48 @@
+nohup: ignoring input
+2025-12-12 18:17:43 [INFO] 🤖 AI News Filter: ✅ Enabled (Perplexity)
+2025-12-12 18:17:43 [INFO] ============================================================
+2025-12-12 18:17:43 [INFO] 🤖 AlphaBot-Scalper V4 Initialized
+2025-12-12 18:17:43 [INFO]    Mode: ⚪ SIMULATION
+2025-12-12 18:17:43 [INFO]    Symbol: BTC/USDT
+2025-12-12 18:17:43 [INFO]    Timeframe: 5m
+2025-12-12 18:17:43 [INFO]    Capital: $4.50
+2025-12-12 18:17:43 [INFO]    Leverage: 50x
+2025-12-12 18:17:43 [INFO]    DSL: 80.0%
+2025-12-12 18:17:43 [INFO]    MDD: 80.0%
+2025-12-12 18:17:43 [INFO]    Telegram: ✅ Enabled
+2025-12-12 18:17:43 [INFO] ============================================================
+2025-12-12 18:17:43 [INFO] 📊 Starting BACKTEST: BTC/USDT 5m 14d
+2025-12-12 18:17:46 [INFO] ✅ Loaded 1451 candles
+2025-12-12 18:17:50 [INFO] [Agent-C] ✅ LONG @ 91792.70 | Size: $4.50 | Lev: 30x | SL: 90691.19 | TP: 96382.34 | Mode: ⚪ SIM
+2025-12-12 18:17:54 [INFO] [Agent-C] 🔴 CLOSED LONG @ 90484.20 | PnL: $-1.98 (-1.43%) | STOP_LOSS | Balance: $2.47
+2025-12-12 18:18:17 [INFO] [Agent-C] ✅ LONG @ 90484.20 | Size: $2.47 | Lev: 30x | SL: 89398.39 | TP: 95008.41 | Mode: ⚪ SIM
+2025-12-12 18:18:20 [INFO] [Agent-C] 🔴 CLOSED LONG @ 89817.20 | PnL: $-0.58 (-0.74%) | TRAILING_STOP | Balance: $1.86
+2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 5 candles remaining after 2 losses
+2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 4 candles remaining after 2 losses
+2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 3 candles remaining after 2 losses
+2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 2 candles remaining after 2 losses
+2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 1 candles remaining after 2 losses
+2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 0 candles remaining after 2 losses
+2025-12-12 18:18:27 [INFO] [Agent-C] ✅ LONG @ 90099.90 | Size: $1.86 | Lev: 30x | SL: 89018.70 | TP: 94604.90 | Mode: ⚪ SIM
+2025-12-12 18:18:31 [INFO] [Agent-C] 🔒 BREAK-EVEN activated @ $90190.00
+2025-12-12 18:18:31 [INFO] [Agent-C] 💰 PARTIAL TP: Closed 50% @ +2.98% | +$0.822
+2025-12-12 18:18:33 [INFO] [Agent-C] 🟢 CLOSED LONG @ 91360.00 | PnL: $0.38 (1.40%) | TRAILING_STOP | Balance: $3.04
+2025-12-12 18:18:56 [INFO] [Agent-C] ✅ LONG @ 90000.00 | Size: $3.04 | Lev: 30x | SL: 88920.00 | TP: 94500.00 | Mode: ⚪ SIM
+2025-12-12 18:19:00 [INFO] [Agent-C] 🔒 BREAK-EVEN activated @ $90090.00
+2025-12-12 18:19:00 [INFO] [Agent-C] 💰 PARTIAL TP: Closed 50% @ +2.68% | +$1.207
+2025-12-12 18:19:02 [INFO] [Agent-C] 🟢 CLOSED LONG @ 90795.00 | PnL: $0.38 (0.88%) | TRAILING_STOP | Balance: $4.60
+
+============================================================
+📊 ALPHABOT-SCALPER V4 SUMMARY
+============================================================
+  Total Trades: 4
+  Wins/Losses: 2/2
+  Win Rate: 50.0%
+  Profit Factor: 0.30
+  Total PnL: $-1.79
+  ROI: -39.76%
+  Final Balance: $4.60
+  Peak Balance: $4.60
+  Max Drawdown: 0.00%
+============================================================
+📝 Decision log saved to decisions.json

@@ -1377,13 +1377,19 @@ class AlphaBotLogger:
         self.logger = logging.getLogger('AlphaBot-V4')
         self.logger.setLevel(logging.DEBUG)
         
-        # File handler
-        fh = logging.FileHandler(log_file)
+        # File handler (UTF-8 for emoji support)
+        fh = logging.FileHandler(log_file, encoding='utf-8')
         fh.setLevel(logging.DEBUG)
         
-        # Console handler
-        ch = logging.StreamHandler()
+        # Console handler (UTF-8 for Windows)
+        import sys
+        ch = logging.StreamHandler(sys.stdout)
         ch.setLevel(logging.INFO)
+        
+        # Set UTF-8 encoding for Windows console
+        if sys.platform == 'win32':
+            import io
+            sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
         
         # Format
         formatter = logging.Formatter(
