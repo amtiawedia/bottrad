@@ -109,7 +109,7 @@ class Config:
     SIGNAL_PREVIEW: bool = True             # Notify before entering trade
     
     # Live Trading Mode
-    LIVE_MODE: bool = False                 # True = send real orders, False = simulation
+    LIVE_MODE: bool = True                  # True = send real orders to Binance
     
     # Agent-A Settings
     DATA_LOOKBACK: int = 1500               # Candles for analysis (more data)
