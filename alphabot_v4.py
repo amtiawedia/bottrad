@@ -78,6 +78,13 @@ class Config:
     TAKE_PROFIT_PCT: float = 0.050          # 5.0% TP per trade (optimal)
     TRAILING_STOP_PCT: float = 0.015        # 1.5% trailing (tighter to lock profit)
     
+    # Advanced Features
+    BREAKEVEN_TRIGGER_PCT: float = 0.015    # Move SL to entry when +1.5% profit
+    PARTIAL_TP_ENABLED: bool = True         # Enable partial take profit
+    PARTIAL_TP_PCT: float = 0.025           # First TP at +2.5%
+    PARTIAL_TP_CLOSE_PCT: float = 0.50      # Close 50% at first TP
+    AUTO_COMPOUND: bool = True              # Auto increase position with profit
+    
     # Live Trading Mode
     LIVE_MODE: bool = False                 # True = send real orders, False = simulation
     
@@ -441,6 +448,9 @@ class TelegramNotifier:
         elif cmd == "/position":
             self.send_position()
         
+        elif cmd == "/settings":
+            self.send_settings()
+        
         elif text.startswith("/"):
             self.send_message("❓ ไม่รู้จัก command นี้\nพิมพ์ /help เพื่อดูวิธีใช้")
         
@@ -467,8 +477,34 @@ class TelegramNotifier:
 /btc - ราคา BTC ล่าสุด
 /news - ข่าว Crypto วันนี้
 /analyze - วิเคราะห์ตลาด
+/settings - ดูการตั้งค่าบอท
 
 🧠 AI: Perplexity Pro (ฉลาดที่สุด)"""
+        self.send_message(msg)
+    
+    def send_settings(self):
+        """Send bot settings"""
+        msg = f"""⚙️ <b>Bot Settings</b>
+
+<b>📊 Trading:</b>
+• Symbol: {self.config.SYMBOL}
+• Timeframe: {self.config.TIMEFRAME}
+• Leverage: {self.config.MAX_LEVERAGE}x
+
+<b>🛡️ Risk Management:</b>
+• Stop Loss: {self.config.STOP_LOSS_PCT*100:.1f}%
+• Take Profit: {self.config.TAKE_PROFIT_PCT*100:.1f}%
+• Trailing Stop: {self.config.TRAILING_STOP_PCT*100:.1f}%
+
+<b>🚀 Advanced Features:</b>
+• Break-even: +{self.config.BREAKEVEN_TRIGGER_PCT*100:.1f}% → SL = Entry
+• Partial TP: {self.config.PARTIAL_TP_CLOSE_PCT*100:.0f}% @ +{self.config.PARTIAL_TP_PCT*100:.1f}%
+• Auto-compound: {'✅' if self.config.AUTO_COMPOUND else '❌'}
+
+<b>💡 Strategy:</b>
+• RSI + EMA + MACD + ADX
+• Volume Filter
+• Multi-Agent AI System"""
         self.send_message(msg)
     
     def send_status(self):
@@ -951,12 +987,25 @@ class Position:
     trailing_stop: float
     highest_pnl: float = 0.0
     entry_time: datetime = None
+    breakeven_activated: bool = False      # SL moved to entry
+    partial_tp_taken: bool = False         # First TP taken
+    original_size: float = 0.0             # Original position size
+    
+    def __post_init__(self):
+        if self.original_size == 0.0:
+            self.original_size = self.size
     
     def unrealized_pnl(self, current_price: float) -> float:
         if self.side == 'long':
             return (current_price - self.entry_price) / self.entry_price * self.size * self.leverage
         else:
             return (self.entry_price - current_price) / self.entry_price * self.size * self.leverage
+    
+    def unrealized_pnl_pct(self, current_price: float) -> float:
+        if self.side == 'long':
+            return (current_price - self.entry_price) / self.entry_price
+        else:
+            return (self.entry_price - current_price) / self.entry_price
 
 
 @dataclass 
@@ -2014,7 +2063,7 @@ class AgentC:
         return True
     
     def update_position(self, current_price: float) -> Optional[Trade]:
-        """Update position with current price, check SL/TP/Trailing"""
+        """Update position with current price, check SL/TP/Trailing/Breakeven"""
         if self.position is None:
             return None
         
@@ -2022,9 +2071,54 @@ class AgentC:
         
         # Calculate current PnL
         pnl = pos.unrealized_pnl(current_price)
-        pnl_pct = pnl / pos.size if pos.size > 0 else 0
+        pnl_pct = pos.unrealized_pnl_pct(current_price)
         
-        # Update trailing stop
+        # ===== BREAK-EVEN STOP =====
+        # Move SL to entry when profit reaches threshold
+        if not pos.breakeven_activated and pnl_pct >= self.config.BREAKEVEN_TRIGGER_PCT:
+            if pos.side == 'long':
+                # Move SL to entry + small buffer
+                new_sl = pos.entry_price * 1.001  # +0.1% above entry
+                if new_sl > pos.stop_loss:
+                    pos.stop_loss = new_sl
+                    pos.breakeven_activated = True
+                    self.logger.info(f"[Agent-C] 🔒 BREAK-EVEN activated @ ${new_sl:.2f}")
+            else:  # short
+                new_sl = pos.entry_price * 0.999  # -0.1% below entry
+                if new_sl < pos.stop_loss:
+                    pos.stop_loss = new_sl
+                    pos.breakeven_activated = True
+                    self.logger.info(f"[Agent-C] 🔒 BREAK-EVEN activated @ ${new_sl:.2f}")
+        
+        # ===== PARTIAL TAKE PROFIT =====
+        # Take partial profit at first target
+        if self.config.PARTIAL_TP_ENABLED and not pos.partial_tp_taken:
+            if pnl_pct >= self.config.PARTIAL_TP_PCT:
+                # Close partial position
+                partial_size = pos.original_size * self.config.PARTIAL_TP_CLOSE_PCT
+                partial_pnl = pnl_pct * partial_size * pos.leverage
+                
+                # Update balance with partial profit
+                fees = partial_size * pos.leverage * self.config.TAKER_FEE
+                partial_pnl -= fees
+                self.balance += partial_pnl
+                self.daily_pnl += partial_pnl
+                
+                # Reduce position size
+                pos.size -= partial_size
+                pos.partial_tp_taken = True
+                
+                self.logger.info(f"[Agent-C] 💰 PARTIAL TP: Closed {self.config.PARTIAL_TP_CLOSE_PCT*100:.0f}% @ +{pnl_pct*100:.2f}% | +${partial_pnl:.3f}")
+                
+                # Notify Telegram
+                self.telegram.send_message(
+                    f"💰 <b>Partial TP!</b>\n\n"
+                    f"ปิด {self.config.PARTIAL_TP_CLOSE_PCT*100:.0f}% @ +{pnl_pct*100:.2f}%\n"
+                    f"กำไร: +${partial_pnl:.3f}\n"
+                    f"เหลือ: {pos.size/pos.original_size*100:.0f}% running"
+                )
+        
+        # ===== TRAILING STOP UPDATE =====
         if pos.side == 'long':
             # Update highest PnL
             if pnl > pos.highest_pnl:
@@ -2039,7 +2133,7 @@ class AgentC:
             exit_price = current_price
             
             if current_price <= pos.stop_loss:
-                exit_reason = "STOP_LOSS"
+                exit_reason = "STOP_LOSS" if not pos.breakeven_activated else "BREAKEVEN_STOP"
             elif current_price <= pos.trailing_stop and pos.trailing_stop > pos.stop_loss:
                 exit_reason = "TRAILING_STOP"
             elif current_price >= pos.take_profit:
@@ -2059,7 +2153,7 @@ class AgentC:
             exit_price = current_price
             
             if current_price >= pos.stop_loss:
-                exit_reason = "STOP_LOSS"
+                exit_reason = "STOP_LOSS" if not pos.breakeven_activated else "BREAKEVEN_STOP"
             elif current_price >= pos.trailing_stop and pos.trailing_stop < pos.stop_loss:
                 exit_reason = "TRAILING_STOP"
             elif current_price <= pos.take_profit:
