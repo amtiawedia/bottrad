@@ -294,6 +294,7 @@ class TelegramNotifier:
     
     def __init__(self, config: Config):
         self.config = config
+        self.token = config.TELEGRAM_BOT_TOKEN  # For image download
         self.bot_token = config.TELEGRAM_BOT_TOKEN
         self.chat_id = config.TELEGRAM_CHAT_ID
         self.enabled = config.TELEGRAM_ENABLED and self.bot_token and self.chat_id
