@@ -1,118 +1,6 @@
 nohup: ignoring input
 /workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
   plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3592 (\N{THAI CHARACTER CHO CHAN}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3635 (\N{THAI CHARACTER SARA AM}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3621 (\N{THAI CHARACTER LO LING}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3629 (\N{THAI CHARACTER O ANG}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3591 (\N{THAI CHARACTER NGO NGU}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3648 (\N{THAI CHARACTER SARA E}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3607 (\N{THAI CHARACTER THO THAHAN}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3656 (\N{THAI CHARACTER MAI EK}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3634 (\N{THAI CHARACTER SARA AA}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3609 (\N{THAI CHARACTER NO NU}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3633 (\N{THAI CHARACTER MAI HAN-AKAT}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3657 (\N{THAI CHARACTER MAI THO}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3652 (\N{THAI CHARACTER SARA AI MAIMALAI}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3617 (\N{THAI CHARACTER MO MA}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3651 (\N{THAI CHARACTER SARA AI MAIMUAN}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3594 (\N{THAI CHARACTER CHO CHANG}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3636 (\N{THAI CHARACTER SARA I}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3619 (\N{THAI CHARACTER RO RUA}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3592 (\N{THAI CHARACTER CHO CHAN}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3635 (\N{THAI CHARACTER SARA AM}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3621 (\N{THAI CHARACTER LO LING}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3629 (\N{THAI CHARACTER O ANG}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3591 (\N{THAI CHARACTER NGO NGU}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3648 (\N{THAI CHARACTER SARA E}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3607 (\N{THAI CHARACTER THO THAHAN}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3656 (\N{THAI CHARACTER MAI EK}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3634 (\N{THAI CHARACTER SARA AA}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3609 (\N{THAI CHARACTER NO NU}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3633 (\N{THAI CHARACTER MAI HAN-AKAT}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3657 (\N{THAI CHARACTER MAI THO}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3652 (\N{THAI CHARACTER SARA AI MAIMALAI}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3617 (\N{THAI CHARACTER MO MA}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3651 (\N{THAI CHARACTER SARA AI MAIMUAN}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3594 (\N{THAI CHARACTER CHO CHANG}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3636 (\N{THAI CHARACTER SARA I}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3619 (\N{THAI CHARACTER RO RUA}) missing from font(s) DejaVu Sans.
-  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
 /workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128308 (\N{LARGE RED CIRCLE}) missing from font(s) DejaVu Sans.
   plt.tight_layout()
 /workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
@@ -167,6 +55,118 @@ nohup: ignoring input
   plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
 /workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3619 (\N{THAI CHARACTER RO RUA}) missing from font(s) DejaVu Sans.
   plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3592 (\N{THAI CHARACTER CHO CHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3635 (\N{THAI CHARACTER SARA AM}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3621 (\N{THAI CHARACTER LO LING}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3629 (\N{THAI CHARACTER O ANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3591 (\N{THAI CHARACTER NGO NGU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3648 (\N{THAI CHARACTER SARA E}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3607 (\N{THAI CHARACTER THO THAHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3656 (\N{THAI CHARACTER MAI EK}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3634 (\N{THAI CHARACTER SARA AA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3609 (\N{THAI CHARACTER NO NU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3633 (\N{THAI CHARACTER MAI HAN-AKAT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3657 (\N{THAI CHARACTER MAI THO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3652 (\N{THAI CHARACTER SARA AI MAIMALAI}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3617 (\N{THAI CHARACTER MO MA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3651 (\N{THAI CHARACTER SARA AI MAIMUAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3594 (\N{THAI CHARACTER CHO CHANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3636 (\N{THAI CHARACTER SARA I}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3619 (\N{THAI CHARACTER RO RUA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3592 (\N{THAI CHARACTER CHO CHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3635 (\N{THAI CHARACTER SARA AM}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3621 (\N{THAI CHARACTER LO LING}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3629 (\N{THAI CHARACTER O ANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3591 (\N{THAI CHARACTER NGO NGU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3648 (\N{THAI CHARACTER SARA E}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3607 (\N{THAI CHARACTER THO THAHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3656 (\N{THAI CHARACTER MAI EK}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3634 (\N{THAI CHARACTER SARA AA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3609 (\N{THAI CHARACTER NO NU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3633 (\N{THAI CHARACTER MAI HAN-AKAT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3657 (\N{THAI CHARACTER MAI THO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3652 (\N{THAI CHARACTER SARA AI MAIMALAI}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3617 (\N{THAI CHARACTER MO MA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3651 (\N{THAI CHARACTER SARA AI MAIMUAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3594 (\N{THAI CHARACTER CHO CHANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3636 (\N{THAI CHARACTER SARA I}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3619 (\N{THAI CHARACTER RO RUA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
 🔄 เชื่อมต่อ Binance Futures...
 ✅ โหลด 648 ตลาด
 
@@ -176,162 +176,24 @@ nohup: ignoring input
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║  ⚠️  จำลองเท่านั้น - ไม่ใช่เงินจริง!                                          ║
 ║  🎯 เป้าหมาย: $4.50 → $50.00                                                 ║
-║  📊 เหรียญ: 30 เหรียญ | ⚡ Leverage: 50x                                   ║
-║  🛡️ SL: 1.2% | 🎯 TP: 5.0%                                                 ║
+║  📊 เหรียญ: 30 เหรียญ | ⚡ Leverage: 20x                                   ║
+║  🛡️ SL: 3.0% | 🎯 TP: 6.0%                                                 ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
         
-📂 โหลด state: $1.1075 | 4 เทรด
-
-🔍 สแกน 30 เหรียญ...
-
-📡 พบ 3 สัญญาณ (🟢 2 LONG | 🔴 1 SHORT)
-   🟢 LONG ETC/USDT: $13.1380
-   🟢 LONG AVAX/USDT: $13.3330
-   🔴 SHORT INJ/USDT: $5.3590
-
-🟢 [PAPER] เปิด LONG ETC/USDT
-   📍 Entry: $13.1380
-   🛡️ SL: $12.9803 | 🎯 TP: $13.7949
-
-🟢 [PAPER] เปิด LONG AVAX/USDT
-   📍 Entry: $13.3330
-   🛡️ SL: $13.1730 | 🎯 TP: $13.9997
-
-🔴 [PAPER] เปิด SHORT INJ/USDT
-   📍 Entry: $5.3590
-   🛡️ SL: $5.4233 | 🎯 TP: $5.0911
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-
-══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 06:53:49
-══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
-
-📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1370 | 📉 -0.4%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3310 | 📉 -0.8%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3580 | 📈 +0.9%
-══════════════════════════════════════════════════════════════════════
-
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-
-══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 06:55:38
-══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
-
-📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1370 | 📉 -0.4%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3310 | 📉 -0.8%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3550 | 📈 +3.7%
-══════════════════════════════════════════════════════════════════════
-
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-
-══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 06:57:25
-══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
-
-📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1360 | 📉 -0.8%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3410 | 📈 +3.0%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3570 | 📈 +1.9%
-══════════════════════════════════════════════════════════════════════
-
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-
-══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 06:59:13
-══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
-
-📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1320 | 📉 -2.3%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3380 | 📈 +1.9%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3570 | 📈 +1.9%
-══════════════════════════════════════════════════════════════════════
-
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-
-📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
-   🟢 LONG ORDI/USDT: $4.4940
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-
-📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
-   🟢 LONG ORDI/USDT: $4.5070
-
-══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 07:01:00
-══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
-
-📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1470 | 📈 +3.4%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3260 | 📉 -2.6%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3620 | 📉 -2.8%
-══════════════════════════════════════════════════════════════════════
-
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
 
 📡 พบ 2 สัญญาณ (🟢 1 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.6800
-   🟢 LONG ORDI/USDT: $4.5090
+   🔴 SHORT LTC/USDT: $81.6400
+   🟢 LONG ORDI/USDT: $4.5440
+
+🔴 [PAPER] เปิด SHORT LTC/USDT
+   📍 Entry: $81.6400
+   🛡️ SL: $84.0892 | 🎯 TP: $76.7416
+
+🟢 [PAPER] เปิด LONG ORDI/USDT
+   📍 Entry: $4.5440
+   🛡️ SL: $4.4077 | 🎯 TP: $4.8166
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
@@ -340,130 +202,1181 @@ nohup: ignoring input
 
 🔍 สแกน 30 เหรียญ...
 
-📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.6900
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG ETC/USDT: $13.1500
+
+🟢 [PAPER] เปิด LONG ETC/USDT
+   📍 Entry: $13.1500
+   🛡️ SL: $12.7555 | 🎯 TP: $13.9390
 
 ══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 07:02:48
+📊 PAPER TRADE STATUS - 07:17:19
 ══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
 
 📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1510 | 📈 +4.9%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3510 | 📈 +6.8%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3670 | 📉 -7.5%
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7000 | 📉 -1.5%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5720 | 📈 +12.3%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1540 | 📈 +0.6%
 ══════════════════════════════════════════════════════════════════════
 
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
-
-📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.7000
+   ⏳ ไม่พบสัญญาณ
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
-
-📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.7000
+   ⏳ ไม่พบสัญญาณ
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
-
-📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.7000
+   ⏳ ไม่พบสัญญาณ
 
 ══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 07:04:35
+📊 PAPER TRADE STATUS - 07:19:07
 ══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
 
 📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1540 | 📈 +6.1%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3260 | 📉 -2.6%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3770 | 📉 -16.8%
+   🔴 SHORT LTC/USDT: $81.6400 → $81.8200 | 📉 -4.4%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5830 | 📈 +17.2%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1590 | 📈 +1.4%
 ══════════════════════════════════════════════════════════════════════
 
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
-
-📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.6700
+   ⏳ ไม่พบสัญญาณ
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
 
-📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.6600
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3112
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
-
-📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.6800
+   ⏳ ไม่พบสัญญาณ
 
 ══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 07:06:24
+📊 PAPER TRADE STATUS - 07:20:55
 ══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
 
 📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1660 | 📈 +10.7%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3320 | 📉 -0.4%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3830 | 📉 -22.4%
+   🔴 SHORT LTC/USDT: $81.6400 → $81.8000 | 📉 -3.9%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5850 | 📈 +18.0%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1660 | 📈 +2.4%
 ══════════════════════════════════════════════════════════════════════
 
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3112
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3109
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3111
 
 ══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 07:08:13
+📊 PAPER TRADE STATUS - 07:22:42
 ══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
 
 📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1640 | 📈 +9.9%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3180 | 📉 -5.6%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3810 | 📉 -20.5%
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7300 | 📉 -2.2%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5500 | 📈 +2.6%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1680 | 📈 +2.7%
 ══════════════════════════════════════════════════════════════════════
 
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
 
-📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
-   🔴 SHORT LTC/USDT: $81.6500
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3112
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3110
 ⏳ รอ 30 วินาที... (Ctrl+C หยุด)
 
 🔍 สแกน 30 เหรียญ...
    ⏳ ไม่พบสัญญาณ
-⏳ รอ 30 วินาที... (Ctrl+C หยุด)
-
-🔍 สแกน 30 เหรียญ...
-   ⏳ ไม่พบสัญญาณ
 
 ══════════════════════════════════════════════════════════════════════
-📊 PAPER TRADE STATUS - 07:10:00
+📊 PAPER TRADE STATUS - 07:24:30
 ══════════════════════════════════════════════════════════════════════
-💰 Balance: $1.1075 | ROI: -75.39%
-📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
 
 📊 Positions (3/3):
-   🟢 LONG ETC/USDT: $13.1380 → $13.1540 | 📈 +6.1%
-   🟢 LONG AVAX/USDT: $13.3330 → $13.3190 | 📉 -5.3%
-   🔴 SHORT INJ/USDT: $5.3590 → $5.3810 | 📉 -20.5%
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7400 | 📉 -2.4%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5390 | 📉 -2.2%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1610 | 📈 +1.7%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG INJ/USDT: $5.3990
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:26:18
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7400 | 📉 -2.4%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5870 | 📈 +18.9%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1640 | 📈 +2.1%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:28:06
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7400 | 📉 -2.4%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5700 | 📈 +11.4%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1600 | 📈 +1.5%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:29:53
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7900 | 📉 -3.7%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5840 | 📈 +17.6%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1630 | 📈 +2.0%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3986
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 2 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3982
+   🟢 LONG GRT/USDT: $0.0411
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 2 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3981
+   🟢 LONG GRT/USDT: $0.0411
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:31:41
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7700 | 📉 -3.2%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5790 | 📈 +15.4%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1520 | 📈 +0.3%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 2 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3979
+   🟢 LONG GRT/USDT: $0.0411
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 2 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3980
+   🟢 LONG GRT/USDT: $0.0411
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 2 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3976
+   🟢 LONG GRT/USDT: $0.0411
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:33:29
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7800 | 📉 -3.4%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5830 | 📈 +17.2%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1570 | 📈 +1.1%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 2 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3979
+   🟢 LONG GRT/USDT: $0.0411
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 2 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3980
+   🟢 LONG GRT/USDT: $0.0411
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3982
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:35:16
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7600 | 📉 -2.9%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.6060 | 📈 +27.3%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1580 | 📈 +1.2%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 2 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3981
+   🟢 LONG GRT/USDT: $0.0411
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3115
+   🟢 LONG WIF/USDT: $0.3981
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4320
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 3 สัญญาณ (🟢 3 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3114
+   🟢 LONG WIF/USDT: $0.3981
+   🟢 LONG UNI/USDT: $5.4310
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:37:03
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.6800 | 📉 -1.0%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.6080 | 📈 +28.2%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1520 | 📈 +0.3%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3112
+   🟢 LONG WIF/USDT: $0.3980
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4310
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 3 สัญญาณ (🟢 3 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3114
+   🟢 LONG WIF/USDT: $0.3980
+   🟢 LONG GRT/USDT: $0.0411
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3112
+   🟢 LONG WIF/USDT: $0.3976
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4310
+   🟢 LONG IMX/USDT: $0.2754
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:38:50
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7100 | 📉 -1.7%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.6160 | 📈 +31.7%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1500 | 📉 +0.0%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3111
+   🟢 LONG WIF/USDT: $0.3977
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4300
+   🟢 LONG IMX/USDT: $0.2754
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3109
+   🟢 LONG WIF/USDT: $0.3978
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4290
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3111
+   🟢 LONG WIF/USDT: $0.3978
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG IMX/USDT: $0.2754
+   🟢 LONG UNI/USDT: $5.4290
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:40:38
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.6700 | 📉 -0.7%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5910 | 📈 +20.7%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1430 | 📉 -1.1%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3112
+   🟢 LONG WIF/USDT: $0.3977
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4280
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3111
+   🟢 LONG WIF/USDT: $0.3978
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4250
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3111
+   🟢 LONG WIF/USDT: $0.3978
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4270
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:42:25
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7000 | 📉 -1.5%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5890 | 📈 +19.8%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1430 | 📉 -1.1%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3111
+   🟢 LONG WIF/USDT: $0.3978
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4270
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3110
+   🟢 LONG WIF/USDT: $0.3976
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4260
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3110
+   🟢 LONG WIF/USDT: $0.3977
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4260
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:44:13
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7100 | 📉 -1.7%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5920 | 📈 +21.1%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1380 | 📉 -1.8%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG OP/USDT: $0.3109
+   🟢 LONG WIF/USDT: $0.3976
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG UNI/USDT: $5.4250
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3974
+   🟢 LONG OP/USDT: $0.3110
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG IMX/USDT: $0.2753
+   🟢 LONG UNI/USDT: $5.4250
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3973
+   🟢 LONG OP/USDT: $0.3109
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG IMX/USDT: $0.2753
+   🟢 LONG UNI/USDT: $5.4220
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:46:00
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.6800 | 📉 -1.0%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.6260 | 📈 +36.1%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1410 | 📉 -1.4%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3977
+   🟢 LONG OP/USDT: $0.3110
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG IMX/USDT: $0.2753
+   🟢 LONG UNI/USDT: $5.4220
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3976
+   🟢 LONG OP/USDT: $0.3109
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4250
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3975
+   🟢 LONG OP/USDT: $0.3110
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG IMX/USDT: $0.2753
+   🟢 LONG UNI/USDT: $5.4220
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:47:52
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.6900 | 📉 -1.2%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5530 | 📈 +4.0%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1330 | 📉 -2.6%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3975
+   🟢 LONG OP/USDT: $0.3110
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4220
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3976
+   🟢 LONG OP/USDT: $0.3111
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4240
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3978
+   🟢 LONG OP/USDT: $0.3111
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG UNI/USDT: $5.4230
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:49:55
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7200 | 📉 -2.0%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5910 | 📈 +20.7%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1330 | 📉 -2.6%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0411
+   🟢 LONG WIF/USDT: $0.3983
+   🟢 LONG OP/USDT: $0.3114
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG UNI/USDT: $5.4250
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3986
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2082
+   🟢 LONG UNI/USDT: $5.4290
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3985
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2082
+   🟢 LONG UNI/USDT: $5.4310
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:51:57
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7900 | 📉 -3.7%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.6160 | 📈 +31.7%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1310 | 📉 -2.9%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3983
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2081
+   🟢 LONG UNI/USDT: $5.4300
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3983
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2082
+   🟢 LONG UNI/USDT: $5.4320
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3981
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG UNI/USDT: $5.4320
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:53:59
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7600 | 📉 -2.9%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5960 | 📈 +22.9%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1370 | 📉 -2.0%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3985
+   🟢 LONG OP/USDT: $0.3115
+   🟢 LONG ARB/USDT: $0.2082
+   🟢 LONG UNI/USDT: $5.4330
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3987
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG UNI/USDT: $5.4310
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3987
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG IMX/USDT: $0.2754
+   🟢 LONG ARB/USDT: $0.2082
+   🟢 LONG UNI/USDT: $5.4310
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:56:01
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7500 | 📉 -2.7%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.6040 | 📈 +26.4%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1440 | 📉 -0.9%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3986
+   🟢 LONG OP/USDT: $0.3115
+   🟢 LONG IMX/USDT: $0.2755
+   🟢 LONG ARB/USDT: $0.2082
+   🟢 LONG UNI/USDT: $5.4310
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 6 สัญญาณ (🟢 6 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3983
+   🟢 LONG OP/USDT: $0.3114
+   🟢 LONG IMX/USDT: $0.2755
+   🟢 LONG ARB/USDT: $0.2081
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3983
+   🟢 LONG OP/USDT: $0.3115
+   🟢 LONG ARB/USDT: $0.2081
+   🟢 LONG UNI/USDT: $5.4300
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:58:03
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.7700 | 📉 -3.2%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5930 | 📈 +21.6%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1520 | 📈 +0.3%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3982
+   🟢 LONG OP/USDT: $0.3112
+   🟢 LONG ARB/USDT: $0.2081
+   🟢 LONG UNI/USDT: $5.4300
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 6 สัญญาณ (🟢 6 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3981
+   🟢 LONG OP/USDT: $0.3113
+   🟢 LONG IMX/USDT: $0.2753
+   🟢 LONG ARB/USDT: $0.2080
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 6 สัญญาณ (🟢 6 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3983
+   🟢 LONG IMX/USDT: $0.2755
+   🟢 LONG OP/USDT: $0.3113
+   🟢 LONG ARB/USDT: $0.2081
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:00:10
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.8200 | 📉 -4.4%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5740 | 📈 +13.2%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1560 | 📈 +0.9%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG WIF/USDT: $0.3987
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2084
+   🟢 LONG UNI/USDT: $5.4340
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3987
+   🟢 LONG OP/USDT: $0.3114
+   🟢 LONG ARB/USDT: $0.2084
+   🟢 LONG UNI/USDT: $5.4340
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3992
+   🟢 LONG OP/USDT: $0.3118
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG UNI/USDT: $5.4330
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:02:13
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.8400 | 📉 -4.9%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5610 | 📈 +7.5%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1640 | 📈 +2.1%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3992
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2084
+   🟢 LONG UNI/USDT: $5.4330
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3989
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG UNI/USDT: $5.4330
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3990
+   🟢 LONG OP/USDT: $0.3118
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG UNI/USDT: $5.4320
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:04:15
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.8800 | 📉 -5.9%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5510 | 📈 +3.1%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1800 | 📈 +4.6%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 4 สัญญาณ (🟢 4 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3991
+   🟢 LONG OP/USDT: $0.3118
+   🟢 LONG ARB/USDT: $0.2084
+   🟢 LONG UNI/USDT: $5.4340
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 6 สัญญาณ (🟢 6 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3990
+   🟢 LONG OP/USDT: $0.3117
+   🟢 LONG ARB/USDT: $0.2084
+   🟢 LONG UNI/USDT: $5.4330
+   🟢 LONG DOGE/USDT: $0.1379
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 8 สัญญาณ (🟢 8 LONG | 🔴 0 SHORT)
+   🟢 LONG AVAX/USDT: $13.3720
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG WIF/USDT: $0.3991
+   🟢 LONG OP/USDT: $0.3114
+   🟢 LONG ARB/USDT: $0.2082
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:06:17
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.9200 | 📉 -6.9%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5410 | 📉 -1.3%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1840 | 📈 +5.2%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 6 สัญญาณ (🟢 6 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3990
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2082
+   🟢 LONG UNI/USDT: $5.4330
+   🟢 LONG DOGE/USDT: $0.1379
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 8 สัญญาณ (🟢 8 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG IMX/USDT: $0.2761
+   🟢 LONG WIF/USDT: $0.3993
+   🟢 LONG OP/USDT: $0.3115
+   🟢 LONG ARB/USDT: $0.2082
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 8 สัญญาณ (🟢 8 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG IMX/USDT: $0.2760
+   🟢 LONG WIF/USDT: $0.3993
+   🟢 LONG OP/USDT: $0.3115
+   🟢 LONG ARB/USDT: $0.2083
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:08:20
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.9300 | 📉 -7.1%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5210 | 📉 -10.1%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1990 | 📈 +7.5%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 5 สัญญาณ (🟢 5 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3996
+   🟢 LONG OP/USDT: $0.3117
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG UNI/USDT: $5.4340
+   🟢 LONG DOGE/USDT: $0.1379
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 6 สัญญาณ (🟢 6 LONG | 🔴 0 SHORT)
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG WIF/USDT: $0.3993
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG UNI/USDT: $5.4330
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 7 สัญญาณ (🟢 7 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3987
+   🟢 LONG GRT/USDT: $0.0412
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2082
+   🟢 LONG UNI/USDT: $5.4300
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:10:27
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.9300 | 📉 -7.1%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5230 | 📉 -9.2%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1920 | 📈 +6.4%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 8 สัญญาณ (🟢 8 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3987
+   🟢 LONG IMX/USDT: $0.2761
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2080
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 8 สัญญาณ (🟢 8 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3986
+   🟢 LONG IMX/USDT: $0.2761
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG OP/USDT: $0.3114
+   🟢 LONG ARB/USDT: $0.2080
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 7 สัญญาณ (🟢 7 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3988
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG OP/USDT: $0.3117
+   🟢 LONG ARB/USDT: $0.2080
+   🟢 LONG UNI/USDT: $5.4290
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:12:29
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.9900 | 📉 -8.6%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.4920 | 📉 -22.9%
+   🟢 LONG ETC/USDT: $13.1500 → $13.1960 | 📈 +7.0%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 8 สัญญาณ (🟢 8 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3985
+   🟢 LONG IMX/USDT: $0.2761
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG OP/USDT: $0.3116
+   🟢 LONG ARB/USDT: $0.2080
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 9 สัญญาณ (🟢 9 LONG | 🔴 0 SHORT)
+   🟢 LONG AVAX/USDT: $13.3590
+   🟢 LONG WIF/USDT: $0.3985
+   🟢 LONG IMX/USDT: $0.2761
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG OP/USDT: $0.3116
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 7 สัญญาณ (🟢 7 LONG | 🔴 0 SHORT)
+   🟢 LONG WIF/USDT: $0.3984
+   🟢 LONG GRT/USDT: $0.0413
+   🟢 LONG OP/USDT: $0.3117
+   🟢 LONG ARB/USDT: $0.2079
+   🟢 LONG UNI/USDT: $5.4270
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:14:32
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $81.9900 | 📉 -8.6%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5010 | 📉 -18.9%
+   🟢 LONG ETC/USDT: $13.1500 → $13.2030 | 📈 +8.1%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 9 สัญญาณ (🟢 9 LONG | 🔴 0 SHORT)
+   🟢 LONG AVAX/USDT: $13.3630
+   🟢 LONG WIF/USDT: $0.3987
+   🟢 LONG OP/USDT: $0.3118
+   🟢 LONG ARB/USDT: $0.2080
+   🟢 LONG DOGE/USDT: $0.1379
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 8 สัญญาณ (🟢 8 LONG | 🔴 0 SHORT)
+   🟢 LONG AVAX/USDT: $13.3780
+   🟢 LONG WIF/USDT: $0.3991
+   🟢 LONG OP/USDT: $0.3118
+   🟢 LONG ARB/USDT: $0.2083
+   🟢 LONG DOGE/USDT: $0.1380
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 6 สัญญาณ (🟢 6 LONG | 🔴 0 SHORT)
+   🟢 LONG AVAX/USDT: $13.3850
+   🟢 LONG WIF/USDT: $0.3994
+   🟢 LONG OP/USDT: $0.3118
+   🟢 LONG ARB/USDT: $0.2084
+   🟢 LONG SEI/USDT: $0.1293
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 08:16:34
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $4.5000 | ROI: +0.00%
+📈 Trades: 0 | ✅ 0W / ❌ 0L | WR: 0.0%
+
+📊 Positions (3/3):
+   🔴 SHORT LTC/USDT: $81.6400 → $82.1800 | 📉 -13.2%
+   🟢 LONG ORDI/USDT: $4.5440 → $4.5380 | 📉 -2.6%
+   🟢 LONG ETC/USDT: $13.1500 → $13.2310 | 📈 +12.3%

@@ -105,14 +105,14 @@ class Config:
     # Risk Management (Agent-C)
     DAILY_STOP_LOSS_PCT: float = 0.80      # 80% DSL (for testing)
     MAX_DRAWDOWN_PCT: float = 0.80          # 80% MDD limit (for testing)
-    STOP_LOSS_PCT: float = 0.030            # เพิ่มจาก 1.2% เป็น 3% (ไม่โดน Stop Hunt)
-    TAKE_PROFIT_PCT: float = 0.060          # เพิ่มจาก 5% เป็น 6% (Risk:Reward = 1:2)
-    TRAILING_STOP_PCT: float = 0.020        # เพิ่มจาก 1.5% เป็น 2% trailing
+    STOP_LOSS_PCT: float = 0.015            # 1.5% SL (= -30% ที่ 20x) - Scalping เร็ว
+    TAKE_PROFIT_PCT: float = 0.020          # 2% TP (= +40% ที่ 20x) Risk:Reward = 1:1.33
+    TRAILING_STOP_PCT: float = 0.010        # 1% trailing - ตามติดกำไรใกล้ๆ
     
-    # Advanced Features
-    BREAKEVEN_TRIGGER_PCT: float = 0.015    # Move SL to entry when +1.5% profit
-    PARTIAL_TP_ENABLED: bool = True         # Enable partial take profit
-    PARTIAL_TP_PCT: float = 0.025           # First TP at +2.5%
+    # Advanced Features - Scalping
+    BREAKEVEN_TRIGGER_PCT: float = 0.010    # Move SL to entry when +1% profit
+    PARTIAL_TP_ENABLED: bool = False        # ปิด partial TP สำหรับ scalping
+    PARTIAL_TP_PCT: float = 0.015           # First TP at +1.5%
     PARTIAL_TP_CLOSE_PCT: float = 0.50      # Close 50% at first TP
     AUTO_COMPOUND: bool = True              # Auto increase position with profit
     

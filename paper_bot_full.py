@@ -40,11 +40,11 @@ COINS = [
     'LINK/USDT', 'DOT/USDT', 'POL/USDT', 'LTC/USDT', 'UNI/USDT',
 ]
 
-# Trading Settings
+# Trading Settings - Option A: Scalping เร็ว
 INITIAL_BALANCE = 4.50
-LEVERAGE = 20  # ลดจาก 50x เป็น 20x (ปลอดภัยกว่า)
-SL_PCT = 0.030  # เพิ่มจาก 1.2% เป็น 3% (ไม่โดน Stop Hunt)
-TP_PCT = 0.060  # เพิ่มจาก 5% เป็น 6% (Risk:Reward = 1:2)
+LEVERAGE = 20  # 20x leverage
+SL_PCT = 0.015  # 1.5% SL (= -30% ที่ 20x leverage)
+TP_PCT = 0.020  # 2% TP (= +40% ที่ 20x leverage) Risk:Reward = 1:1.33
 TIMEFRAME = '5m'
 SCAN_INTERVAL = 30
 MAX_POSITIONS = 3
