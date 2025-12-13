@@ -1,48 +1,45 @@
 nohup: ignoring input
-2025-12-12 18:17:43 [INFO] 🤖 AI News Filter: ✅ Enabled (Perplexity)
-2025-12-12 18:17:43 [INFO] ============================================================
-2025-12-12 18:17:43 [INFO] 🤖 AlphaBot-Scalper V4 Initialized
-2025-12-12 18:17:43 [INFO]    Mode: ⚪ SIMULATION
-2025-12-12 18:17:43 [INFO]    Symbol: BTC/USDT
-2025-12-12 18:17:43 [INFO]    Timeframe: 5m
-2025-12-12 18:17:43 [INFO]    Capital: $4.50
-2025-12-12 18:17:43 [INFO]    Leverage: 50x
-2025-12-12 18:17:43 [INFO]    DSL: 80.0%
-2025-12-12 18:17:43 [INFO]    MDD: 80.0%
-2025-12-12 18:17:43 [INFO]    Telegram: ✅ Enabled
-2025-12-12 18:17:43 [INFO] ============================================================
-2025-12-12 18:17:43 [INFO] 📊 Starting BACKTEST: BTC/USDT 5m 14d
-2025-12-12 18:17:46 [INFO] ✅ Loaded 1451 candles
-2025-12-12 18:17:50 [INFO] [Agent-C] ✅ LONG @ 91792.70 | Size: $4.50 | Lev: 30x | SL: 90691.19 | TP: 96382.34 | Mode: ⚪ SIM
-2025-12-12 18:17:54 [INFO] [Agent-C] 🔴 CLOSED LONG @ 90484.20 | PnL: $-1.98 (-1.43%) | STOP_LOSS | Balance: $2.47
-2025-12-12 18:18:17 [INFO] [Agent-C] ✅ LONG @ 90484.20 | Size: $2.47 | Lev: 30x | SL: 89398.39 | TP: 95008.41 | Mode: ⚪ SIM
-2025-12-12 18:18:20 [INFO] [Agent-C] 🔴 CLOSED LONG @ 89817.20 | PnL: $-0.58 (-0.74%) | TRAILING_STOP | Balance: $1.86
-2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 5 candles remaining after 2 losses
-2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 4 candles remaining after 2 losses
-2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 3 candles remaining after 2 losses
-2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 2 candles remaining after 2 losses
-2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 1 candles remaining after 2 losses
-2025-12-12 18:18:23 [INFO] [Agent-C] ⏳ Cooldown: 0 candles remaining after 2 losses
-2025-12-12 18:18:27 [INFO] [Agent-C] ✅ LONG @ 90099.90 | Size: $1.86 | Lev: 30x | SL: 89018.70 | TP: 94604.90 | Mode: ⚪ SIM
-2025-12-12 18:18:31 [INFO] [Agent-C] 🔒 BREAK-EVEN activated @ $90190.00
-2025-12-12 18:18:31 [INFO] [Agent-C] 💰 PARTIAL TP: Closed 50% @ +2.98% | +$0.822
-2025-12-12 18:18:33 [INFO] [Agent-C] 🟢 CLOSED LONG @ 91360.00 | PnL: $0.38 (1.40%) | TRAILING_STOP | Balance: $3.04
-2025-12-12 18:18:56 [INFO] [Agent-C] ✅ LONG @ 90000.00 | Size: $3.04 | Lev: 30x | SL: 88920.00 | TP: 94500.00 | Mode: ⚪ SIM
-2025-12-12 18:19:00 [INFO] [Agent-C] 🔒 BREAK-EVEN activated @ $90090.00
-2025-12-12 18:19:00 [INFO] [Agent-C] 💰 PARTIAL TP: Closed 50% @ +2.68% | +$1.207
-2025-12-12 18:19:02 [INFO] [Agent-C] 🟢 CLOSED LONG @ 90795.00 | PnL: $0.38 (0.88%) | TRAILING_STOP | Balance: $4.60
+🤖 Auto-trade mode enabled (no confirmation required)
+Traceback (most recent call last):
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/base/exchange.py", line 611, in fetch
+    response.raise_for_status()
+  File "/home/codespace/.local/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error:  for url: https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1765608769412&recvWindow=10000&signature=9fb9c616d8969d5550279638099dcc155fcf68bd3719ac1c5ff92f879e2bf4f6
 
-============================================================
-📊 ALPHABOT-SCALPER V4 SUMMARY
-============================================================
-  Total Trades: 4
-  Wins/Losses: 2/2
-  Win Rate: 50.0%
-  Profit Factor: 0.30
-  Total PnL: $-1.79
-  ROI: -39.76%
-  Final Balance: $4.60
-  Peak Balance: $4.60
-  Max Drawdown: 0.00%
-============================================================
-📝 Decision log saved to decisions.json
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspaces/bottrad/alphabot_v4.py", line 3053, in <module>
+    bot = AlphaBotV4(config, live_mode=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/bottrad/alphabot_v4.py", line 2699, in __init__
+    self.executor = ExchangeExecutor(self.config, self.logger)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/bottrad/alphabot_v4.py", line 2061, in __init__
+    self.exchange.load_markets()
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/base/exchange.py", line 1714, in load_markets
+    currencies = self.fetch_currencies()
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/binance.py", line 2866, in fetch_currencies
+    promises = [self.sapiGetCapitalConfigGetall(params)]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/base/types.py", line 35, in unbound_method
+    return _self.request(self.path, self.api, self.method, params, config=self.config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/binance.py", line 11568, in request
+    response = self.fetch2(path, api, method, params, headers, body, config)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/base/exchange.py", line 4987, in fetch2
+    raise e
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/base/exchange.py", line 4975, in fetch2
+    return self.fetch(request['url'], request['method'], request['headers'], request['body'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/base/exchange.py", line 627, in fetch
+    skip_further_error_handling = self.handle_errors(http_status_code, http_status_text, url, method, headers, http_response, json_response, request_headers, request_body)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/binance.py", line 11536, in handle_errors
+    self.throw_exactly_matched_exception(self.exceptions['exact'], error, feedback)
+  File "/home/codespace/.python/current/lib/python3.12/site-packages/ccxt/base/exchange.py", line 5392, in throw_exactly_matched_exception
+    raise exact[string](message)
+ccxt.base.errors.AuthenticationError: binanceusdm {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}

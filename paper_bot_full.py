@@ -42,9 +42,9 @@ COINS = [
 
 # Trading Settings
 INITIAL_BALANCE = 4.50
-LEVERAGE = 50
-SL_PCT = 0.012
-TP_PCT = 0.050
+LEVERAGE = 20  # ลดจาก 50x เป็น 20x (ปลอดภัยกว่า)
+SL_PCT = 0.030  # เพิ่มจาก 1.2% เป็น 3% (ไม่โดน Stop Hunt)
+TP_PCT = 0.060  # เพิ่มจาก 5% เป็น 6% (Risk:Reward = 1:2)
 TIMEFRAME = '5m'
 SCAN_INTERVAL = 30
 MAX_POSITIONS = 3

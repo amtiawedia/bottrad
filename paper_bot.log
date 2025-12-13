@@ -1,1 +1,469 @@
 nohup: ignoring input
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3592 (\N{THAI CHARACTER CHO CHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3635 (\N{THAI CHARACTER SARA AM}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3621 (\N{THAI CHARACTER LO LING}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3629 (\N{THAI CHARACTER O ANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3591 (\N{THAI CHARACTER NGO NGU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3648 (\N{THAI CHARACTER SARA E}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3607 (\N{THAI CHARACTER THO THAHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3656 (\N{THAI CHARACTER MAI EK}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3634 (\N{THAI CHARACTER SARA AA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3609 (\N{THAI CHARACTER NO NU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3633 (\N{THAI CHARACTER MAI HAN-AKAT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3657 (\N{THAI CHARACTER MAI THO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3652 (\N{THAI CHARACTER SARA AI MAIMALAI}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3617 (\N{THAI CHARACTER MO MA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3651 (\N{THAI CHARACTER SARA AI MAIMUAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3594 (\N{THAI CHARACTER CHO CHANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3636 (\N{THAI CHARACTER SARA I}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3619 (\N{THAI CHARACTER RO RUA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128994 (\N{LARGE GREEN CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3592 (\N{THAI CHARACTER CHO CHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3635 (\N{THAI CHARACTER SARA AM}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3621 (\N{THAI CHARACTER LO LING}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3629 (\N{THAI CHARACTER O ANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3591 (\N{THAI CHARACTER NGO NGU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3648 (\N{THAI CHARACTER SARA E}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3607 (\N{THAI CHARACTER THO THAHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3656 (\N{THAI CHARACTER MAI EK}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3634 (\N{THAI CHARACTER SARA AA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3609 (\N{THAI CHARACTER NO NU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3633 (\N{THAI CHARACTER MAI HAN-AKAT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3657 (\N{THAI CHARACTER MAI THO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3652 (\N{THAI CHARACTER SARA AI MAIMALAI}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3617 (\N{THAI CHARACTER MO MA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3651 (\N{THAI CHARACTER SARA AI MAIMUAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3594 (\N{THAI CHARACTER CHO CHANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3636 (\N{THAI CHARACTER SARA I}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3619 (\N{THAI CHARACTER RO RUA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128308 (\N{LARGE RED CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:185: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128221 (\N{MEMO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128308 (\N{LARGE RED CIRCLE}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128205 (\N{ROUND PUSHPIN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 128737 (\N{SHIELD}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3592 (\N{THAI CHARACTER CHO CHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3635 (\N{THAI CHARACTER SARA AM}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3621 (\N{THAI CHARACTER LO LING}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3629 (\N{THAI CHARACTER O ANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3591 (\N{THAI CHARACTER NGO NGU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3648 (\N{THAI CHARACTER SARA E}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3607 (\N{THAI CHARACTER THO THAHAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3656 (\N{THAI CHARACTER MAI EK}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3634 (\N{THAI CHARACTER SARA AA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3609 (\N{THAI CHARACTER NO NU}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3633 (\N{THAI CHARACTER MAI HAN-AKAT}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3657 (\N{THAI CHARACTER MAI THO}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3652 (\N{THAI CHARACTER SARA AI MAIMALAI}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3617 (\N{THAI CHARACTER MO MA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3651 (\N{THAI CHARACTER SARA AI MAIMUAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3594 (\N{THAI CHARACTER CHO CHANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3636 (\N{THAI CHARACTER SARA I}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+/workspaces/bottrad/paper_bot_full.py:188: UserWarning: Glyph 3619 (\N{THAI CHARACTER RO RUA}) missing from font(s) DejaVu Sans.
+  plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
+🔄 เชื่อมต่อ Binance Futures...
+✅ โหลด 648 ตลาด
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                     📝 PAPER TRADE BOT - FULL VERSION                        ║
+║                  ส่งกราฟ + แจ้งเตือน เหมือน Bot เงินจริง!                     ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║  ⚠️  จำลองเท่านั้น - ไม่ใช่เงินจริง!                                          ║
+║  🎯 เป้าหมาย: $4.50 → $50.00                                                 ║
+║  📊 เหรียญ: 30 เหรียญ | ⚡ Leverage: 50x                                   ║
+║  🛡️ SL: 1.2% | 🎯 TP: 5.0%                                                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+        
+📂 โหลด state: $1.1075 | 4 เทรด
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 3 สัญญาณ (🟢 2 LONG | 🔴 1 SHORT)
+   🟢 LONG ETC/USDT: $13.1380
+   🟢 LONG AVAX/USDT: $13.3330
+   🔴 SHORT INJ/USDT: $5.3590
+
+🟢 [PAPER] เปิด LONG ETC/USDT
+   📍 Entry: $13.1380
+   🛡️ SL: $12.9803 | 🎯 TP: $13.7949
+
+🟢 [PAPER] เปิด LONG AVAX/USDT
+   📍 Entry: $13.3330
+   🛡️ SL: $13.1730 | 🎯 TP: $13.9997
+
+🔴 [PAPER] เปิด SHORT INJ/USDT
+   📍 Entry: $5.3590
+   🛡️ SL: $5.4233 | 🎯 TP: $5.0911
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 06:53:49
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1370 | 📉 -0.4%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3310 | 📉 -0.8%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3580 | 📈 +0.9%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 06:55:38
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1370 | 📉 -0.4%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3310 | 📉 -0.8%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3550 | 📈 +3.7%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 06:57:25
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1360 | 📉 -0.8%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3410 | 📈 +3.0%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3570 | 📈 +1.9%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 06:59:13
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1320 | 📉 -2.3%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3380 | 📈 +1.9%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3570 | 📈 +1.9%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG ORDI/USDT: $4.4940
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 1 LONG | 🔴 0 SHORT)
+   🟢 LONG ORDI/USDT: $4.5070
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:01:00
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1470 | 📈 +3.4%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3260 | 📉 -2.6%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3620 | 📉 -2.8%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 2 สัญญาณ (🟢 1 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.6800
+   🟢 LONG ORDI/USDT: $4.5090
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.6900
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:02:48
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1510 | 📈 +4.9%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3510 | 📈 +6.8%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3670 | 📉 -7.5%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.7000
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.7000
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.7000
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:04:35
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1540 | 📈 +6.1%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3260 | 📉 -2.6%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3770 | 📉 -16.8%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.6700
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.6600
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.6800
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:06:24
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1660 | 📈 +10.7%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3320 | 📉 -0.4%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3830 | 📉 -22.4%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:08:13
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1640 | 📈 +9.9%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3180 | 📉 -5.6%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3810 | 📉 -20.5%
+══════════════════════════════════════════════════════════════════════
+
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+
+📡 พบ 1 สัญญาณ (🟢 0 LONG | 🔴 1 SHORT)
+   🔴 SHORT LTC/USDT: $81.6500
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+⏳ รอ 30 วินาที... (Ctrl+C หยุด)
+
+🔍 สแกน 30 เหรียญ...
+   ⏳ ไม่พบสัญญาณ
+
+══════════════════════════════════════════════════════════════════════
+📊 PAPER TRADE STATUS - 07:10:00
+══════════════════════════════════════════════════════════════════════
+💰 Balance: $1.1075 | ROI: -75.39%
+📈 Trades: 4 | ✅ 0W / ❌ 4L | WR: 0.0%
+
+📊 Positions (3/3):
+   🟢 LONG ETC/USDT: $13.1380 → $13.1540 | 📈 +6.1%
+   🟢 LONG AVAX/USDT: $13.3330 → $13.3190 | 📉 -5.3%
+   🔴 SHORT INJ/USDT: $5.3590 → $5.3810 | 📉 -20.5%

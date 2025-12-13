@@ -100,14 +100,14 @@ class Config:
     # Portfolio
     INITIAL_CAPITAL: float = 4.5  # Current balance
     POSITION_SIZE_PCT: float = 1.00  # 100% per trade (full equity)
-    MAX_LEVERAGE: int = 50  # 50x leverage (optimal)
+    MAX_LEVERAGE: int = 20  # ลดจาก 50x เป็น 20x (ปลอดภัยกว่า)
     
     # Risk Management (Agent-C)
     DAILY_STOP_LOSS_PCT: float = 0.80      # 80% DSL (for testing)
     MAX_DRAWDOWN_PCT: float = 0.80          # 80% MDD limit (for testing)
-    STOP_LOSS_PCT: float = 0.012            # 1.2% SL per trade
-    TAKE_PROFIT_PCT: float = 0.050          # 5.0% TP per trade (optimal)
-    TRAILING_STOP_PCT: float = 0.015        # 1.5% trailing (tighter to lock profit)
+    STOP_LOSS_PCT: float = 0.030            # เพิ่มจาก 1.2% เป็น 3% (ไม่โดน Stop Hunt)
+    TAKE_PROFIT_PCT: float = 0.060          # เพิ่มจาก 5% เป็น 6% (Risk:Reward = 1:2)
+    TRAILING_STOP_PCT: float = 0.020        # เพิ่มจาก 1.5% เป็น 2% trailing
     
     # Advanced Features
     BREAKEVEN_TRIGGER_PCT: float = 0.015    # Move SL to entry when +1.5% profit
