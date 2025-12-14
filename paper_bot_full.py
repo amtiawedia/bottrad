@@ -97,101 +97,251 @@ class TelegramNotifier:
     
     def create_chart(self, df: pd.DataFrame, symbol: str, entry_price: float,
                      sl: float, tp: float, side: str, exit_price: float = None) -> bytes:
-        """สร้างกราฟสวยๆ เหมือน Bot จริง"""
+        """สร้างกราฟแบบ TradingView - Premium/Discount Zones + FVG + RSI สีโซน"""
         try:
-            df_chart = df.tail(60).copy()
+            df_chart = df.tail(80).copy().reset_index(drop=True)
+            
+            # TradingView Dark Theme Colors
+            bg_color = '#131722'
+            grid_color = '#1e222d'
+            bull_color = '#26a69a'
+            bear_color = '#ef5350'
+            text_color = '#d1d4dc'
             
             plt.style.use('dark_background')
-            fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(14, 10),
-                                                 gridspec_kw={'height_ratios': [4, 1, 1]},
-                                                 facecolor='#1a1a2e')
+            fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(16, 11),
+                                                 gridspec_kw={'height_ratios': [5, 1.5, 1]},
+                                                 facecolor=bg_color)
             for ax in [ax1, ax2, ax3]:
-                ax.set_facecolor('#16213e')
+                ax.set_facecolor(bg_color)
             
             x = range(len(df_chart))
             
-            # Candlestick
-            for i, (idx, row) in enumerate(df_chart.iterrows()):
-                color = '#00ff88' if row['close'] >= row['open'] else '#ff4757'
-                ax1.plot([i, i], [row['low'], row['high']], color=color, linewidth=1, alpha=0.7)
+            # ═══════════════════════════════════════════════════════════════════
+            # PREMIUM & DISCOUNT ZONES (ICT Concept)
+            # ═══════════════════════════════════════════════════════════════════
+            recent_high = df_chart['high'].max()
+            recent_low = df_chart['low'].min()
+            mid_range = (recent_high + recent_low) / 2
+            
+            # Premium Zone (ด้านบน - โซนขาย)
+            ax1.axhspan(mid_range, recent_high, alpha=0.08, color=bear_color, zorder=0)
+            ax1.axhline(y=mid_range, color='#787b86', linestyle='--', linewidth=0.8, alpha=0.5)
+            
+            # Discount Zone (ด้านล่าง - โซนซื้อ)
+            ax1.axhspan(recent_low, mid_range, alpha=0.08, color='#2196f3', zorder=0)
+            
+            # Labels for zones
+            ax1.annotate('PREMIUM', xy=(len(df_chart)-3, recent_high), fontsize=8, 
+                        color=bear_color, alpha=0.6, ha='right', va='top')
+            ax1.annotate('DISCOUNT', xy=(len(df_chart)-3, recent_low), fontsize=8, 
+                        color='#2196f3', alpha=0.6, ha='right', va='bottom')
+            
+            # ═══════════════════════════════════════════════════════════════════
+            # FAIR VALUE GAPS (FVG) Detection
+            # ═══════════════════════════════════════════════════════════════════
+            fvg_count = 0
+            for i in range(2, len(df_chart)):
+                if fvg_count >= 3:  # แสดงแค่ 3 FVG ล่าสุด
+                    break
+                    
+                # Bullish FVG: low[i] > high[i-2]
+                if df_chart.iloc[i]['low'] > df_chart.iloc[i-2]['high']:
+                    gap_top = df_chart.iloc[i]['low']
+                    gap_bottom = df_chart.iloc[i-2]['high']
+                    ax1.axhspan(gap_bottom, gap_top, xmin=(i-2)/len(df_chart), xmax=1,
+                               alpha=0.15, color=bull_color, zorder=1)
+                    ax1.annotate('FVG', xy=(i-1, (gap_top+gap_bottom)/2), fontsize=7,
+                               color=bull_color, alpha=0.7, ha='center', va='center')
+                    fvg_count += 1
+                
+                # Bearish FVG: high[i] < low[i-2]
+                elif df_chart.iloc[i]['high'] < df_chart.iloc[i-2]['low']:
+                    gap_top = df_chart.iloc[i-2]['low']
+                    gap_bottom = df_chart.iloc[i]['high']
+                    ax1.axhspan(gap_bottom, gap_top, xmin=(i-2)/len(df_chart), xmax=1,
+                               alpha=0.15, color=bear_color, zorder=1)
+                    ax1.annotate('FVG', xy=(i-1, (gap_top+gap_bottom)/2), fontsize=7,
+                               color=bear_color, alpha=0.7, ha='center', va='center')
+                    fvg_count += 1
+            
+            # ═══════════════════════════════════════════════════════════════════
+            # CANDLESTICKS - TradingView Style
+            # ═══════════════════════════════════════════════════════════════════
+            for i, row in df_chart.iterrows():
+                is_bull = row['close'] >= row['open']
+                color = bull_color if is_bull else bear_color
+                
+                # Wick
+                ax1.plot([i, i], [row['low'], row['high']], color=color, linewidth=0.8)
+                
+                # Body
                 body_bottom = min(row['open'], row['close'])
                 body_height = abs(row['close'] - row['open'])
-                rect = plt.Rectangle((i - 0.35, body_bottom), 0.7, body_height,
-                                     facecolor=color, edgecolor=color, alpha=0.9)
+                if body_height < 0.0001:
+                    body_height = 0.0001
+                rect = plt.Rectangle((i - 0.4, body_bottom), 0.8, body_height,
+                                     facecolor=color if is_bull else color, 
+                                     edgecolor=color, linewidth=0.5, alpha=0.95)
                 ax1.add_patch(rect)
             
+            # ═══════════════════════════════════════════════════════════════════
             # EMAs
+            # ═══════════════════════════════════════════════════════════════════
             if 'ema_fast' in df_chart.columns:
-                ax1.plot(x, df_chart['ema_fast'], color='#ffd32a', linewidth=1.5, label='EMA 3', alpha=0.8)
+                ax1.plot(x, df_chart['ema_fast'], color='#f7931a', linewidth=1.2, 
+                        label='EMA 3', alpha=0.85)
             if 'ema_slow' in df_chart.columns:
-                ax1.plot(x, df_chart['ema_slow'], color='#3742fa', linewidth=1.5, label='EMA 8', alpha=0.8)
+                ax1.plot(x, df_chart['ema_slow'], color='#2962ff', linewidth=1.2, 
+                        label='EMA 8', alpha=0.85)
+            if 'ema_20' in df_chart.columns:
+                ax1.plot(x, df_chart['ema_20'], color='#9c27b0', linewidth=1, 
+                        label='EMA 20', alpha=0.7)
             
+            # ═══════════════════════════════════════════════════════════════════
+            # ENTRY / TP / SL Lines with TradingView Style Labels
+            # ═══════════════════════════════════════════════════════════════════
             # Entry line
-            ax1.axhline(y=entry_price, color='#00d2d3', linestyle='--', linewidth=2.5, 
-                       label=f'📍 Entry: ${entry_price:,.4f}')
+            ax1.axhline(y=entry_price, color='#00bcd4', linestyle='--', linewidth=1.5, alpha=0.9)
+            ax1.annotate(f'ENTRY ${entry_price:,.2f}', xy=(len(df_chart)+0.5, entry_price),
+                        fontsize=9, color='white', va='center', ha='left',
+                        bbox=dict(boxstyle='round,pad=0.3', facecolor='#00bcd4', edgecolor='none', alpha=0.9))
             
-            # TP line
-            ax1.axhline(y=tp, color='#00ff88', linestyle='--', linewidth=2, 
-                       label=f'🎯 TP: ${tp:,.4f}')
-            ax1.fill_between(x, entry_price, tp, alpha=0.1, color='#00ff88')
+            # TP line with zone
+            ax1.axhline(y=tp, color=bull_color, linestyle='--', linewidth=1.5, alpha=0.9)
+            ax1.fill_between(x, entry_price, tp, alpha=0.08, color=bull_color)
+            ax1.annotate(f'TP ${tp:,.2f}', xy=(len(df_chart)+0.5, tp),
+                        fontsize=9, color='white', va='center', ha='left',
+                        bbox=dict(boxstyle='round,pad=0.3', facecolor=bull_color, edgecolor='none', alpha=0.9))
             
-            # SL line
-            ax1.axhline(y=sl, color='#ff4757', linestyle='--', linewidth=2, 
-                       label=f'🛡️ SL: ${sl:,.4f}')
-            ax1.fill_between(x, entry_price, sl, alpha=0.1, color='#ff4757')
+            # SL line with zone
+            ax1.axhline(y=sl, color=bear_color, linestyle='--', linewidth=1.5, alpha=0.9)
+            ax1.fill_between(x, entry_price, sl, alpha=0.08, color=bear_color)
+            ax1.annotate(f'SL ${sl:,.2f}', xy=(len(df_chart)+0.5, sl),
+                        fontsize=9, color='white', va='center', ha='left',
+                        bbox=dict(boxstyle='round,pad=0.3', facecolor=bear_color, edgecolor='none', alpha=0.9))
             
-            # Exit line
+            # Current Price
+            current_price = df_chart.iloc[-1]['close']
+            current_color = bull_color if current_price >= entry_price else bear_color
+            ax1.annotate(f'${current_price:,.2f}', xy=(len(df_chart)+0.5, current_price),
+                        fontsize=10, color='white', va='center', ha='left', fontweight='bold',
+                        bbox=dict(boxstyle='round,pad=0.4', facecolor=current_color, edgecolor='white', 
+                                 linewidth=1, alpha=0.95))
+            
+            # Exit marker
             if exit_price:
-                exit_color = '#00ff88' if (side == 'LONG' and exit_price > entry_price) or \
-                                          (side == 'SHORT' and exit_price < entry_price) else '#ff4757'
-                ax1.axhline(y=exit_price, color=exit_color, linestyle='-', linewidth=2.5,
-                           label=f'🏁 Exit: ${exit_price:,.4f}')
+                exit_color = bull_color if (side == 'LONG' and exit_price > entry_price) or \
+                                           (side == 'SHORT' and exit_price < entry_price) else bear_color
+                ax1.axhline(y=exit_price, color=exit_color, linestyle='-', linewidth=2, alpha=0.9)
                 ax1.scatter([len(df_chart)-1], [exit_price], color=exit_color,
-                           s=150, zorder=5, marker='o', edgecolors='white', linewidths=2)
+                           s=120, zorder=5, marker='o', edgecolors='white', linewidths=1.5)
+                ax1.annotate(f'EXIT ${exit_price:,.2f}', xy=(len(df_chart)+0.5, exit_price),
+                            fontsize=9, color='white', va='center', ha='left',
+                            bbox=dict(boxstyle='round,pad=0.3', facecolor=exit_color, edgecolor='none', alpha=0.9))
             
             # Entry marker
-            ax1.scatter([len(df_chart)-10], [entry_price], color='#00d2d3',
-                       s=150, zorder=5, marker='^' if side == 'LONG' else 'v',
-                       edgecolors='white', linewidths=2)
+            ax1.scatter([len(df_chart)-15], [entry_price], color='#00bcd4',
+                       s=100, zorder=5, marker='^' if side == 'LONG' else 'v',
+                       edgecolors='white', linewidths=1.5)
             
-            side_emoji = "🟢 LONG" if side == "LONG" else "🔴 SHORT"
-            ax1.set_title(f'📝 PAPER TRADE | {symbol} - {side_emoji}', fontsize=16,
-                         fontweight='bold', color='white', pad=15)
-            ax1.set_ylabel('Price ($)', fontsize=11, color='white')
-            ax1.legend(loc='upper left', fontsize=9, facecolor='#16213e')
-            ax1.grid(True, alpha=0.15, color='#0f3460')
-            ax1.tick_params(colors='white')
+            # Title & Style
+            side_text = "LONG" if side == "LONG" else "SHORT"
+            side_color = bull_color if side == "LONG" else bear_color
+            ax1.set_title(f'PAPER TRADE | {symbol} | {side_text}', fontsize=14,
+                         fontweight='bold', color=text_color, pad=10)
+            ax1.yaxis.tick_right()
+            ax1.yaxis.set_label_position('right')
+            ax1.set_ylabel('', fontsize=10, color=text_color)
+            ax1.legend(loc='upper left', fontsize=8, facecolor=bg_color, 
+                      edgecolor=grid_color, labelcolor=text_color)
+            ax1.grid(True, alpha=0.3, color=grid_color, linewidth=0.5)
+            ax1.tick_params(colors=text_color, labelsize=9)
+            ax1.set_xlim(-1, len(df_chart) + 8)
+            ax1.spines['top'].set_visible(False)
+            ax1.spines['left'].set_color(grid_color)
+            ax1.spines['right'].set_color(grid_color)
+            ax1.spines['bottom'].set_color(grid_color)
             
-            # RSI
+            # ═══════════════════════════════════════════════════════════════════
+            # RSI PANEL - TradingView Style with Color Zones
+            # ═══════════════════════════════════════════════════════════════════
             if 'rsi' in df_chart.columns:
-                rsi = df_chart['rsi']
-                ax2.plot(x, rsi, color='#a55eea', linewidth=2)
-                ax2.fill_between(x, rsi, 50, where=(rsi >= 50), alpha=0.3, color='#00ff88')
-                ax2.fill_between(x, rsi, 50, where=(rsi < 50), alpha=0.3, color='#ff4757')
-                ax2.axhline(y=70, color='#ff4757', linestyle='--', alpha=0.5)
-                ax2.axhline(y=30, color='#00ff88', linestyle='--', alpha=0.5)
-                ax2.set_ylabel('RSI', fontsize=10, color='white')
+                rsi = df_chart['rsi'].values
+                
+                # Background zones
+                ax2.axhspan(70, 100, alpha=0.15, color=bear_color)  # Overbought
+                ax2.axhspan(0, 30, alpha=0.15, color=bull_color)    # Oversold
+                ax2.axhspan(30, 70, alpha=0.05, color='#787b86')    # Neutral
+                
+                # RSI Line with gradient fill
+                ax2.plot(x, rsi, color='#9c27b0', linewidth=1.8)
+                
+                # Fill based on RSI position
+                for i in range(1, len(rsi)):
+                    if rsi[i] >= 70:  # Overbought
+                        ax2.fill_between([i-1, i], [rsi[i-1], rsi[i]], 70, 
+                                        alpha=0.4, color=bear_color)
+                    elif rsi[i] <= 30:  # Oversold
+                        ax2.fill_between([i-1, i], 30, [rsi[i-1], rsi[i]], 
+                                        alpha=0.4, color=bull_color)
+                    elif rsi[i] >= 50:  # Bullish
+                        ax2.fill_between([i-1, i], [rsi[i-1], rsi[i]], 50, 
+                                        alpha=0.2, color=bull_color)
+                    else:  # Bearish
+                        ax2.fill_between([i-1, i], 50, [rsi[i-1], rsi[i]], 
+                                        alpha=0.2, color=bear_color)
+                
+                # Lines
+                ax2.axhline(y=70, color=bear_color, linestyle='--', linewidth=0.8, alpha=0.5)
+                ax2.axhline(y=50, color='#787b86', linestyle='-', linewidth=0.5, alpha=0.4)
+                ax2.axhline(y=30, color=bull_color, linestyle='--', linewidth=0.8, alpha=0.5)
+                
+                # Current RSI value
+                current_rsi = rsi[-1] if not np.isnan(rsi[-1]) else 50
+                rsi_color = bear_color if current_rsi > 70 else (bull_color if current_rsi < 30 else '#9c27b0')
+                ax2.annotate(f'RSI {current_rsi:.1f}', xy=(len(df_chart)+0.5, current_rsi),
+                            fontsize=8, color='white', va='center', ha='left',
+                            bbox=dict(boxstyle='round,pad=0.2', facecolor=rsi_color, 
+                                     edgecolor='none', alpha=0.9))
+                
+                ax2.set_ylabel('RSI', fontsize=9, color=text_color)
                 ax2.set_ylim(0, 100)
-                ax2.grid(True, alpha=0.15)
-                ax2.tick_params(colors='white')
+                ax2.yaxis.tick_right()
+                ax2.set_xlim(-1, len(df_chart) + 8)
+                ax2.grid(True, alpha=0.2, color=grid_color)
+                ax2.tick_params(colors=text_color, labelsize=8)
+                ax2.spines['top'].set_visible(False)
+                ax2.spines['left'].set_color(grid_color)
+                ax2.spines['right'].set_color(grid_color)
+                ax2.spines['bottom'].set_color(grid_color)
             
-            # Volume
-            vol_colors = ['#00ff88' if c >= o else '#ff4757' 
+            # ═══════════════════════════════════════════════════════════════════
+            # VOLUME PANEL - TradingView Style
+            # ═══════════════════════════════════════════════════════════════════
+            vol_colors = [bull_color if c >= o else bear_color 
                          for o, c in zip(df_chart['open'], df_chart['close'])]
-            ax3.bar(x, df_chart['volume'], color=vol_colors, alpha=0.7, width=0.7)
-            ax3.set_ylabel('Volume', fontsize=10, color='white')
-            ax3.grid(True, alpha=0.15)
-            ax3.tick_params(colors='white')
+            ax3.bar(x, df_chart['volume'], color=vol_colors, alpha=0.7, width=0.8)
+            ax3.set_ylabel('Vol', fontsize=9, color=text_color)
+            ax3.yaxis.tick_right()
+            ax3.set_xlim(-1, len(df_chart) + 8)
+            ax3.grid(True, alpha=0.2, color=grid_color)
+            ax3.tick_params(colors=text_color, labelsize=8)
+            ax3.spines['top'].set_visible(False)
+            ax3.spines['left'].set_color(grid_color)
+            ax3.spines['right'].set_color(grid_color)
+            ax3.spines['bottom'].set_color(grid_color)
             
             # Watermark
-            fig.text(0.5, 0.02, '📝 PAPER TRADE - จำลองเท่านั้น ไม่ใช่เงินจริง!', 
-                    ha='center', fontsize=11, color='#ff6b6b', fontweight='bold')
+            fig.text(0.5, 0.01, 'PAPER TRADE - Simulation Only', 
+                    ha='center', fontsize=10, color='#787b86', style='italic')
             
             plt.tight_layout()
+            plt.subplots_adjust(hspace=0.08, right=0.88)
             
             buf = io.BytesIO()
-            plt.savefig(buf, format='png', dpi=120, bbox_inches='tight',
-                       facecolor='#1a1a2e', edgecolor='none')
+            plt.savefig(buf, format='png', dpi=130, bbox_inches='tight',
+                       facecolor=bg_color, edgecolor='none')
             buf.seek(0)
             plt.close(fig)
             plt.style.use('default')
