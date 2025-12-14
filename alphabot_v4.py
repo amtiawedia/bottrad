@@ -120,6 +120,11 @@ class Config:
     LIVE_PNL_INTERVAL: int = 300            # Send PnL update every 5 minutes (300 sec)
     SIGNAL_PREVIEW: bool = True             # Notify before entering trade
     
+    # 🔔 Live Updates Settings (เหมือน Paper Bot)
+    LIVE_STATUS_INTERVAL: int = 15          # ส่ง Live Status ทุก 15 นาที
+    PNL_ALERT_THRESHOLD: float = 10.0       # แจ้งเตือนเมื่อ PnL เกิน ±10%
+    CHART_INTERVAL: int = 60                # ส่งกราฟ positions ทุก 60 นาที
+    
     # Live Trading Mode
     LIVE_MODE: bool = False                 # False = Paper Trade (no real orders)
     
@@ -2728,6 +2733,11 @@ class AlphaBotV4:
         self.last_daily_report = datetime.now().date()
         self.last_hourly_report = datetime.now().hour
         
+        # 🔔 Live Updates Tracking (เหมือน Paper Bot)
+        self.last_live_status = 0  # ส่งทันทีตอนเริ่ม
+        self.last_chart_update = 0
+        self.last_pnl_alert = {}  # Track per-position alerts
+        
         self.logger.info("=" * 60)
         self.logger.info("🤖 AlphaBot-Scalper V4 Initialized")
         self.logger.info(f"   Mode: {'🔴 LIVE TRADING' if self.config.LIVE_MODE else '⚪ SIMULATION'}")
@@ -2811,6 +2821,233 @@ class AlphaBotV4:
         
         return result
     
+    # ═══════════════════════════════════════════════════════════════════════════════
+    # 🔔 LIVE UPDATES FUNCTIONS (เหมือน Paper Bot)
+    # ═══════════════════════════════════════════════════════════════════════════════
+    
+    def send_live_status(self):
+        """📊 ส่ง Live Status ทุก 15 นาที"""
+        if not self.telegram.enabled:
+            return
+        
+        stats = self.agent_c.get_stats()
+        roi = stats['roi'] * 100
+        
+        # Position info
+        if self.agent_c.position:
+            pos = self.agent_c.position
+            current_price = self.agent_a.df['close'].iloc[-1] if self.agent_a.df is not None else pos.entry_price
+            pnl = pos.unrealized_pnl(current_price)
+            pnl_pct = (pnl / pos.margin) * 100 if pos.margin > 0 else 0
+            
+            side_emoji = "🟢" if pos.side == "long" else "🔴"
+            pos_text = f"""
+📍 <b>Position:</b>
+{side_emoji} {pos.side.upper()} {self.config.SYMBOL}
+💵 Entry: ${pos.entry_price:,.2f}
+📍 Current: ${current_price:,.2f}
+{'📈' if pnl >= 0 else '📉'} PnL: <b>{pnl_pct:+.1f}%</b> (${pnl:+.2f})
+🛡️ SL: ${pos.stop_loss:,.2f}
+🎯 TP: ${pos.take_profit:,.2f}"""
+        else:
+            pos_text = "\n📍 <b>Position:</b> ไม่มี (กำลังรอสัญญาณ...)"
+        
+        msg = f"""📊 <b>AlphaBot V4 - Live Status</b>
+━━━━━━━━━━━━━━━━━━━━
+🕐 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+{'🔴' if self.config.LIVE_MODE else '⚪'} Mode: {'LIVE TRADING' if self.config.LIVE_MODE else 'SIMULATION'}
+
+💰 Balance: <b>${stats['balance']:.2f}</b>
+💵 เริ่ม: ${self.config.INITIAL_CAPITAL:.2f}
+{'📈' if roi >= 0 else '📉'} ROI: <b>{roi:+.2f}%</b>
+{pos_text}
+
+📊 Total: {stats['total_trades']} | ✅ W: {stats.get('wins', 0)} | ❌ L: {stats.get('losses', 0)}
+🎯 Win Rate: {stats['win_rate']*100:.1f}%
+━━━━━━━━━━━━━━━━━━━━
+⏰ <i>Update ทุก 15 นาที</i>"""
+        
+        self.telegram.send_message(msg)
+        self.logger.info("📊 ส่ง Live Status ไป Telegram แล้ว")
+    
+    def check_pnl_alerts(self):
+        """🔔 แจ้งเตือนเมื่อ PnL เกิน ±10%"""
+        if not self.telegram.enabled or not self.agent_c.position:
+            return
+        
+        pos = self.agent_c.position
+        current_price = self.agent_a.df['close'].iloc[-1] if self.agent_a.df is not None else pos.entry_price
+        pnl = pos.unrealized_pnl(current_price)
+        pnl_pct = (pnl / pos.margin) * 100 if pos.margin > 0 else 0
+        
+        # เช็คว่าเกิน threshold และยังไม่เคยแจ้ง
+        alert_key = f"{self.config.SYMBOL}_{int(pnl_pct / self.config.PNL_ALERT_THRESHOLD) * int(self.config.PNL_ALERT_THRESHOLD)}"
+        
+        if abs(pnl_pct) >= self.config.PNL_ALERT_THRESHOLD and alert_key not in self.last_pnl_alert:
+            self.last_pnl_alert[alert_key] = time.time()
+            
+            emoji = "🚀" if pnl_pct > 0 else "⚠️"
+            side_emoji = "🟢" if pos.side == "long" else "🔴"
+            
+            msg = f"""{emoji} <b>PnL ALERT!</b>
+
+{side_emoji} <b>{self.config.SYMBOL}</b> ({pos.side.upper()})
+📍 Entry: ${pos.entry_price:,.2f}
+📍 Current: ${current_price:,.2f}
+{'🤑' if pnl_pct > 0 else '😰'} PnL: <b>{pnl_pct:+.1f}%</b> (${pnl:+.2f})
+
+{'🎯 ใกล้ถึง TP แล้ว!' if pnl_pct > 30 else ''}{'🛡️ ระวัง SL!' if pnl_pct < -20 else ''}
+━━━━━━━━━━━━━━━━━━━━
+{'🔴 LIVE TRADING' if self.config.LIVE_MODE else '⚪ Simulation'}"""
+            
+            self.telegram.send_message(msg)
+            self.logger.info(f"🔔 ส่ง PnL Alert: {self.config.SYMBOL} {pnl_pct:+.1f}%")
+    
+    def send_positions_chart(self):
+        """📈 ส่งกราฟ Premium Style"""
+        if not self.telegram.enabled or not self.agent_c.position:
+            return
+        
+        try:
+            pos = self.agent_c.position
+            df = self.agent_a.df
+            if df is None or df.empty:
+                return
+            
+            df_chart = df.tail(60).copy()
+            current_price = float(df.iloc[-1]['close'])
+            
+            # Calculate PnL
+            pnl = pos.unrealized_pnl(current_price)
+            pnl_pct = (pnl / pos.margin) * 100 if pos.margin > 0 else 0
+            
+            # Create premium chart
+            fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(14, 10),
+                                                 gridspec_kw={'height_ratios': [4, 1, 1]})
+            fig.patch.set_facecolor('#0d1117')
+            
+            for ax in [ax1, ax2, ax3]:
+                ax.set_facecolor('#161b22')
+            
+            x = range(len(df_chart))
+            
+            # 🕯️ Candlestick
+            for i, (idx, row) in enumerate(df_chart.iterrows()):
+                color = '#00ff88' if row['close'] >= row['open'] else '#ff4757'
+                ax1.plot([i, i], [row['low'], row['high']], color=color, linewidth=0.8, alpha=0.7)
+                body_bottom = min(row['open'], row['close'])
+                body_height = abs(row['close'] - row['open'])
+                rect = plt.Rectangle((i - 0.35, body_bottom), 0.7, body_height,
+                                     facecolor=color, edgecolor=color, alpha=0.9)
+                ax1.add_patch(rect)
+            
+            # EMAs
+            ema_fast_col = f'EMA_{self.config.EMA_FAST}'
+            ema_slow_col = f'EMA_{self.config.EMA_SLOW}'
+            if ema_fast_col in df_chart.columns:
+                ax1.plot(x, df_chart[ema_fast_col], color='#ffd93d', linewidth=1.2, label=f'EMA {self.config.EMA_FAST}', alpha=0.8)
+            if ema_slow_col in df_chart.columns:
+                ax1.plot(x, df_chart[ema_slow_col], color='#6c5ce7', linewidth=1.2, label=f'EMA {self.config.EMA_SLOW}', alpha=0.8)
+            
+            # Entry, TP, SL lines
+            ax1.axhline(y=pos.entry_price, color='#00d2d3', linestyle='--', linewidth=2.5, 
+                       label=f'📍 Entry: ${pos.entry_price:,.2f}')
+            ax1.axhline(y=pos.take_profit, color='#00ff88', linestyle='--', linewidth=2, 
+                       label=f'🎯 TP: ${pos.take_profit:,.2f}')
+            ax1.axhline(y=pos.stop_loss, color='#ff4757', linestyle='--', linewidth=2, 
+                       label=f'🛡️ SL: ${pos.stop_loss:,.2f}')
+            
+            # Fill zones
+            ax1.fill_between(x, pos.entry_price, pos.take_profit, alpha=0.1, color='#00ff88')
+            ax1.fill_between(x, pos.entry_price, pos.stop_loss, alpha=0.1, color='#ff4757')
+            
+            # Current price marker
+            ax1.scatter([len(df_chart)-1], [current_price], color='#00d2d3', s=100, zorder=5, 
+                       marker='o', edgecolors='white', linewidths=2)
+            
+            # Title
+            side_emoji = "🟢 LONG" if pos.side == "long" else "🔴 SHORT"
+            pnl_emoji = "📈" if pnl_pct > 0 else "📉"
+            mode_text = "🔴 LIVE" if self.config.LIVE_MODE else "⚪ SIM"
+            ax1.set_title(f'{mode_text} | {self.config.SYMBOL} - {side_emoji} | {pnl_emoji} PnL: {pnl_pct:+.1f}%', 
+                         fontsize=14, fontweight='bold', color='white', pad=15)
+            ax1.legend(loc='upper left', fontsize=9, facecolor='#161b22', edgecolor='#30363d')
+            ax1.grid(True, alpha=0.15, color='#30363d')
+            ax1.tick_params(colors='#8b949e')
+            
+            # RSI
+            rsi_col = f'RSI_{self.config.RSI_PERIOD}'
+            if rsi_col in df_chart.columns:
+                rsi = df_chart[rsi_col]
+                ax2.plot(x, rsi, color='#a55eea', linewidth=2)
+                ax2.fill_between(x, rsi, 50, where=(rsi >= 50), alpha=0.3, color='#00ff88')
+                ax2.fill_between(x, rsi, 50, where=(rsi < 50), alpha=0.3, color='#ff4757')
+                ax2.axhline(y=70, color='#ff4757', linestyle='--', alpha=0.5)
+                ax2.axhline(y=30, color='#00ff88', linestyle='--', alpha=0.5)
+                ax2.set_ylabel('RSI', fontsize=10, color='#8b949e')
+                ax2.set_ylim(0, 100)
+            ax2.grid(True, alpha=0.15, color='#30363d')
+            ax2.tick_params(colors='#8b949e')
+            ax2.set_facecolor('#161b22')
+            
+            # Volume
+            vol_colors = ['#00ff88' if c >= o else '#ff4757' 
+                         for o, c in zip(df_chart['open'], df_chart['close'])]
+            ax3.bar(x, df_chart['volume'], color=vol_colors, alpha=0.7, width=0.7)
+            ax3.set_ylabel('Volume', fontsize=10, color='#8b949e')
+            ax3.grid(True, alpha=0.15, color='#30363d')
+            ax3.tick_params(colors='#8b949e')
+            ax3.set_facecolor('#161b22')
+            
+            # Footer
+            stats = self.agent_c.get_stats()
+            fig.text(0.5, 0.01, f'💰 Balance: ${stats["balance"]:.2f} | ROI: {stats["roi"]*100:+.2f}% | {datetime.now().strftime("%Y-%m-%d %H:%M")}', 
+                    ha='center', fontsize=10, color='#8b949e')
+            
+            plt.tight_layout(rect=[0, 0.03, 1, 0.97])
+            
+            # Save
+            buf = io.BytesIO()
+            plt.savefig(buf, format='png', dpi=150, bbox_inches='tight', 
+                       facecolor='#0d1117', edgecolor='none')
+            buf.seek(0)
+            plt.close()
+            
+            caption = f"""📈 <b>POSITION CHART - Premium</b>
+━━━━━━━━━━━━━━━━━━━━
+🕐 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+{'🔴 LIVE TRADING' if self.config.LIVE_MODE else '⚪ Simulation'}
+
+{side_emoji} {self.config.SYMBOL}
+📍 Entry: ${pos.entry_price:,.2f}
+📍 Current: ${current_price:,.2f}
+{pnl_emoji} PnL: <b>{pnl_pct:+.1f}%</b> (${pnl:+.2f})
+━━━━━━━━━━━━━━━━━━━━
+⏰ <i>Update ทุก 1 ชม.</i>"""
+            
+            self.telegram.send_photo(buf.getvalue(), caption)
+            self.logger.info("📊 ส่ง Position Chart ไป Telegram แล้ว")
+            
+        except Exception as e:
+            self.logger.error(f"⚠️ Chart error: {e}")
+    
+    def check_live_updates(self):
+        """ตรวจสอบและส่ง Live Updates"""
+        now = time.time()
+        
+        # 📊 ส่ง Live Status ทุก 15 นาที
+        if now - self.last_live_status >= self.config.LIVE_STATUS_INTERVAL * 60:
+            self.send_live_status()
+            self.last_live_status = now
+        
+        # 🔔 เช็ค PnL Alerts
+        self.check_pnl_alerts()
+        
+        # 📈 ส่งกราฟทุกชั่วโมง
+        if now - self.last_chart_update >= self.config.CHART_INTERVAL * 60:
+            self.send_positions_chart()
+            self.last_chart_update = now
+    
     def run_live(self, interval_seconds: int = 60):
         """Run live trading loop"""
         self.is_running = True
@@ -2854,6 +3091,9 @@ class AlphaBotV4:
                 # ===== CHECK PRICE ALERTS =====
                 if current_price > 0:
                     self.telegram.check_price_alerts(current_price)
+                
+                # ===== 🔔 LIVE UPDATES (Status 15m, PnL ±10%, Chart 1hr) =====
+                self.check_live_updates()
                 
                 # ===== LIVE PNL UPDATE (every 5 min) =====
                 if self.agent_c.position and time.time() - self.last_pnl_update >= self.config.LIVE_PNL_INTERVAL:
