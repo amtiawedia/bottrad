@@ -672,13 +672,13 @@ class PaperTradeBotFull:
             print(f"⚠️ Chart error: {e}")
     
     def _send_pro_chart(self, symbol: str, pos: dict):
-        """📊 Professional Trading Terminal Chart with MACD"""
+        """📊 Clean Professional Trading Chart"""
         try:
             df = self.get_data_with_indicators(symbol)
             if df is None:
                 return
             
-            df_chart = df.tail(60).copy()
+            df_chart = df.tail(50).copy()
             current = float(df.iloc[-1]['close'])
             
             # คำนวณ PnL
@@ -689,154 +689,100 @@ class PaperTradeBotFull:
                 pnl_pct = (pos['entry_price'] - current) / pos['entry_price'] * LEVERAGE * 100
                 pnl_usd = (pos['entry_price'] - current) * pos['size']
             
+            coin_name = symbol.replace('/USDT', '')
+            
             # ═══════════════════════════════════════════════════════
-            # 🎨 PROFESSIONAL CHART SETUP (with MACD)
+            # CLEAN PROFESSIONAL CHART - No Emoji in Chart
             # ═══════════════════════════════════════════════════════
             
-            fig = plt.figure(figsize=(14, 12), facecolor='#131722')
+            fig, axes = plt.subplots(4, 1, figsize=(12, 10), facecolor='#0d1117',
+                                     gridspec_kw={'height_ratios': [3, 1, 1, 0.8], 'hspace': 0.05})
             
-            # Layout: Header, Main Chart, MACD, RSI, Volume, Footer
-            gs = fig.add_gridspec(6, 1, height_ratios=[0.5, 3.5, 0.8, 0.8, 0.7, 0.3], hspace=0.02)
+            ax_price, ax_macd, ax_rsi, ax_vol = axes
             
-            ax_header = fig.add_subplot(gs[0])
-            ax_main = fig.add_subplot(gs[1])
-            ax_macd = fig.add_subplot(gs[2], sharex=ax_main)
-            ax_rsi = fig.add_subplot(gs[3], sharex=ax_main)
-            ax_vol = fig.add_subplot(gs[4], sharex=ax_main)
-            ax_footer = fig.add_subplot(gs[5])
-            
-            # Theme
-            for ax in [ax_header, ax_main, ax_macd, ax_rsi, ax_vol, ax_footer]:
-                ax.set_facecolor('#131722')
-                ax.tick_params(colors='#787b86', labelsize=8)
+            # Style all axes
+            for ax in axes:
+                ax.set_facecolor('#0d1117')
+                ax.tick_params(colors='#8b949e', labelsize=8)
+                ax.grid(True, alpha=0.1, color='#30363d')
                 for spine in ax.spines.values():
-                    spine.set_color('#2a2e39')
-            
-            ax_header.axis('off')
-            ax_footer.axis('off')
+                    spine.set_color('#30363d')
             
             x = range(len(df_chart))
             
-            # ═══════════════════════════════════════════════════════
-            # 🏷️ HEADER - PROFESSIONAL STYLE
-            # ═══════════════════════════════════════════════════════
+            # Colors
+            green = '#3fb950'
+            red = '#f85149'
+            blue = '#58a6ff'
+            purple = '#a371f7'
+            yellow = '#d29922'
             
             is_profit = pnl_pct > 0
-            main_color = '#26a69a' if is_profit else '#ef5350'
-            side_color = '#26a69a' if pos['side'] == 'LONG' else '#ef5350'
-            
-            # Background gradient effect
-            ax_header.axhspan(0, 1, facecolor='#1e222d', alpha=0.8)
-            
-            # Left side - Symbol info
-            coin_name = symbol.replace('/USDT', '')
-            ax_header.text(0.02, 0.7, f"●", fontsize=16, color=side_color, 
-                          transform=ax_header.transAxes, va='center', fontweight='bold')
-            ax_header.text(0.05, 0.7, coin_name, fontsize=20, color='#d1d4dc', 
-                          transform=ax_header.transAxes, va='center', fontweight='bold',
-                          fontfamily='monospace')
-            ax_header.text(0.05, 0.25, 'USDT Perpetual', fontsize=9, color='#787b86', 
-                          transform=ax_header.transAxes, va='center')
-            
-            # Center - Price
-            ax_header.text(0.35, 0.7, f"${current:.4f}", fontsize=22, color=main_color, 
-                          transform=ax_header.transAxes, va='center', fontweight='bold',
-                          fontfamily='monospace')
-            
-            # PnL Badge
-            pnl_text = f"{'+' if pnl_pct > 0 else ''}{pnl_pct:.2f}%"
-            ax_header.text(0.55, 0.7, pnl_text, fontsize=18, color=main_color, 
-                          transform=ax_header.transAxes, va='center', fontweight='bold',
-                          bbox=dict(boxstyle='round,pad=0.3', facecolor='#131722', 
-                                   edgecolor=main_color, linewidth=2, alpha=0.9))
-            
-            # Right side - Position info
-            side_text = "LONG" if pos['side'] == 'LONG' else "SHORT"
-            ax_header.text(0.75, 0.7, side_text, fontsize=12, color=side_color, 
-                          transform=ax_header.transAxes, va='center', fontweight='bold',
-                          bbox=dict(boxstyle='round,pad=0.4', facecolor=side_color, 
-                                   edgecolor='none', alpha=0.15))
-            
-            ax_header.text(0.88, 0.7, f"{LEVERAGE}×", fontsize=11, color='#ffa726', 
-                          transform=ax_header.transAxes, va='center', fontweight='bold',
-                          bbox=dict(boxstyle='round,pad=0.3', facecolor='#3d2e0a', 
-                                   edgecolor='#ffa726', linewidth=1))
+            pnl_color = green if is_profit else red
+            side_color = green if pos['side'] == 'LONG' else red
             
             # ═══════════════════════════════════════════════════════
-            # 📈 MAIN CHART - CANDLESTICKS
+            # MAIN PRICE CHART - Candlesticks
             # ═══════════════════════════════════════════════════════
-            
-            # Price range for scaling
-            price_min = df_chart['low'].min()
-            price_max = df_chart['high'].max()
-            price_range = price_max - price_min
             
             for i, (idx, row) in enumerate(df_chart.iterrows()):
                 is_green = row['close'] >= row['open']
-                color = '#26a69a' if is_green else '#ef5350'
+                color = green if is_green else red
                 
                 # Wick
-                ax_main.plot([i, i], [row['low'], row['high']], 
-                            color=color, linewidth=1.2)
+                ax_price.plot([i, i], [row['low'], row['high']], color=color, linewidth=1)
                 
                 # Body
                 body_bottom = min(row['open'], row['close'])
                 body_height = abs(row['close'] - row['open'])
-                if body_height < price_range * 0.002:
-                    body_height = price_range * 0.002
+                if body_height < (df_chart['high'].max() - df_chart['low'].min()) * 0.003:
+                    body_height = (df_chart['high'].max() - df_chart['low'].min()) * 0.003
                 
-                rect = plt.Rectangle((i - 0.4, body_bottom), 0.8, body_height,
-                                     facecolor=color, edgecolor=color, linewidth=0.5)
-                ax_main.add_patch(rect)
+                rect = plt.Rectangle((i - 0.35, body_bottom), 0.7, body_height,
+                                     facecolor=color, edgecolor=color)
+                ax_price.add_patch(rect)
             
-            # EMAs with smooth lines
+            # EMAs
             if 'ema_fast' in df_chart.columns:
-                ax_main.plot(x, df_chart['ema_fast'], color='#f7931a', 
-                            linewidth=1.8, label='EMA 3', alpha=0.9)
+                ax_price.plot(x, df_chart['ema_fast'], color=yellow, linewidth=1.5, 
+                            label=f'EMA 3', alpha=0.9)
             if 'ema_slow' in df_chart.columns:
-                ax_main.plot(x, df_chart['ema_slow'], color='#627eea', 
-                            linewidth=1.8, label='EMA 8', alpha=0.9)
-            if 'ema_20' in df_chart.columns:
-                ax_main.plot(x, df_chart['ema_20'], color='#26a69a', 
-                            linewidth=1.2, label='EMA 20', alpha=0.6, linestyle='--')
+                ax_price.plot(x, df_chart['ema_slow'], color=blue, linewidth=1.5, 
+                            label=f'EMA 8', alpha=0.9)
             
-            # Entry Line with label
-            ax_main.axhline(y=pos['entry_price'], color='#2196f3', linestyle='-', 
-                           linewidth=2, alpha=0.9)
-            ax_main.text(len(df_chart)+0.5, pos['entry_price'], f" Entry ${pos['entry_price']:.4f}", 
-                        fontsize=8, color='#2196f3', va='center', fontweight='bold')
+            # Entry/TP/SL Lines with Labels
+            ax_price.axhline(y=pos['entry_price'], color=blue, linestyle='-', linewidth=2)
+            ax_price.axhline(y=pos['tp'], color=green, linestyle='--', linewidth=1.5)
+            ax_price.axhline(y=pos['sl'], color=red, linestyle='--', linewidth=1.5)
             
-            # TP Line with zone
-            ax_main.axhline(y=pos['tp'], color='#26a69a', linestyle='--', linewidth=1.5)
-            ax_main.fill_between(x, pos['entry_price'], pos['tp'], 
-                                alpha=0.05, color='#26a69a')
-            ax_main.text(len(df_chart)+0.5, pos['tp'], f" TP ${pos['tp']:.4f}", 
-                        fontsize=8, color='#26a69a', va='center')
+            # Target zones
+            ax_price.fill_between(x, pos['entry_price'], pos['tp'], alpha=0.08, color=green)
+            ax_price.fill_between(x, pos['entry_price'], pos['sl'], alpha=0.08, color=red)
             
-            # SL Line with zone
-            ax_main.axhline(y=pos['sl'], color='#ef5350', linestyle='--', linewidth=1.5)
-            ax_main.fill_between(x, pos['entry_price'], pos['sl'], 
-                                alpha=0.05, color='#ef5350')
-            ax_main.text(len(df_chart)+0.5, pos['sl'], f" SL ${pos['sl']:.4f}", 
-                        fontsize=8, color='#ef5350', va='center')
+            # Labels on right side
+            ax_price.text(len(df_chart)+0.5, pos['entry_price'], f'Entry ${pos["entry_price"]:.4f}', 
+                        fontsize=8, color=blue, va='center', fontweight='bold')
+            ax_price.text(len(df_chart)+0.5, pos['tp'], f'TP ${pos["tp"]:.4f}', 
+                        fontsize=8, color=green, va='center')
+            ax_price.text(len(df_chart)+0.5, pos['sl'], f'SL ${pos["sl"]:.4f}', 
+                        fontsize=8, color=red, va='center')
             
-            # Current price dot with pulse effect
-            ax_main.scatter([len(df_chart)-1], [current], color='#2196f3', 
-                           s=100, zorder=10, edgecolors='white', linewidths=2)
-            ax_main.scatter([len(df_chart)-1], [current], color='#2196f3', 
-                           s=250, zorder=9, alpha=0.2)
+            # Current price marker
+            ax_price.scatter([len(df_chart)-1], [current], color=blue, s=80, zorder=10, 
+                           edgecolors='white', linewidths=1.5)
             
-            # Subtle grid
-            ax_main.grid(True, alpha=0.08, color='#363a45', linestyle='-')
-            ax_main.set_ylabel('Price', fontsize=9, color='#787b86')
-            ax_main.legend(loc='upper left', fontsize=8, facecolor='#1e222d', 
-                          edgecolor='#363a45', labelcolor='#d1d4dc', framealpha=0.9)
+            ax_price.legend(loc='upper left', fontsize=8, facecolor='#161b22', 
+                          edgecolor='#30363d', labelcolor='#c9d1d9')
+            ax_price.set_ylabel('Price', fontsize=9, color='#8b949e')
+            ax_price.set_xlim(-1, len(df_chart) + 6)
             
-            # Set y-axis limits with padding
-            ax_main.set_ylim(price_min - price_range*0.05, price_max + price_range*0.15)
+            # Title with info
+            title = f"{coin_name}/USDT  |  {pos['side']}  |  {LEVERAGE}x  |  PnL: {pnl_pct:+.2f}%"
+            ax_price.set_title(title, fontsize=14, color='white', fontweight='bold', 
+                              loc='left', pad=10)
             
             # ═══════════════════════════════════════════════════════
-            # 📊 MACD - Moving Average Convergence Divergence
+            # MACD
             # ═══════════════════════════════════════════════════════
             
             if 'macd' in df_chart.columns:
@@ -844,147 +790,88 @@ class PaperTradeBotFull:
                 signal = df_chart['macd_signal'] if 'macd_signal' in df_chart.columns else macd.ewm(span=9).mean()
                 hist = macd - signal
                 
-                # Histogram bars with gradient colors
-                colors_hist = []
-                for i, h in enumerate(hist):
-                    if h >= 0:
-                        colors_hist.append('#26a69a' if i == 0 or h >= hist.iloc[i-1] else '#1a7a6e')
-                    else:
-                        colors_hist.append('#ef5350' if i == 0 or h <= hist.iloc[i-1] else '#b33d3a')
-                
-                ax_macd.bar(x, hist, color=colors_hist, alpha=0.7, width=0.7)
-                ax_macd.plot(x, macd, color='#2962ff', linewidth=1.5, label='MACD')
-                ax_macd.plot(x, signal, color='#ff6d00', linewidth=1.5, label='Signal')
-                ax_macd.axhline(y=0, color='#363a45', linewidth=0.8, alpha=0.5)
-                
-                # Current value label
-                current_macd = macd.iloc[-1]
-                macd_color = '#26a69a' if current_macd > 0 else '#ef5350'
-                ax_macd.text(len(df_chart)+0.5, current_macd, f' {current_macd:.4f}', 
-                           fontsize=8, color=macd_color, va='center', fontweight='bold')
-                
-                ax_macd.legend(loc='upper left', fontsize=7, facecolor='#1e222d', 
-                              edgecolor='#363a45', labelcolor='#d1d4dc')
-                ax_macd.set_ylabel('MACD', fontsize=8, color='#787b86')
-                ax_macd.grid(True, alpha=0.05, color='#363a45')
+                colors_hist = [green if h >= 0 else red for h in hist]
+                ax_macd.bar(x, hist, color=colors_hist, alpha=0.6, width=0.7)
+                ax_macd.plot(x, macd, color=blue, linewidth=1.2, label='MACD')
+                ax_macd.plot(x, signal, color=yellow, linewidth=1.2, label='Signal')
+                ax_macd.axhline(y=0, color='#30363d', linewidth=0.8)
+                ax_macd.legend(loc='upper left', fontsize=7, facecolor='#161b22', 
+                              edgecolor='#30363d', labelcolor='#c9d1d9')
+                ax_macd.set_ylabel('MACD', fontsize=8, color='#8b949e')
+                ax_macd.set_xlim(-1, len(df_chart) + 6)
             
             # ═══════════════════════════════════════════════════════
-            # 📊 RSI
+            # RSI
             # ═══════════════════════════════════════════════════════
             
             if 'rsi' in df_chart.columns:
                 rsi = df_chart['rsi']
+                ax_rsi.plot(x, rsi, color=purple, linewidth=1.5)
+                ax_rsi.fill_between(x, 50, rsi, where=(rsi >= 50), alpha=0.2, color=green)
+                ax_rsi.fill_between(x, 50, rsi, where=(rsi < 50), alpha=0.2, color=red)
                 
-                # RSI line with gradient
-                ax_rsi.plot(x, rsi, color='#ab47bc', linewidth=1.8)
+                ax_rsi.axhline(y=70, color=red, linestyle='--', alpha=0.5, linewidth=0.8)
+                ax_rsi.axhline(y=50, color='#30363d', linestyle='-', linewidth=0.8)
+                ax_rsi.axhline(y=30, color=green, linestyle='--', alpha=0.5, linewidth=0.8)
                 
-                # Overbought/Oversold zones
-                ax_rsi.fill_between(x, 70, 100, alpha=0.1, color='#ef5350')
-                ax_rsi.fill_between(x, 0, 30, alpha=0.1, color='#26a69a')
-                
-                # Current RSI fill
-                ax_rsi.fill_between(x, 50, rsi, where=(rsi >= 50), alpha=0.15, color='#26a69a')
-                ax_rsi.fill_between(x, 50, rsi, where=(rsi < 50), alpha=0.15, color='#ef5350')
-                
-                ax_rsi.axhline(y=70, color='#ef5350', linestyle='--', alpha=0.4, linewidth=0.8)
-                ax_rsi.axhline(y=50, color='#363a45', linestyle='-', alpha=0.5, linewidth=0.8)
-                ax_rsi.axhline(y=30, color='#26a69a', linestyle='--', alpha=0.4, linewidth=0.8)
-                
-                # RSI value label
                 current_rsi = rsi.iloc[-1]
-                rsi_color = '#ef5350' if current_rsi > 70 else '#26a69a' if current_rsi < 30 else '#ab47bc'
-                ax_rsi.text(len(df_chart)+0.5, current_rsi, f' {current_rsi:.1f}', 
-                           fontsize=9, color=rsi_color, va='center', fontweight='bold')
+                ax_rsi.text(len(df_chart)+0.5, current_rsi, f'{current_rsi:.1f}', 
+                           fontsize=8, color=purple, va='center', fontweight='bold')
                 
                 ax_rsi.set_ylim(0, 100)
-                ax_rsi.set_ylabel('RSI', fontsize=8, color='#787b86')
-                ax_rsi.grid(True, alpha=0.05, color='#363a45')
+                ax_rsi.set_ylabel('RSI', fontsize=8, color='#8b949e')
+                ax_rsi.set_xlim(-1, len(df_chart) + 6)
             
             # ═══════════════════════════════════════════════════════
-            # 📊 VOLUME
+            # VOLUME
             # ═══════════════════════════════════════════════════════
             
-            vol_colors = ['#26a69a' if c >= o else '#ef5350' 
-                         for o, c in zip(df_chart['open'], df_chart['close'])]
+            vol_colors = [green if c >= o else red for o, c in zip(df_chart['open'], df_chart['close'])]
             ax_vol.bar(x, df_chart['volume'], color=vol_colors, alpha=0.5, width=0.7)
+            ax_vol.set_ylabel('Vol', fontsize=8, color='#8b949e')
+            ax_vol.set_xlim(-1, len(df_chart) + 6)
             
-            # Volume MA
-            vol_ma = df_chart['volume'].rolling(20).mean()
-            ax_vol.plot(x, vol_ma, color='#ffa726', linewidth=1.2, alpha=0.8)
-            
-            ax_vol.set_ylabel('Vol', fontsize=8, color='#787b86')
-            ax_vol.grid(True, alpha=0.05, color='#363a45')
-            
-            # ═══════════════════════════════════════════════════════
-            # 📋 FOOTER
-            # ═══════════════════════════════════════════════════════
-            
-            ax_footer.axhspan(0, 1, facecolor='#1e222d', alpha=0.5)
-            
-            ax_footer.text(0.02, 0.5, '📝 PAPER TRADE', fontsize=10, color='#ffa726', 
-                          transform=ax_footer.transAxes, va='center', fontweight='bold')
-            
-            ax_footer.text(0.22, 0.5, f'💰 ${self.balance:.2f}', fontsize=10, color='#d1d4dc', 
-                          transform=ax_footer.transAxes, va='center')
-            
-            roi = ((self.balance - INITIAL_BALANCE) / INITIAL_BALANCE) * 100
-            roi_color = '#26a69a' if roi >= 0 else '#ef5350'
-            ax_footer.text(0.40, 0.5, f'ROI: {roi:+.2f}%', fontsize=10, color=roi_color, 
-                          transform=ax_footer.transAxes, va='center', fontweight='bold')
-            
-            ax_footer.text(0.60, 0.5, f'⏰ {datetime.now().strftime("%H:%M:%S")}', fontsize=9, 
-                          color='#787b86', transform=ax_footer.transAxes, va='center')
-            
-            ax_footer.text(0.98, 0.5, '🤖 AlphaBot Scalper V4', fontsize=9, color='#787b86', 
-                          transform=ax_footer.transAxes, va='center', ha='right', 
-                          style='italic', fontfamily='monospace')
-            
-            # ═══════════════════════════════════════════════════════
-            # 🏷️ WATERMARK
-            # ═══════════════════════════════════════════════════════
-            
-            # Semi-transparent watermark in the center of main chart
-            ax_main.text(0.5, 0.5, 'ALPHABOT', transform=ax_main.transAxes,
-                        fontsize=60, color='#ffffff', alpha=0.03, ha='center', va='center',
-                        fontweight='bold', fontfamily='monospace', rotation=0)
-            
-            # Remove x-axis labels except on volume
-            plt.setp(ax_main.get_xticklabels(), visible=False)
+            # Hide x labels except volume
+            plt.setp(ax_price.get_xticklabels(), visible=False)
             plt.setp(ax_macd.get_xticklabels(), visible=False)
             plt.setp(ax_rsi.get_xticklabels(), visible=False)
             
-            plt.tight_layout()
-            plt.subplots_adjust(hspace=0.02)
+            # Footer text
+            roi = ((self.balance - INITIAL_BALANCE) / INITIAL_BALANCE) * 100
+            footer = f"Balance: ${self.balance:.2f}  |  ROI: {roi:+.2f}%  |  {datetime.now().strftime('%H:%M:%S')}  |  AlphaBot V4"
+            fig.text(0.5, 0.01, footer, ha='center', fontsize=9, color='#8b949e')
             
-            # Save high quality
+            # Save
             buf = io.BytesIO()
-            plt.savefig(buf, format='png', dpi=200, bbox_inches='tight', 
-                       facecolor='#131722', edgecolor='none', pad_inches=0.1)
+            plt.savefig(buf, format='png', dpi=150, bbox_inches='tight', 
+                       facecolor='#0d1117', edgecolor='none')
             buf.seek(0)
             plt.close()
             
-            # Caption
-            side_emoji = "🟢 LONG" if pos['side'] == 'LONG' else "🔴 SHORT"
+            # Caption for Telegram
+            side_emoji = "🟢" if pos['side'] == 'LONG' else "🔴"
             pnl_emoji = "📈" if pnl_pct > 0 else "📉"
             
             caption = f"""<b>{coin_name}/USDT</b> • Perpetual
 ━━━━━━━━━━━━━━━━━━
-{side_emoji} <b>{pos['side']}</b> @ {LEVERAGE}× Leverage
+{side_emoji} <b>{pos['side']}</b> @ {LEVERAGE}x
 
 💵 Entry: <code>${pos['entry_price']:.4f}</code>
 💰 Mark: <code>${current:.4f}</code>
-{pnl_emoji} PnL: <b>{pnl_pct:+.2f}%</b> (<code>${pnl_usd:+.4f}</code>)
+{pnl_emoji} PnL: <b>{pnl_pct:+.2f}%</b> (${pnl_usd:+.4f})
 
 🎯 TP: <code>${pos['tp']:.4f}</code>
 🛡 SL: <code>${pos['sl']:.4f}</code>
 ━━━━━━━━━━━━━━━━━━
-📝 Paper Trade • ⏱ Hourly"""
+📝 Paper Trade"""
             
             self.telegram.send_photo(buf.getvalue(), caption)
-            print(f"📊 ส่งกราฟ {symbol} (Pro) ไป Telegram แล้ว")
+            print(f"📊 ส่งกราฟ {symbol} ไป Telegram แล้ว")
             
         except Exception as e:
             print(f"⚠️ Chart error for {symbol}: {e}")
+            import traceback
+            traceback.print_exc()
     
     def check_live_updates(self):
         """ตรวจสอบและส่ง Live Updates"""
