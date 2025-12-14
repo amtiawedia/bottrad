@@ -659,26 +659,26 @@ class PaperTradeBotFull:
                 print(f"🔔 ส่ง PnL Alert: {symbol} {pnl_pct:+.1f}%")
     
     def send_positions_chart(self):
-        """📈 ส่งกราฟ Ultra Premium TradingView Style"""
+        """📈 ส่งกราฟ Professional Trading Terminal"""
         if not self.telegram.enabled or not self.positions:
             return
         
         try:
             for symbol, pos in self.positions.items():
-                self._send_ultra_premium_chart(symbol, pos)
+                self._send_pro_chart(symbol, pos)
                 time.sleep(1)
             
         except Exception as e:
             print(f"⚠️ Chart error: {e}")
     
-    def _send_ultra_premium_chart(self, symbol: str, pos: dict):
-        """📊 Ultra Premium TradingView Style Chart"""
+    def _send_pro_chart(self, symbol: str, pos: dict):
+        """📊 Professional Trading Terminal Chart"""
         try:
             df = self.get_data_with_indicators(symbol)
             if df is None:
                 return
             
-            df_chart = df.tail(80).copy()
+            df_chart = df.tail(60).copy()
             current = float(df.iloc[-1]['close'])
             
             # คำนวณ PnL
@@ -690,285 +690,254 @@ class PaperTradeBotFull:
                 pnl_usd = (pos['entry_price'] - current) * pos['size']
             
             # ═══════════════════════════════════════════════════════
-            # 🎨 ULTRA PREMIUM CHART SETUP
+            # 🎨 PROFESSIONAL CHART SETUP
             # ═══════════════════════════════════════════════════════
             
-            fig = plt.figure(figsize=(16, 14), facecolor='#0c0c0c')
+            fig = plt.figure(figsize=(14, 10), facecolor='#131722')
             
-            # Golden ratio layout
-            gs = fig.add_gridspec(6, 4, height_ratios=[0.8, 4, 1.2, 1.2, 1, 0.6], 
-                                 width_ratios=[1, 1, 1, 0.4], hspace=0.08, wspace=0.05)
+            # Layout: Header, Main Chart, RSI, Volume, Footer
+            gs = fig.add_gridspec(5, 1, height_ratios=[0.6, 3.5, 0.8, 0.8, 0.3], hspace=0.02)
             
-            # Header panel
-            ax_header = fig.add_subplot(gs[0, :3])
-            ax_header.axis('off')
-            ax_header.set_facecolor('#0c0c0c')
+            ax_header = fig.add_subplot(gs[0])
+            ax_main = fig.add_subplot(gs[1])
+            ax_rsi = fig.add_subplot(gs[2], sharex=ax_main)
+            ax_vol = fig.add_subplot(gs[3], sharex=ax_main)
+            ax_footer = fig.add_subplot(gs[4])
             
-            # Price info panel (right side)
-            ax_price_info = fig.add_subplot(gs[1, 3])
-            ax_price_info.axis('off')
-            ax_price_info.set_facecolor('#0c0c0c')
-            
-            # Main chart
-            ax_main = fig.add_subplot(gs[1, :3])
-            
-            # MACD
-            ax_macd = fig.add_subplot(gs[2, :3], sharex=ax_main)
-            
-            # RSI
-            ax_rsi = fig.add_subplot(gs[3, :3], sharex=ax_main)
-            
-            # Volume
-            ax_vol = fig.add_subplot(gs[4, :3], sharex=ax_main)
-            
-            # Footer
-            ax_footer = fig.add_subplot(gs[5, :])
-            ax_footer.axis('off')
-            ax_footer.set_facecolor('#0c0c0c')
-            
-            # Apply dark theme to all axes
-            for ax in [ax_main, ax_macd, ax_rsi, ax_vol]:
+            # Theme
+            for ax in [ax_header, ax_main, ax_rsi, ax_vol, ax_footer]:
                 ax.set_facecolor('#131722')
-                ax.tick_params(colors='#787b86', labelsize=9, length=0)
+                ax.tick_params(colors='#787b86', labelsize=8)
                 for spine in ax.spines.values():
-                    spine.set_visible(False)
+                    spine.set_color('#2a2e39')
+            
+            ax_header.axis('off')
+            ax_footer.axis('off')
             
             x = range(len(df_chart))
             
             # ═══════════════════════════════════════════════════════
-            # 📊 HEADER - COIN INFO BOX
+            # 🏷️ HEADER - PROFESSIONAL STYLE
             # ═══════════════════════════════════════════════════════
             
-            side_color = '#089981' if pos['side'] == 'LONG' else '#f23645'
-            pnl_color = '#089981' if pnl_pct > 0 else '#f23645'
-            side_text = "LONG 📈" if pos['side'] == 'LONG' else "SHORT 📉"
+            is_profit = pnl_pct > 0
+            main_color = '#26a69a' if is_profit else '#ef5350'
+            side_color = '#26a69a' if pos['side'] == 'LONG' else '#ef5350'
             
-            # Gradient header box
-            header_box = plt.Rectangle((0.02, 0.1), 0.96, 0.8, 
-                                       facecolor='#1e222d', edgecolor=side_color,
-                                       linewidth=3, alpha=0.95, transform=ax_header.transAxes,
-                                       clip_on=False, zorder=10)
-            ax_header.add_patch(header_box)
+            # Background gradient effect
+            ax_header.axhspan(0, 1, facecolor='#1e222d', alpha=0.8)
             
-            # Symbol name (large)
-            ax_header.text(0.05, 0.5, f"⚡ {symbol}", transform=ax_header.transAxes,
-                          fontsize=24, fontweight='bold', color='white', va='center')
+            # Left side - Symbol info
+            coin_name = symbol.replace('/USDT', '')
+            ax_header.text(0.02, 0.7, f"●", fontsize=16, color=side_color, 
+                          transform=ax_header.transAxes, va='center', fontweight='bold')
+            ax_header.text(0.05, 0.7, coin_name, fontsize=20, color='#d1d4dc', 
+                          transform=ax_header.transAxes, va='center', fontweight='bold',
+                          fontfamily='monospace')
+            ax_header.text(0.05, 0.25, 'USDT Perpetual', fontsize=9, color='#787b86', 
+                          transform=ax_header.transAxes, va='center')
             
-            # Side badge
-            ax_header.text(0.35, 0.5, side_text, transform=ax_header.transAxes,
-                          fontsize=16, fontweight='bold', color=side_color, va='center',
-                          bbox=dict(boxstyle='round,pad=0.4', facecolor='#131722', 
-                                   edgecolor=side_color, linewidth=2))
+            # Center - Price
+            ax_header.text(0.35, 0.7, f"${current:.4f}", fontsize=22, color=main_color, 
+                          transform=ax_header.transAxes, va='center', fontweight='bold',
+                          fontfamily='monospace')
             
-            # PnL display (prominent)
-            pnl_sign = "+" if pnl_pct > 0 else ""
-            ax_header.text(0.55, 0.5, f"{pnl_sign}{pnl_pct:.2f}%", transform=ax_header.transAxes,
-                          fontsize=28, fontweight='bold', color=pnl_color, va='center')
+            # PnL Badge
+            pnl_text = f"{'+' if pnl_pct > 0 else ''}{pnl_pct:.2f}%"
+            ax_header.text(0.55, 0.7, pnl_text, fontsize=18, color=main_color, 
+                          transform=ax_header.transAxes, va='center', fontweight='bold',
+                          bbox=dict(boxstyle='round,pad=0.3', facecolor='#131722', 
+                                   edgecolor=main_color, linewidth=2, alpha=0.9))
             
-            # USD PnL
-            ax_header.text(0.75, 0.5, f"${pnl_usd:+.4f}", transform=ax_header.transAxes,
-                          fontsize=14, color=pnl_color, va='center', alpha=0.8)
+            # Right side - Position info
+            side_text = "LONG" if pos['side'] == 'LONG' else "SHORT"
+            ax_header.text(0.75, 0.7, side_text, fontsize=12, color=side_color, 
+                          transform=ax_header.transAxes, va='center', fontweight='bold',
+                          bbox=dict(boxstyle='round,pad=0.4', facecolor=side_color, 
+                                   edgecolor='none', alpha=0.15))
             
-            # Leverage badge
-            ax_header.text(0.92, 0.5, f"{LEVERAGE}x", transform=ax_header.transAxes,
-                          fontsize=12, fontweight='bold', color='#fbbf24', va='center',
-                          bbox=dict(boxstyle='round,pad=0.3', facecolor='#362a12', 
-                                   edgecolor='#fbbf24', linewidth=1))
+            ax_header.text(0.88, 0.7, f"{LEVERAGE}×", fontsize=11, color='#ffa726', 
+                          transform=ax_header.transAxes, va='center', fontweight='bold',
+                          bbox=dict(boxstyle='round,pad=0.3', facecolor='#3d2e0a', 
+                                   edgecolor='#ffa726', linewidth=1))
             
             # ═══════════════════════════════════════════════════════
-            # 📈 MAIN CANDLESTICK CHART
+            # 📈 MAIN CHART - CANDLESTICKS
             # ═══════════════════════════════════════════════════════
+            
+            # Price range for scaling
+            price_min = df_chart['low'].min()
+            price_max = df_chart['high'].max()
+            price_range = price_max - price_min
             
             for i, (idx, row) in enumerate(df_chart.iterrows()):
                 is_green = row['close'] >= row['open']
-                body_color = '#089981' if is_green else '#f23645'
-                wick_color = '#089981' if is_green else '#f23645'
+                color = '#26a69a' if is_green else '#ef5350'
                 
                 # Wick
                 ax_main.plot([i, i], [row['low'], row['high']], 
-                            color=wick_color, linewidth=1, alpha=0.9)
+                            color=color, linewidth=1.2)
                 
                 # Body
                 body_bottom = min(row['open'], row['close'])
                 body_height = abs(row['close'] - row['open'])
-                if body_height < (df_chart['high'].max() - df_chart['low'].min()) * 0.001:
-                    body_height = (df_chart['high'].max() - df_chart['low'].min()) * 0.001
+                if body_height < price_range * 0.002:
+                    body_height = price_range * 0.002
                 
                 rect = plt.Rectangle((i - 0.4, body_bottom), 0.8, body_height,
-                                     facecolor=body_color, edgecolor=body_color, 
-                                     alpha=0.95 if is_green else 0.85)
+                                     facecolor=color, edgecolor=color, linewidth=0.5)
                 ax_main.add_patch(rect)
             
-            # EMAs
-            ema_colors = {'ema_fast': ('#f7931a', 'EMA 3'), 
-                         'ema_slow': ('#627eea', 'EMA 8'),
-                         'ema_20': ('#26a69a', 'EMA 20')}
-            for col, (color, label) in ema_colors.items():
-                if col in df_chart.columns:
-                    ax_main.plot(x, df_chart[col], color=color, linewidth=1.5, 
-                                label=label, alpha=0.85)
+            # EMAs with smooth lines
+            if 'ema_fast' in df_chart.columns:
+                ax_main.plot(x, df_chart['ema_fast'], color='#f7931a', 
+                            linewidth=1.8, label='EMA 3', alpha=0.9)
+            if 'ema_slow' in df_chart.columns:
+                ax_main.plot(x, df_chart['ema_slow'], color='#627eea', 
+                            linewidth=1.8, label='EMA 8', alpha=0.9)
+            if 'ema_20' in df_chart.columns:
+                ax_main.plot(x, df_chart['ema_20'], color='#26a69a', 
+                            linewidth=1.2, label='EMA 20', alpha=0.6, linestyle='--')
             
-            # Entry Line (prominent with glow)
-            ax_main.axhline(y=pos['entry_price'], color='#2962ff', linestyle='-', 
-                           linewidth=2.5, alpha=0.9, zorder=5)
-            ax_main.axhline(y=pos['entry_price'], color='#2962ff', linestyle='-', 
-                           linewidth=8, alpha=0.15, zorder=4)
+            # Entry Line with label
+            ax_main.axhline(y=pos['entry_price'], color='#2196f3', linestyle='-', 
+                           linewidth=2, alpha=0.9)
+            ax_main.text(len(df_chart)+0.5, pos['entry_price'], f" Entry ${pos['entry_price']:.4f}", 
+                        fontsize=8, color='#2196f3', va='center', fontweight='bold')
             
-            # TP Zone
-            ax_main.axhline(y=pos['tp'], color='#089981', linestyle='--', linewidth=2)
+            # TP Line with zone
+            ax_main.axhline(y=pos['tp'], color='#26a69a', linestyle='--', linewidth=1.5)
             ax_main.fill_between(x, pos['entry_price'], pos['tp'], 
-                                alpha=0.08, color='#089981')
+                                alpha=0.05, color='#26a69a')
+            ax_main.text(len(df_chart)+0.5, pos['tp'], f" TP ${pos['tp']:.4f}", 
+                        fontsize=8, color='#26a69a', va='center')
             
-            # SL Zone  
-            ax_main.axhline(y=pos['sl'], color='#f23645', linestyle='--', linewidth=2)
+            # SL Line with zone
+            ax_main.axhline(y=pos['sl'], color='#ef5350', linestyle='--', linewidth=1.5)
             ax_main.fill_between(x, pos['entry_price'], pos['sl'], 
-                                alpha=0.08, color='#f23645')
+                                alpha=0.05, color='#ef5350')
+            ax_main.text(len(df_chart)+0.5, pos['sl'], f" SL ${pos['sl']:.4f}", 
+                        fontsize=8, color='#ef5350', va='center')
             
-            # Current price marker (pulsing effect)
-            ax_main.scatter([len(df_chart)-1], [current], color='#2962ff', 
-                           s=150, zorder=15, marker='o', edgecolors='white', linewidths=2)
-            ax_main.scatter([len(df_chart)-1], [current], color='#2962ff', 
-                           s=350, zorder=14, marker='o', alpha=0.2)
-            ax_main.scatter([len(df_chart)-1], [current], color='#2962ff', 
-                           s=600, zorder=13, marker='o', alpha=0.1)
+            # Current price dot with pulse effect
+            ax_main.scatter([len(df_chart)-1], [current], color='#2196f3', 
+                           s=100, zorder=10, edgecolors='white', linewidths=2)
+            ax_main.scatter([len(df_chart)-1], [current], color='#2196f3', 
+                           s=250, zorder=9, alpha=0.2)
             
-            # Grid
-            ax_main.grid(True, alpha=0.06, color='#363a45', linestyle='-')
-            ax_main.legend(loc='upper left', fontsize=9, facecolor='#1e222d', 
-                          edgecolor='#363a45', labelcolor='#d1d4dc')
-            ax_main.set_ylabel('Price', fontsize=10, color='#787b86')
+            # Subtle grid
+            ax_main.grid(True, alpha=0.08, color='#363a45', linestyle='-')
+            ax_main.set_ylabel('Price', fontsize=9, color='#787b86')
+            ax_main.legend(loc='upper left', fontsize=8, facecolor='#1e222d', 
+                          edgecolor='#363a45', labelcolor='#d1d4dc', framealpha=0.9)
             
-            # ═══════════════════════════════════════════════════════
-            # 💰 PRICE INFO PANEL (Right Side)
-            # ═══════════════════════════════════════════════════════
-            
-            info_items = [
-                ('Current', f'${current:.4f}', '#2962ff'),
-                ('Entry', f'${pos["entry_price"]:.4f}', '#787b86'),
-                ('TP', f'${pos["tp"]:.4f}', '#089981'),
-                ('SL', f'${pos["sl"]:.4f}', '#f23645'),
-                ('Size', f'{pos["size"]:.6f}', '#787b86'),
-            ]
-            
-            for i, (label, value, color) in enumerate(info_items):
-                y_pos = 0.9 - i * 0.18
-                ax_price_info.text(0.1, y_pos, label, transform=ax_price_info.transAxes,
-                                  fontsize=10, color='#787b86', va='center')
-                ax_price_info.text(0.9, y_pos, value, transform=ax_price_info.transAxes,
-                                  fontsize=11, color=color, va='center', ha='right',
-                                  fontweight='bold')
+            # Set y-axis limits with padding
+            ax_main.set_ylim(price_min - price_range*0.05, price_max + price_range*0.15)
             
             # ═══════════════════════════════════════════════════════
-            # 📊 MACD
-            # ═══════════════════════════════════════════════════════
-            
-            if 'macd' in df_chart.columns:
-                macd = df_chart['macd']
-                signal = df_chart['macd_signal'] if 'macd_signal' in df_chart.columns else macd.ewm(span=9).mean()
-                hist = macd - signal
-                
-                colors_hist = ['#089981' if h >= 0 else '#f23645' for h in hist]
-                ax_macd.bar(x, hist, color=colors_hist, alpha=0.5, width=0.8)
-                ax_macd.plot(x, macd, color='#2962ff', linewidth=1.5, label='MACD')
-                ax_macd.plot(x, signal, color='#ff6d00', linewidth=1.5, label='Signal')
-                ax_macd.axhline(y=0, color='#363a45', linewidth=1, alpha=0.5)
-                ax_macd.legend(loc='upper left', fontsize=8, facecolor='#1e222d', 
-                              edgecolor='#363a45', labelcolor='#d1d4dc')
-                ax_macd.set_ylabel('MACD', fontsize=9, color='#787b86')
-                ax_macd.grid(True, alpha=0.06, color='#363a45')
-            
-            # ═══════════════════════════════════════════════════════
-            # 📈 RSI
+            # 📊 RSI
             # ═══════════════════════════════════════════════════════
             
             if 'rsi' in df_chart.columns:
                 rsi = df_chart['rsi']
-                ax_rsi.plot(x, rsi, color='#9c27b0', linewidth=2)
                 
-                ax_rsi.fill_between(x, rsi, 70, where=(rsi >= 70), 
-                                   alpha=0.3, color='#f23645')
-                ax_rsi.fill_between(x, rsi, 30, where=(rsi <= 30), 
-                                   alpha=0.3, color='#089981')
+                # RSI line with gradient
+                ax_rsi.plot(x, rsi, color='#ab47bc', linewidth=1.8)
                 
-                ax_rsi.axhline(y=70, color='#f23645', linestyle='--', alpha=0.5, linewidth=1)
-                ax_rsi.axhline(y=50, color='#363a45', linestyle='-', alpha=0.3, linewidth=1)
-                ax_rsi.axhline(y=30, color='#089981', linestyle='--', alpha=0.5, linewidth=1)
+                # Overbought/Oversold zones
+                ax_rsi.fill_between(x, 70, 100, alpha=0.1, color='#ef5350')
+                ax_rsi.fill_between(x, 0, 30, alpha=0.1, color='#26a69a')
                 
-                # Current RSI value
+                # Current RSI fill
+                ax_rsi.fill_between(x, 50, rsi, where=(rsi >= 50), alpha=0.15, color='#26a69a')
+                ax_rsi.fill_between(x, 50, rsi, where=(rsi < 50), alpha=0.15, color='#ef5350')
+                
+                ax_rsi.axhline(y=70, color='#ef5350', linestyle='--', alpha=0.4, linewidth=0.8)
+                ax_rsi.axhline(y=50, color='#363a45', linestyle='-', alpha=0.5, linewidth=0.8)
+                ax_rsi.axhline(y=30, color='#26a69a', linestyle='--', alpha=0.4, linewidth=0.8)
+                
+                # RSI value label
                 current_rsi = rsi.iloc[-1]
-                rsi_color = '#f23645' if current_rsi > 70 else '#089981' if current_rsi < 30 else '#787b86'
-                ax_rsi.text(len(df_chart)+1, current_rsi, f'{current_rsi:.1f}', 
-                           fontsize=10, color=rsi_color, va='center', fontweight='bold')
+                rsi_color = '#ef5350' if current_rsi > 70 else '#26a69a' if current_rsi < 30 else '#ab47bc'
+                ax_rsi.text(len(df_chart)+0.5, current_rsi, f' {current_rsi:.1f}', 
+                           fontsize=9, color=rsi_color, va='center', fontweight='bold')
                 
                 ax_rsi.set_ylim(0, 100)
-                ax_rsi.set_ylabel('RSI', fontsize=9, color='#787b86')
-                ax_rsi.grid(True, alpha=0.06, color='#363a45')
+                ax_rsi.set_ylabel('RSI', fontsize=8, color='#787b86')
+                ax_rsi.grid(True, alpha=0.05, color='#363a45')
             
             # ═══════════════════════════════════════════════════════
             # 📊 VOLUME
             # ═══════════════════════════════════════════════════════
             
-            vol_colors = ['#089981' if c >= o else '#f23645' 
+            vol_colors = ['#26a69a' if c >= o else '#ef5350' 
                          for o, c in zip(df_chart['open'], df_chart['close'])]
-            ax_vol.bar(x, df_chart['volume'], color=vol_colors, alpha=0.6, width=0.8)
+            ax_vol.bar(x, df_chart['volume'], color=vol_colors, alpha=0.5, width=0.7)
             
+            # Volume MA
             vol_ma = df_chart['volume'].rolling(20).mean()
-            ax_vol.plot(x, vol_ma, color='#fbbf24', linewidth=1.5, alpha=0.8)
+            ax_vol.plot(x, vol_ma, color='#ffa726', linewidth=1.2, alpha=0.8)
             
-            ax_vol.set_ylabel('Vol', fontsize=9, color='#787b86')
-            ax_vol.grid(True, alpha=0.06, color='#363a45')
+            ax_vol.set_ylabel('Vol', fontsize=8, color='#787b86')
+            ax_vol.grid(True, alpha=0.05, color='#363a45')
             
             # ═══════════════════════════════════════════════════════
             # 📋 FOOTER
             # ═══════════════════════════════════════════════════════
             
-            footer_box = plt.Rectangle((0.02, 0.1), 0.96, 0.8,
-                                       facecolor='#1e222d', edgecolor='#363a45',
-                                       linewidth=1, alpha=0.9, transform=ax_footer.transAxes)
-            ax_footer.add_patch(footer_box)
+            ax_footer.axhspan(0, 1, facecolor='#1e222d', alpha=0.5)
             
-            ax_footer.text(0.05, 0.5, f'📝 PAPER TRADE', transform=ax_footer.transAxes,
-                          fontsize=11, color='#fbbf24', va='center', fontweight='bold')
+            ax_footer.text(0.02, 0.5, '📝 PAPER TRADE', fontsize=10, color='#ffa726', 
+                          transform=ax_footer.transAxes, va='center', fontweight='bold')
             
-            ax_footer.text(0.25, 0.5, f'💰 Balance: ${self.balance:.2f}', 
-                          transform=ax_footer.transAxes,
-                          fontsize=11, color='#d1d4dc', va='center')
+            ax_footer.text(0.22, 0.5, f'💰 ${self.balance:.2f}', fontsize=10, color='#d1d4dc', 
+                          transform=ax_footer.transAxes, va='center')
             
-            ax_footer.text(0.50, 0.5, f'⏰ {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', 
-                          transform=ax_footer.transAxes,
-                          fontsize=10, color='#787b86', va='center')
+            roi = ((self.balance - INITIAL_BALANCE) / INITIAL_BALANCE) * 100
+            roi_color = '#26a69a' if roi >= 0 else '#ef5350'
+            ax_footer.text(0.40, 0.5, f'ROI: {roi:+.2f}%', fontsize=10, color=roi_color, 
+                          transform=ax_footer.transAxes, va='center', fontweight='bold')
             
-            ax_footer.text(0.95, 0.5, '🤖 AlphaBot Scalper V4', transform=ax_footer.transAxes,
-                          fontsize=10, color='#787b86', va='center', ha='right', style='italic')
+            ax_footer.text(0.60, 0.5, f'⏰ {datetime.now().strftime("%H:%M:%S")}', fontsize=9, 
+                          color='#787b86', transform=ax_footer.transAxes, va='center')
+            
+            ax_footer.text(0.98, 0.5, 'AlphaBot V4', fontsize=9, color='#787b86', 
+                          transform=ax_footer.transAxes, va='center', ha='right', 
+                          style='italic', fontfamily='monospace')
+            
+            # Remove x-axis labels except on volume
+            plt.setp(ax_main.get_xticklabels(), visible=False)
+            plt.setp(ax_rsi.get_xticklabels(), visible=False)
             
             plt.tight_layout()
+            plt.subplots_adjust(hspace=0.02)
             
             # Save high quality
             buf = io.BytesIO()
-            plt.savefig(buf, format='png', dpi=180, bbox_inches='tight', 
-                       facecolor='#0c0c0c', edgecolor='none')
+            plt.savefig(buf, format='png', dpi=200, bbox_inches='tight', 
+                       facecolor='#131722', edgecolor='none', pad_inches=0.1)
             buf.seek(0)
             plt.close()
             
-            # Premium caption
-            caption = f"""<b>⚡ {symbol}</b>
-{'━'*28}
-<b>{side_text}</b> | Leverage: <b>{LEVERAGE}x</b>
+            # Caption
+            side_emoji = "🟢 LONG" if pos['side'] == 'LONG' else "🔴 SHORT"
+            pnl_emoji = "📈" if pnl_pct > 0 else "📉"
+            
+            caption = f"""<b>{coin_name}/USDT</b> • Perpetual
+━━━━━━━━━━━━━━━━━━
+{side_emoji} <b>{pos['side']}</b> @ {LEVERAGE}× Leverage
 
-📍 Entry: <code>${pos['entry_price']:.4f}</code>
-📍 Current: <code>${current:.4f}</code>
-{'🟢' if pnl_pct > 0 else '🔴'} PnL: <b>{pnl_pct:+.2f}%</b> (${pnl_usd:+.4f})
+💵 Entry: <code>${pos['entry_price']:.4f}</code>
+💰 Mark: <code>${current:.4f}</code>
+{pnl_emoji} PnL: <b>{pnl_pct:+.2f}%</b> (<code>${pnl_usd:+.4f}</code>)
 
-🛡️ Stop Loss: <code>${pos['sl']:.4f}</code>
-🎯 Take Profit: <code>${pos['tp']:.4f}</code>
-{'━'*28}
-📝 <i>Paper Trade | Hourly Update</i>"""
+🎯 TP: <code>${pos['tp']:.4f}</code>
+🛡 SL: <code>${pos['sl']:.4f}</code>
+━━━━━━━━━━━━━━━━━━
+📝 Paper Trade • ⏱ Hourly"""
             
             self.telegram.send_photo(buf.getvalue(), caption)
-            print(f"📊 ส่งกราฟ {symbol} (Ultra Premium) ไป Telegram แล้ว")
-            
-        except Exception as e:
-            print(f"⚠️ Chart error for {symbol}: {e}")
+            print(f"📊 ส่งกราฟ {symbol} (Pro) ไป Telegram แล้ว")
             
         except Exception as e:
             print(f"⚠️ Chart error for {symbol}: {e}")
