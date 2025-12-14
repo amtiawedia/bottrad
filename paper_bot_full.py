@@ -235,8 +235,9 @@ class PaperTradeBotFull:
         }
         
         # Tracking for Live Status & Alerts
-        self.last_live_status = time.time()
-        self.last_chart_update = time.time()
+        # ตั้งค่าเป็น 0 เพื่อส่งทันทีตอนเริ่มรัน
+        self.last_live_status = 0
+        self.last_chart_update = 0
         self.last_pnl_alert = {}  # Track per-position alerts
         
         try:
