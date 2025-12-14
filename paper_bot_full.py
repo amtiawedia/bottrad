@@ -54,6 +54,11 @@ TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '')
 TELEGRAM_ENABLED = True
 
+# 📊 Live Status & Alert Settings
+LIVE_STATUS_INTERVAL = 15  # ส่ง Live Status ทุก 15 นาที
+PNL_ALERT_THRESHOLD = 10   # แจ้งเตือนเมื่อ PnL เกิน ±10%
+CHART_INTERVAL = 60        # ส่งกราฟ positions ทุก 60 นาที
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # TELEGRAM NOTIFIER - ส่งกราฟ + ข้อความเหมือน Bot จริง
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -228,6 +233,11 @@ class PaperTradeBotFull:
             'short_wins': 0,
             'short_losses': 0,
         }
+        
+        # Tracking for Live Status & Alerts
+        self.last_live_status = time.time()
+        self.last_chart_update = time.time()
+        self.last_pnl_alert = {}  # Track per-position alerts
         
         try:
             self.exchange.load_markets()
@@ -556,6 +566,174 @@ class PaperTradeBotFull:
         else:
             print("   ⏳ ไม่พบสัญญาณ")
     
+    # ═══════════════════════════════════════════════════════════════════════════════
+    # 📊 LIVE STATUS & ALERTS - ฟีเจอร์ใหม่!
+    # ═══════════════════════════════════════════════════════════════════════════════
+    
+    def send_live_status(self):
+        """📊 ส่ง Live Status ทุก 15 นาที"""
+        if not self.telegram.enabled:
+            return
+        
+        win_rate = (self.stats['wins'] / self.stats['total_trades'] * 100) if self.stats['total_trades'] > 0 else 0
+        roi = ((self.balance - INITIAL_BALANCE) / INITIAL_BALANCE) * 100
+        
+        # คำนวณ Total Unrealized PnL
+        total_unrealized = 0
+        positions_text = ""
+        
+        for symbol, pos in self.positions.items():
+            df = self.get_data_with_indicators(symbol)
+            if df is not None:
+                current = float(df.iloc[-1]['close'])
+                if pos['side'] == 'LONG':
+                    pnl_pct = (current - pos['entry_price']) / pos['entry_price'] * LEVERAGE * 100
+                else:
+                    pnl_pct = (pos['entry_price'] - current) / pos['entry_price'] * LEVERAGE * 100
+                
+                total_unrealized += pnl_pct
+                emoji = "🟢" if pos['side'] == 'LONG' else "🔴"
+                status = "📈" if pnl_pct > 0 else "📉"
+                positions_text += f"\n  {emoji} {symbol}: {status} <b>{pnl_pct:+.1f}%</b>"
+        
+        if not positions_text:
+            positions_text = "\n  🔒 ไม่มี Position เปิด"
+        
+        msg = f"""📊 <b>PAPER BOT - LIVE STATUS</b>
+━━━━━━━━━━━━━━━━━━━━
+🕐 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+💵 Balance: <b>${self.balance:.2f}</b>
+📈 ROI: <b>{roi:+.2f}%</b>
+📊 Trades: {self.stats['total_trades']} (✅{self.stats['wins']} ❌{self.stats['losses']})
+🎯 Win Rate: {win_rate:.1f}%
+
+<b>🔓 Positions ({len(self.positions)}):</b>{positions_text}
+
+💹 Unrealized: <b>{total_unrealized:+.1f}%</b>
+━━━━━━━━━━━━━━━━━━━━
+⚙️ SL: {SL_PCT*100}% | TP: {TP_PCT*100}% | {LEVERAGE}x
+📝 <i>Paper Trade - จำลองเท่านั้น</i>"""
+        
+        self.telegram.send_message(msg)
+        print("📤 ส่ง Live Status ไป Telegram แล้ว")
+    
+    def check_pnl_alerts(self):
+        """🔔 แจ้งเตือนเมื่อ PnL เกิน ±10%"""
+        if not self.telegram.enabled:
+            return
+        
+        for symbol, pos in self.positions.items():
+            df = self.get_data_with_indicators(symbol)
+            if df is None:
+                continue
+            
+            current = float(df.iloc[-1]['close'])
+            if pos['side'] == 'LONG':
+                pnl_pct = (current - pos['entry_price']) / pos['entry_price'] * LEVERAGE * 100
+            else:
+                pnl_pct = (pos['entry_price'] - current) / pos['entry_price'] * LEVERAGE * 100
+            
+            # เช็คว่าเกิน threshold และยังไม่เคยแจ้ง
+            alert_key = f"{symbol}_{int(pnl_pct / PNL_ALERT_THRESHOLD) * PNL_ALERT_THRESHOLD}"
+            
+            if abs(pnl_pct) >= PNL_ALERT_THRESHOLD and alert_key not in self.last_pnl_alert:
+                self.last_pnl_alert[alert_key] = time.time()
+                
+                emoji = "🚀" if pnl_pct > 0 else "⚠️"
+                side_emoji = "🟢" if pos['side'] == 'LONG' else "🔴"
+                
+                msg = f"""{emoji} <b>PnL ALERT!</b>
+
+{side_emoji} <b>{symbol}</b> ({pos['side']})
+📍 Entry: ${pos['entry_price']:.4f}
+📍 Current: ${current:.4f}
+{'🤑' if pnl_pct > 0 else '😰'} PnL: <b>{pnl_pct:+.1f}%</b>
+
+{'🎯 ใกล้ถึง TP แล้ว!' if pnl_pct > 30 else ''}{'🛡️ ระวัง SL!' if pnl_pct < -20 else ''}
+━━━━━━━━━━━━━━━━━━━━
+📝 <i>Paper Trade Alert</i>"""
+                
+                self.telegram.send_message(msg)
+                print(f"🔔 ส่ง PnL Alert: {symbol} {pnl_pct:+.1f}%")
+    
+    def send_positions_chart(self):
+        """📈 ส่งกราฟ Positions ทุกชั่วโมง"""
+        if not self.telegram.enabled or not self.positions:
+            return
+        
+        try:
+            # สร้างกราฟรวม positions
+            fig, axes = plt.subplots(len(self.positions), 1, figsize=(12, 4*len(self.positions)))
+            if len(self.positions) == 1:
+                axes = [axes]
+            
+            plt.style.use('dark_background')
+            
+            for ax, (symbol, pos) in zip(axes, self.positions.items()):
+                df = self.get_data_with_indicators(symbol)
+                if df is None:
+                    continue
+                
+                # Plot price
+                ax.plot(df.index[-50:], df['close'].tail(50), 'cyan', linewidth=1.5, label='Price')
+                
+                # Entry line
+                ax.axhline(y=pos['entry_price'], color='yellow', linestyle='--', label=f'Entry: ${pos["entry_price"]:.4f}')
+                ax.axhline(y=pos['tp'], color='lime', linestyle='--', alpha=0.7, label=f'TP: ${pos["tp"]:.4f}')
+                ax.axhline(y=pos['sl'], color='red', linestyle='--', alpha=0.7, label=f'SL: ${pos["sl"]:.4f}')
+                
+                # Current price
+                current = float(df.iloc[-1]['close'])
+                if pos['side'] == 'LONG':
+                    pnl_pct = (current - pos['entry_price']) / pos['entry_price'] * LEVERAGE * 100
+                else:
+                    pnl_pct = (pos['entry_price'] - current) / pos['entry_price'] * LEVERAGE * 100
+                
+                side_emoji = "LONG" if pos['side'] == 'LONG' else "SHORT"
+                status = "+" if pnl_pct > 0 else ""
+                ax.set_title(f"{symbol} | {side_emoji} | PnL: {status}{pnl_pct:.1f}%", fontsize=12, color='white')
+                ax.legend(loc='upper left', fontsize=8)
+                ax.grid(True, alpha=0.3)
+            
+            plt.tight_layout()
+            
+            # Save to bytes
+            buf = io.BytesIO()
+            plt.savefig(buf, format='png', dpi=120, bbox_inches='tight', facecolor='#1a1a2e')
+            buf.seek(0)
+            plt.close()
+            
+            caption = f"""📈 <b>POSITIONS CHART</b>
+━━━━━━━━━━━━━━━━━━━━
+🕐 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+📊 {len(self.positions)} positions open
+━━━━━━━━━━━━━━━━━━━━
+📝 <i>Paper Trade - Hourly Update</i>"""
+            
+            self.telegram.send_photo(buf.getvalue(), caption)
+            print("📊 ส่ง Positions Chart ไป Telegram แล้ว")
+            
+        except Exception as e:
+            print(f"⚠️ Chart error: {e}")
+    
+    def check_live_updates(self):
+        """ตรวจสอบและส่ง Live Updates"""
+        now = time.time()
+        
+        # 📊 ส่ง Live Status ทุก 15 นาที
+        if now - self.last_live_status >= LIVE_STATUS_INTERVAL * 60:
+            self.send_live_status()
+            self.last_live_status = now
+        
+        # 🔔 เช็ค PnL Alerts
+        self.check_pnl_alerts()
+        
+        # 📈 ส่งกราฟทุกชั่วโมง
+        if now - self.last_chart_update >= CHART_INTERVAL * 60:
+            self.send_positions_chart()
+            self.last_chart_update = now
+    
     def print_status(self):
         """แสดงสถานะ"""
         win_rate = (self.stats['wins'] / self.stats['total_trades'] * 100) if self.stats['total_trades'] > 0 else 0
@@ -689,6 +867,9 @@ class PaperTradeBotFull:
                     self.check_positions()
                 
                 self.scan_and_trade()
+                
+                # 🔔 Live Updates: Status, PnL Alert, Chart
+                self.check_live_updates()
                 
                 if iteration % 3 == 0:
                     self.print_status()

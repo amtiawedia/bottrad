@@ -1,1 +1,50 @@
-{"initial_balance": 4.5, "current_balance": 4.5, "total_trades": 0, "wins": 0, "losses": 0, "open_positions": [], "closed_trades": [], "last_update": "2025-12-13 13:09:07"}
+{
+  "last_update": "2025-12-13 18:28:51",
+  "initial_balance": 4.5,
+  "current_balance": 3.599999999999997,
+  "total_trades": 1,
+  "wins": 0,
+  "losses": 1,
+  "total_pnl": -0.900000000000003,
+  "open_positions": [
+    {
+      "symbol": "LTC/USDT",
+      "side": "short",
+      "entry_price": 81.64,
+      "current_price": 81.57,
+      "sl": 84.0892,
+      "tp": 76.74159999999999,
+      "size": 1.5,
+      "open_time": "2025-12-13T07:15:59.388888"
+    },
+    {
+      "symbol": "ETC/USDT",
+      "side": "long",
+      "entry_price": 13.15,
+      "current_price": 13.166,
+      "sl": 12.7555,
+      "tp": 13.939000000000002,
+      "size": 1.5,
+      "open_time": "2025-12-13T07:17:17.109242"
+    },
+    {
+      "symbol": "LINK/USDT",
+      "side": "short",
+      "entry_price": 13.65,
+      "current_price": 13.741,
+      "sl": 13.85475,
+      "tp": 13.377,
+      "size": 1.199999999999999,
+      "open_time": "2025-12-13T14:29:57.294765"
+    }
+  ],
+  "trade_history": [
+    {
+      "symbol": "ORDI/USDT",
+      "side": "long",
+      "pnl": -60.0,
+      "exit_reason": "SL",
+      "time": "2025-12-13T14:20:48.264409"
+    }
+  ]
+}
