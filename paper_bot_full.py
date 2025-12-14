@@ -672,7 +672,7 @@ class PaperTradeBotFull:
             print(f"⚠️ Chart error: {e}")
     
     def _send_pro_chart(self, symbol: str, pos: dict):
-        """📊 Professional Trading Terminal Chart"""
+        """📊 Professional Trading Terminal Chart with MACD"""
         try:
             df = self.get_data_with_indicators(symbol)
             if df is None:
@@ -690,22 +690,23 @@ class PaperTradeBotFull:
                 pnl_usd = (pos['entry_price'] - current) * pos['size']
             
             # ═══════════════════════════════════════════════════════
-            # 🎨 PROFESSIONAL CHART SETUP
+            # 🎨 PROFESSIONAL CHART SETUP (with MACD)
             # ═══════════════════════════════════════════════════════
             
-            fig = plt.figure(figsize=(14, 10), facecolor='#131722')
+            fig = plt.figure(figsize=(14, 12), facecolor='#131722')
             
-            # Layout: Header, Main Chart, RSI, Volume, Footer
-            gs = fig.add_gridspec(5, 1, height_ratios=[0.6, 3.5, 0.8, 0.8, 0.3], hspace=0.02)
+            # Layout: Header, Main Chart, MACD, RSI, Volume, Footer
+            gs = fig.add_gridspec(6, 1, height_ratios=[0.5, 3.5, 0.8, 0.8, 0.7, 0.3], hspace=0.02)
             
             ax_header = fig.add_subplot(gs[0])
             ax_main = fig.add_subplot(gs[1])
-            ax_rsi = fig.add_subplot(gs[2], sharex=ax_main)
-            ax_vol = fig.add_subplot(gs[3], sharex=ax_main)
-            ax_footer = fig.add_subplot(gs[4])
+            ax_macd = fig.add_subplot(gs[2], sharex=ax_main)
+            ax_rsi = fig.add_subplot(gs[3], sharex=ax_main)
+            ax_vol = fig.add_subplot(gs[4], sharex=ax_main)
+            ax_footer = fig.add_subplot(gs[5])
             
             # Theme
-            for ax in [ax_header, ax_main, ax_rsi, ax_vol, ax_footer]:
+            for ax in [ax_header, ax_main, ax_macd, ax_rsi, ax_vol, ax_footer]:
                 ax.set_facecolor('#131722')
                 ax.tick_params(colors='#787b86', labelsize=8)
                 for spine in ax.spines.values():
@@ -835,6 +836,39 @@ class PaperTradeBotFull:
             ax_main.set_ylim(price_min - price_range*0.05, price_max + price_range*0.15)
             
             # ═══════════════════════════════════════════════════════
+            # 📊 MACD - Moving Average Convergence Divergence
+            # ═══════════════════════════════════════════════════════
+            
+            if 'macd' in df_chart.columns:
+                macd = df_chart['macd']
+                signal = df_chart['macd_signal'] if 'macd_signal' in df_chart.columns else macd.ewm(span=9).mean()
+                hist = macd - signal
+                
+                # Histogram bars with gradient colors
+                colors_hist = []
+                for i, h in enumerate(hist):
+                    if h >= 0:
+                        colors_hist.append('#26a69a' if i == 0 or h >= hist.iloc[i-1] else '#1a7a6e')
+                    else:
+                        colors_hist.append('#ef5350' if i == 0 or h <= hist.iloc[i-1] else '#b33d3a')
+                
+                ax_macd.bar(x, hist, color=colors_hist, alpha=0.7, width=0.7)
+                ax_macd.plot(x, macd, color='#2962ff', linewidth=1.5, label='MACD')
+                ax_macd.plot(x, signal, color='#ff6d00', linewidth=1.5, label='Signal')
+                ax_macd.axhline(y=0, color='#363a45', linewidth=0.8, alpha=0.5)
+                
+                # Current value label
+                current_macd = macd.iloc[-1]
+                macd_color = '#26a69a' if current_macd > 0 else '#ef5350'
+                ax_macd.text(len(df_chart)+0.5, current_macd, f' {current_macd:.4f}', 
+                           fontsize=8, color=macd_color, va='center', fontweight='bold')
+                
+                ax_macd.legend(loc='upper left', fontsize=7, facecolor='#1e222d', 
+                              edgecolor='#363a45', labelcolor='#d1d4dc')
+                ax_macd.set_ylabel('MACD', fontsize=8, color='#787b86')
+                ax_macd.grid(True, alpha=0.05, color='#363a45')
+            
+            # ═══════════════════════════════════════════════════════
             # 📊 RSI
             # ═══════════════════════════════════════════════════════
             
@@ -901,12 +935,22 @@ class PaperTradeBotFull:
             ax_footer.text(0.60, 0.5, f'⏰ {datetime.now().strftime("%H:%M:%S")}', fontsize=9, 
                           color='#787b86', transform=ax_footer.transAxes, va='center')
             
-            ax_footer.text(0.98, 0.5, 'AlphaBot V4', fontsize=9, color='#787b86', 
+            ax_footer.text(0.98, 0.5, '🤖 AlphaBot Scalper V4', fontsize=9, color='#787b86', 
                           transform=ax_footer.transAxes, va='center', ha='right', 
                           style='italic', fontfamily='monospace')
             
+            # ═══════════════════════════════════════════════════════
+            # 🏷️ WATERMARK
+            # ═══════════════════════════════════════════════════════
+            
+            # Semi-transparent watermark in the center of main chart
+            ax_main.text(0.5, 0.5, 'ALPHABOT', transform=ax_main.transAxes,
+                        fontsize=60, color='#ffffff', alpha=0.03, ha='center', va='center',
+                        fontweight='bold', fontfamily='monospace', rotation=0)
+            
             # Remove x-axis labels except on volume
             plt.setp(ax_main.get_xticklabels(), visible=False)
+            plt.setp(ax_macd.get_xticklabels(), visible=False)
             plt.setp(ax_rsi.get_xticklabels(), visible=False)
             
             plt.tight_layout()
