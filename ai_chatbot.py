@@ -25,6 +25,7 @@ import os
 import json
 import asyncio
 import aiohttp
+import re
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -35,7 +36,7 @@ load_dotenv()
 # ═══════════════════════════════════════════════════════════════════════════════
 
 # Telegram Bot
-TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+TELEGRAM_BOT_TOKEN = os.environ.get('AI_BOT_TOKEN', '')
 ALLOWED_USERS = []  # ใส่ chat_id ที่อนุญาต (ว่าง = ทุกคนใช้ได้)
 
 # Groq API (ฟรี!) - https://console.groq.com
@@ -46,6 +47,151 @@ GROQ_MODEL = "llama-3.3-70b-versatile"  # Llama 3.3 70B - ดีมาก!
 BOT_NAME = "AI Assistant"
 MAX_HISTORY = 20  # จำบทสนทนากี่ข้อความ
 DATA_FILE = "chat_history.json"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# REAL-TIME DATA FETCHER - ดึงข้อมูลสดจาก Internet!
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class RealTimeData:
+    """ดึงข้อมูล real-time จาก APIs ต่างๆ"""
+    
+    @staticmethod
+    async def get_crypto_price(symbol: str = "BTC") -> dict:
+        """ดึงราคา Crypto real-time จาก Binance"""
+        try:
+            symbol = symbol.upper().replace("/", "").replace("USDT", "")
+            url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={symbol}USDT"
+            
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, timeout=5) as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        return {
+                            "symbol": f"{symbol}/USDT",
+                            "price": float(data['lastPrice']),
+                            "change_24h": float(data['priceChangePercent']),
+                            "high_24h": float(data['highPrice']),
+                            "low_24h": float(data['lowPrice']),
+                            "volume_24h": float(data['quoteVolume']),
+                        }
+        except:
+            pass
+        return None
+    
+    @staticmethod
+    async def get_top_cryptos() -> list:
+        """ดึง Top 10 Crypto"""
+        try:
+            url = "https://api.binance.com/api/v3/ticker/24hr"
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, timeout=10) as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        # Filter USDT pairs and sort by volume
+                        usdt_pairs = [d for d in data if d['symbol'].endswith('USDT')]
+                        sorted_pairs = sorted(usdt_pairs, key=lambda x: float(x['quoteVolume']), reverse=True)
+                        return sorted_pairs[:10]
+        except:
+            pass
+        return []
+    
+    @staticmethod
+    async def get_weather(city: str = "Bangkok") -> dict:
+        """ดึงข้อมูลสภาพอากาศ (ใช้ wttr.in ฟรี)"""
+        try:
+            url = f"https://wttr.in/{city}?format=j1"
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, timeout=5) as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        current = data['current_condition'][0]
+                        return {
+                            "city": city,
+                            "temp_c": current['temp_C'],
+                            "feels_like": current['FeelsLikeC'],
+                            "humidity": current['humidity'],
+                            "description": current['weatherDesc'][0]['value'],
+                        }
+        except:
+            pass
+        return None
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMMAND DETECTOR - ตรวจจับคำสั่งพิเศษ
+# ═══════════════════════════════════════════════════════════════════════════════
+
+async def process_special_commands(text: str) -> str:
+    """ตรวจจับและตอบคำสั่งพิเศษที่ต้องการข้อมูล real-time"""
+    text_lower = text.lower()
+    
+    # ตรวจจับคำถามเกี่ยวกับราคา Crypto
+    crypto_keywords = ['ราคา', 'price', 'btc', 'eth', 'bitcoin', 'ethereum', 'crypto', 'คริปโต', 'บิทคอย', 'อีเธอ']
+    crypto_pattern = r'(btc|eth|sol|xrp|bnb|ada|doge|avax|link|dot|ltc|bitcoin|ethereum)'
+    
+    if any(kw in text_lower for kw in crypto_keywords):
+        # หา symbol จากข้อความ
+        match = re.search(crypto_pattern, text_lower)
+        symbol = match.group(1) if match else "BTC"
+        
+        # แปลงชื่อเต็มเป็น symbol
+        name_map = {"bitcoin": "BTC", "ethereum": "ETH"}
+        symbol = name_map.get(symbol, symbol.upper())
+        
+        data = await RealTimeData.get_crypto_price(symbol)
+        if data:
+            emoji = "📈" if data['change_24h'] > 0 else "📉"
+            return f"""
+{emoji} *ราคา {data['symbol']} (Real-time)*
+
+💰 ราคาปัจจุบัน: *${data['price']:,.2f}*
+📊 เปลี่ยนแปลง 24h: {'+' if data['change_24h'] > 0 else ''}{data['change_24h']:.2f}%
+📈 สูงสุด 24h: ${data['high_24h']:,.2f}
+📉 ต่ำสุด 24h: ${data['low_24h']:,.2f}
+💹 Volume 24h: ${data['volume_24h']:,.0f}
+
+🕐 อัพเดท: {datetime.now().strftime('%H:%M:%S')}
+"""
+    
+    # ตรวจจับคำถามเกี่ยวกับ Top Crypto
+    if any(kw in text_lower for kw in ['top crypto', 'top 10', 'อันดับ', 'เหรียญไหนดี']):
+        cryptos = await RealTimeData.get_top_cryptos()
+        if cryptos:
+            result = "🏆 *Top 10 Crypto (Volume 24h)*\n\n"
+            for i, c in enumerate(cryptos[:10], 1):
+                symbol = c['symbol'].replace('USDT', '')
+                price = float(c['lastPrice'])
+                change = float(c['priceChangePercent'])
+                emoji = "🟢" if change > 0 else "🔴"
+                result += f"{i}. {emoji} *{symbol}*: ${price:,.2f} ({'+' if change > 0 else ''}{change:.1f}%)\n"
+            result += f"\n🕐 อัพเดท: {datetime.now().strftime('%H:%M:%S')}"
+            return result
+    
+    # ตรวจจับคำถามเกี่ยวกับสภาพอากาศ
+    weather_keywords = ['อากาศ', 'weather', 'ฝน', 'แดด', 'หนาว', 'ร้อน']
+    if any(kw in text_lower for kw in weather_keywords):
+        # หาชื่อเมือง
+        cities = ['bangkok', 'กรุงเทพ', 'chiang mai', 'เชียงใหม่', 'phuket', 'ภูเก็ต', 'pattaya', 'พัทยา']
+        city = "Bangkok"
+        for c in cities:
+            if c in text_lower:
+                city = c.replace('กรุงเทพ', 'Bangkok').replace('เชียงใหม่', 'Chiang Mai')
+                break
+        
+        data = await RealTimeData.get_weather(city)
+        if data:
+            return f"""
+🌤️ *สภาพอากาศ {data['city']}*
+
+🌡️ อุณหภูมิ: *{data['temp_c']}°C*
+🤒 รู้สึกเหมือน: {data['feels_like']}°C
+💧 ความชื้น: {data['humidity']}%
+☁️ สภาพ: {data['description']}
+
+🕐 อัพเดท: {datetime.now().strftime('%H:%M:%S')}
+"""
+    
+    # ไม่ใช่คำสั่งพิเศษ
+    return None
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOT PERSONALITY - ปรับ personality ได้ตามใจ!
