@@ -659,151 +659,247 @@ class PaperTradeBotFull:
                 print(f"🔔 ส่ง PnL Alert: {symbol} {pnl_pct:+.1f}%")
     
     def send_positions_chart(self):
-        """📈 ส่งกราฟ Positions ทุกชั่วโมง - Premium Style"""
+        """📈 ส่งกราฟ Premium Pro Style - เหมือน DegenPump"""
         if not self.telegram.enabled or not self.positions:
             return
         
         try:
-            num_pos = len(self.positions)
+            # ส่งกราฟแยกแต่ละ position (สวยกว่ารวมกัน)
+            for symbol, pos in self.positions.items():
+                self._send_single_position_chart(symbol, pos)
+                time.sleep(1)  # ไม่ให้ส่งเร็วเกินไป
             
-            # กำหนด layout ตามจำนวน positions
-            if num_pos == 1:
-                fig, axes = plt.subplots(1, 1, figsize=(14, 8))
-                axes = [axes]
-            elif num_pos == 2:
-                fig, axes = plt.subplots(1, 2, figsize=(16, 7))
-            elif num_pos == 3:
-                fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+        except Exception as e:
+            print(f"⚠️ Chart error: {e}")
+    
+    def _send_single_position_chart(self, symbol: str, pos: dict):
+        """📊 สร้างกราฟ Premium สำหรับ 1 position"""
+        try:
+            df = self.get_data_with_indicators(symbol)
+            if df is None:
+                return
+            
+            df_chart = df.tail(100).copy()
+            current = float(df.iloc[-1]['close'])
+            
+            # คำนวณ PnL
+            if pos['side'] == 'LONG':
+                pnl_pct = (current - pos['entry_price']) / pos['entry_price'] * LEVERAGE * 100
             else:
-                fig, axes = plt.subplots(2, 2, figsize=(16, 12))
-                axes = axes.flatten()
+                pnl_pct = (pos['entry_price'] - current) / pos['entry_price'] * LEVERAGE * 100
             
-            fig.patch.set_facecolor('#0d1117')
+            # ===== CREATE PREMIUM CHART =====
+            fig = plt.figure(figsize=(16, 12), facecolor='#0a0a0f')
             
-            total_pnl = 0
+            # Grid layout: Main chart (60%), RSI (20%), Volume (20%)
+            gs = fig.add_gridspec(4, 1, height_ratios=[3, 1, 1, 0.5], hspace=0.05)
             
-            for idx, (symbol, pos) in enumerate(self.positions.items()):
-                if idx >= len(axes):
-                    break
-                    
-                ax = axes[idx]
-                ax.set_facecolor('#161b22')
-                
-                df = self.get_data_with_indicators(symbol)
-                if df is None:
-                    continue
-                
-                df_chart = df.tail(50).copy()
-                x = range(len(df_chart))
-                
-                # 🕯️ Candlestick สวยๆ
-                for i, (_, row) in enumerate(df_chart.iterrows()):
-                    color = '#00ff88' if row['close'] >= row['open'] else '#ff4757'
-                    # Wick
-                    ax.plot([i, i], [row['low'], row['high']], color=color, linewidth=0.8, alpha=0.7)
-                    # Body
-                    body_bottom = min(row['open'], row['close'])
-                    body_height = abs(row['close'] - row['open'])
-                    rect = plt.Rectangle((i - 0.35, body_bottom), 0.7, body_height,
-                                        facecolor=color, edgecolor=color, alpha=0.9)
-                    ax.add_patch(rect)
-                
-                # 📈 EMAs
-                if 'ema_fast' in df_chart.columns:
-                    ax.plot(x, df_chart['ema_fast'], color='#ffd93d', linewidth=1.2, alpha=0.8)
-                if 'ema_slow' in df_chart.columns:
-                    ax.plot(x, df_chart['ema_slow'], color='#6c5ce7', linewidth=1.2, alpha=0.8)
-                
-                # Entry, TP, SL lines
-                ax.axhline(y=pos['entry_price'], color='#00d2d3', linestyle='--', linewidth=2, alpha=0.9)
-                ax.axhline(y=pos['tp'], color='#00ff88', linestyle='--', linewidth=1.5, alpha=0.7)
-                ax.axhline(y=pos['sl'], color='#ff4757', linestyle='--', linewidth=1.5, alpha=0.7)
-                
-                # Fill zones
-                ax.fill_between(x, pos['entry_price'], pos['tp'], alpha=0.08, color='#00ff88')
-                ax.fill_between(x, pos['entry_price'], pos['sl'], alpha=0.08, color='#ff4757')
-                
-                # Current price marker
-                current = float(df.iloc[-1]['close'])
-                ax.scatter([len(df_chart)-1], [current], color='#00d2d3', s=80, zorder=5, 
-                          marker='o', edgecolors='white', linewidths=1.5)
-                
-                # คำนวณ PnL
-                if pos['side'] == 'LONG':
-                    pnl_pct = (current - pos['entry_price']) / pos['entry_price'] * LEVERAGE * 100
-                else:
-                    pnl_pct = (pos['entry_price'] - current) / pos['entry_price'] * LEVERAGE * 100
-                
-                total_pnl += pnl_pct
-                
-                # Title สวยๆ
-                side_color = '#00ff88' if pos['side'] == 'LONG' else '#ff4757'
-                pnl_color = '#00ff88' if pnl_pct > 0 else '#ff4757'
-                side_emoji = "🟢 LONG" if pos['side'] == 'LONG' else "🔴 SHORT"
-                pnl_emoji = "📈" if pnl_pct > 0 else "📉"
-                
-                title = f"{symbol.replace('/USDT', '')}\n{side_emoji} | {pnl_emoji} {pnl_pct:+.1f}%"
-                ax.set_title(title, fontsize=11, fontweight='bold', color='white', pad=10)
-                
-                # Grid
-                ax.grid(True, alpha=0.1, color='#30363d')
-                ax.tick_params(colors='#8b949e', labelsize=8)
-                
-                # Spine styling
+            ax_main = fig.add_subplot(gs[0])
+            ax_rsi = fig.add_subplot(gs[1], sharex=ax_main)
+            ax_vol = fig.add_subplot(gs[2], sharex=ax_main)
+            ax_info = fig.add_subplot(gs[3])
+            
+            # Dark theme
+            for ax in [ax_main, ax_rsi, ax_vol]:
+                ax.set_facecolor('#0f0f14')
+                ax.tick_params(colors='#6b7280', labelsize=9)
                 for spine in ax.spines.values():
-                    spine.set_color('#30363d')
+                    spine.set_color('#1f2937')
+            ax_info.set_facecolor('#0a0a0f')
+            ax_info.axis('off')
+            
+            x = range(len(df_chart))
+            
+            # ═══════════════════════════════════════════════════════
+            # 📊 MAIN CHART - CANDLESTICK + INDICATORS
+            # ═══════════════════════════════════════════════════════
+            
+            # Candlesticks with glow effect
+            for i, (idx, row) in enumerate(df_chart.iterrows()):
+                is_green = row['close'] >= row['open']
+                color = '#00ff88' if is_green else '#ff3366'
                 
-                # Price labels บนขวา
-                ax.annotate(f'${current:.4f}', xy=(1.02, current), xycoords=('axes fraction', 'data'),
-                           fontsize=8, color='#00d2d3', va='center')
+                # Wick (shadow)
+                ax_main.plot([i, i], [row['low'], row['high']], 
+                            color=color, linewidth=1.2, alpha=0.8)
+                
+                # Body with glow
+                body_bottom = min(row['open'], row['close'])
+                body_height = abs(row['close'] - row['open'])
+                if body_height < 0.00001:
+                    body_height = 0.00001
+                
+                # Glow effect (larger semi-transparent rectangle behind)
+                glow = plt.Rectangle((i - 0.4, body_bottom - body_height*0.1), 0.8, body_height*1.2,
+                                     facecolor=color, alpha=0.15, edgecolor='none')
+                ax_main.add_patch(glow)
+                
+                # Main candle body
+                rect = plt.Rectangle((i - 0.35, body_bottom), 0.7, body_height,
+                                     facecolor=color, edgecolor=color, 
+                                     alpha=0.95, linewidth=0.5)
+                ax_main.add_patch(rect)
             
-            # ซ่อน axes ที่ไม่ใช้
-            for idx in range(len(self.positions), len(axes)):
-                axes[idx].set_visible(False)
+            # EMAs with gradient effect
+            if 'ema_fast' in df_chart.columns:
+                ax_main.plot(x, df_chart['ema_fast'], color='#fbbf24', 
+                            linewidth=2, label=f'EMA {3}', alpha=0.9)
+            if 'ema_slow' in df_chart.columns:
+                ax_main.plot(x, df_chart['ema_slow'], color='#8b5cf6', 
+                            linewidth=2, label=f'EMA {8}', alpha=0.9)
+            if 'ema_20' in df_chart.columns:
+                ax_main.plot(x, df_chart['ema_20'], color='#06b6d4', 
+                            linewidth=1.5, label='EMA 20', alpha=0.7, linestyle='--')
             
-            # 📊 Header
-            avg_pnl = total_pnl / num_pos if num_pos > 0 else 0
-            header_color = '#00ff88' if avg_pnl > 0 else '#ff4757'
+            # Entry Line (prominent)
+            ax_main.axhline(y=pos['entry_price'], color='#00d4ff', linestyle='-', 
+                           linewidth=3, label=f"📍 Entry: ${pos['entry_price']:.4f}", alpha=0.9)
             
-            fig.suptitle(f'📊 PAPER TRADE POSITIONS | Total: {avg_pnl:+.1f}%', 
-                        fontsize=14, fontweight='bold', color='white', y=0.98)
+            # TP Line (green gradient zone)
+            ax_main.axhline(y=pos['tp'], color='#00ff88', linestyle='--', 
+                           linewidth=2.5, label=f"🎯 TP: ${pos['tp']:.4f}", alpha=0.8)
+            ax_main.fill_between(x, pos['entry_price'], pos['tp'], 
+                                alpha=0.15, color='#00ff88')
             
-            # 📝 Footer
-            fig.text(0.5, 0.01, f'📝 Paper Trade - {datetime.now().strftime("%Y-%m-%d %H:%M")} | 💰 ${self.balance:.2f}', 
-                    ha='center', fontsize=10, color='#8b949e')
+            # SL Line (red gradient zone)
+            ax_main.axhline(y=pos['sl'], color='#ff3366', linestyle='--', 
+                           linewidth=2.5, label=f"🛡️ SL: ${pos['sl']:.4f}", alpha=0.8)
+            ax_main.fill_between(x, pos['entry_price'], pos['sl'], 
+                                alpha=0.15, color='#ff3366')
             
-            plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+            # Current Price Marker (animated look)
+            ax_main.scatter([len(df_chart)-1], [current], color='#00d4ff', 
+                           s=200, zorder=10, marker='o', edgecolors='white', linewidths=3)
+            ax_main.scatter([len(df_chart)-1], [current], color='#00d4ff', 
+                           s=400, zorder=9, marker='o', alpha=0.3)
+            
+            # Price annotation
+            ax_main.annotate(f'${current:.4f}', 
+                            xy=(len(df_chart)-1, current),
+                            xytext=(len(df_chart)+2, current),
+                            fontsize=12, fontweight='bold', color='#00d4ff',
+                            va='center',
+                            bbox=dict(boxstyle='round,pad=0.3', facecolor='#1a1a2e', 
+                                     edgecolor='#00d4ff', alpha=0.9))
+            
+            # Grid
+            ax_main.grid(True, alpha=0.15, color='#374151', linestyle='-', linewidth=0.5)
+            ax_main.legend(loc='upper left', fontsize=10, facecolor='#1a1a2e', 
+                          edgecolor='#374151', labelcolor='white')
+            
+            # ═══════════════════════════════════════════════════════
+            # 📈 RSI INDICATOR
+            # ═══════════════════════════════════════════════════════
+            
+            if 'rsi' in df_chart.columns:
+                rsi = df_chart['rsi']
+                
+                # RSI Line with gradient fill
+                ax_rsi.plot(x, rsi, color='#a855f7', linewidth=2, label='RSI(14)')
+                
+                # Fill overbought/oversold zones
+                ax_rsi.fill_between(x, rsi, 70, where=(rsi >= 70), 
+                                   alpha=0.4, color='#ff3366', label='Overbought')
+                ax_rsi.fill_between(x, rsi, 30, where=(rsi <= 30), 
+                                   alpha=0.4, color='#00ff88', label='Oversold')
+                ax_rsi.fill_between(x, rsi, 50, where=(rsi > 50) & (rsi < 70), 
+                                   alpha=0.1, color='#00ff88')
+                ax_rsi.fill_between(x, rsi, 50, where=(rsi < 50) & (rsi > 30), 
+                                   alpha=0.1, color='#ff3366')
+                
+                # Reference lines
+                ax_rsi.axhline(y=70, color='#ff3366', linestyle='--', alpha=0.6, linewidth=1)
+                ax_rsi.axhline(y=50, color='#6b7280', linestyle='-', alpha=0.4, linewidth=1)
+                ax_rsi.axhline(y=30, color='#00ff88', linestyle='--', alpha=0.6, linewidth=1)
+                
+                ax_rsi.set_ylim(0, 100)
+                ax_rsi.set_ylabel('RSI', fontsize=10, color='#9ca3af', fontweight='bold')
+                ax_rsi.legend(loc='upper left', fontsize=8, facecolor='#1a1a2e', 
+                             edgecolor='#374151', labelcolor='white')
+                ax_rsi.grid(True, alpha=0.1, color='#374151')
+            
+            # ═══════════════════════════════════════════════════════
+            # 📊 VOLUME CHART
+            # ═══════════════════════════════════════════════════════
+            
+            vol_colors = ['#00ff88' if c >= o else '#ff3366' 
+                         for o, c in zip(df_chart['open'], df_chart['close'])]
+            ax_vol.bar(x, df_chart['volume'], color=vol_colors, alpha=0.7, width=0.8)
+            
+            # Volume MA
+            vol_ma = df_chart['volume'].rolling(20).mean()
+            ax_vol.plot(x, vol_ma, color='#fbbf24', linewidth=1.5, label='Vol MA(20)', alpha=0.8)
+            
+            ax_vol.set_ylabel('Volume', fontsize=10, color='#9ca3af', fontweight='bold')
+            ax_vol.legend(loc='upper left', fontsize=8, facecolor='#1a1a2e', 
+                         edgecolor='#374151', labelcolor='white')
+            ax_vol.grid(True, alpha=0.1, color='#374151')
+            
+            # ═══════════════════════════════════════════════════════
+            # 📋 INFO PANEL
+            # ═══════════════════════════════════════════════════════
+            
+            side_emoji = "🟢 LONG" if pos['side'] == 'LONG' else "🔴 SHORT"
+            pnl_emoji = "📈" if pnl_pct > 0 else "📉"
+            pnl_color = '#00ff88' if pnl_pct > 0 else '#ff3366'
+            
+            # Info text
+            info_text = (
+                f"{'━'*20}  {symbol}  {'━'*20}\n"
+                f"{side_emoji}  |  Entry: ${pos['entry_price']:.4f}  |  "
+                f"Current: ${current:.4f}  |  "
+                f"{pnl_emoji} PnL: {pnl_pct:+.2f}%  |  "
+                f"🛡️ SL: ${pos['sl']:.4f}  |  🎯 TP: ${pos['tp']:.4f}"
+            )
+            
+            ax_info.text(0.5, 0.5, info_text, transform=ax_info.transAxes,
+                        fontsize=12, fontweight='bold', color='white',
+                        ha='center', va='center',
+                        bbox=dict(boxstyle='round,pad=0.5', facecolor='#1a1a2e', 
+                                 edgecolor=pnl_color, linewidth=2, alpha=0.95))
+            
+            # ═══════════════════════════════════════════════════════
+            # 🎨 HEADER & STYLING
+            # ═══════════════════════════════════════════════════════
+            
+            # Main title
+            title_color = '#00ff88' if pnl_pct > 0 else '#ff3366'
+            fig.suptitle(f'📊 {symbol} | {side_emoji} | {pnl_emoji} {pnl_pct:+.2f}%', 
+                        fontsize=18, fontweight='bold', color=title_color, y=0.98)
+            
+            # Watermark
+            fig.text(0.02, 0.02, f'📝 PAPER TRADE | {datetime.now().strftime("%Y-%m-%d %H:%M:%S")} | 💰 ${self.balance:.2f}', 
+                    fontsize=10, color='#6b7280', style='italic')
+            
+            fig.text(0.98, 0.02, '🤖 AlphaBot Scalper', 
+                    fontsize=10, color='#6b7280', style='italic', ha='right')
+            
+            plt.tight_layout(rect=[0, 0.03, 1, 0.96])
             
             # Save
             buf = io.BytesIO()
             plt.savefig(buf, format='png', dpi=150, bbox_inches='tight', 
-                       facecolor='#0d1117', edgecolor='none')
+                       facecolor='#0a0a0f', edgecolor='none')
             buf.seek(0)
             plt.close()
             
-            # คำนวณสถิติ
-            winning = sum(1 for s, p in self.positions.items() 
-                         for df in [self.get_data_with_indicators(s)] if df is not None
-                         for c in [float(df.iloc[-1]['close'])]
-                         if ((c - p['entry_price']) / p['entry_price'] * LEVERAGE * 100 > 0 and p['side'] == 'LONG') or
-                            ((p['entry_price'] - c) / p['entry_price'] * LEVERAGE * 100 > 0 and p['side'] == 'SHORT'))
-            
-            caption = f"""📈 <b>POSITIONS CHART</b>
-━━━━━━━━━━━━━━━━━━━━
-🕐 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-💰 Balance: <b>${self.balance:.2f}</b>
+            # Caption
+            caption = f"""📊 <b>{symbol} - Position Chart</b>
+{'━'*25}
+{side_emoji} | 📍 Entry: <code>${pos['entry_price']:.4f}</code>
+📍 Current: <code>${current:.4f}</code>
+{pnl_emoji} PnL: <b>{pnl_pct:+.2f}%</b>
 
-📊 <b>{num_pos} Positions Open</b>
-{'📈' if avg_pnl > 0 else '📉'} Avg PnL: <b>{avg_pnl:+.1f}%</b>
-✅ Winning: {winning} | ❌ Losing: {num_pos - winning}
-━━━━━━━━━━━━━━━━━━━━
-📝 <i>Paper Trade - Hourly Update</i>"""
+🛡️ SL: ${pos['sl']:.4f}
+🎯 TP: ${pos['tp']:.4f}
+{'━'*25}
+📝 <i>Paper Trade - Hourly Chart</i>"""
             
             self.telegram.send_photo(buf.getvalue(), caption)
-            print("📊 ส่ง Positions Chart ไป Telegram แล้ว")
+            print(f"📊 ส่งกราฟ {symbol} ไป Telegram แล้ว")
             
         except Exception as e:
-            print(f"⚠️ Chart error: {e}")
+            print(f"⚠️ Chart error for {symbol}: {e}")
     
     def check_live_updates(self):
         """ตรวจสอบและส่ง Live Updates"""
