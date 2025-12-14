@@ -659,56 +659,143 @@ class PaperTradeBotFull:
                 print(f"🔔 ส่ง PnL Alert: {symbol} {pnl_pct:+.1f}%")
     
     def send_positions_chart(self):
-        """📈 ส่งกราฟ Positions ทุกชั่วโมง"""
+        """📈 ส่งกราฟ Positions ทุกชั่วโมง - Premium Style"""
         if not self.telegram.enabled or not self.positions:
             return
         
         try:
-            # สร้างกราฟรวม positions
-            fig, axes = plt.subplots(len(self.positions), 1, figsize=(12, 4*len(self.positions)))
-            if len(self.positions) == 1:
+            num_pos = len(self.positions)
+            
+            # กำหนด layout ตามจำนวน positions
+            if num_pos == 1:
+                fig, axes = plt.subplots(1, 1, figsize=(14, 8))
                 axes = [axes]
+            elif num_pos == 2:
+                fig, axes = plt.subplots(1, 2, figsize=(16, 7))
+            elif num_pos == 3:
+                fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+            else:
+                fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+                axes = axes.flatten()
             
-            plt.style.use('dark_background')
+            fig.patch.set_facecolor('#0d1117')
             
-            for ax, (symbol, pos) in zip(axes, self.positions.items()):
+            total_pnl = 0
+            
+            for idx, (symbol, pos) in enumerate(self.positions.items()):
+                if idx >= len(axes):
+                    break
+                    
+                ax = axes[idx]
+                ax.set_facecolor('#161b22')
+                
                 df = self.get_data_with_indicators(symbol)
                 if df is None:
                     continue
                 
-                # Plot price
-                ax.plot(df.index[-50:], df['close'].tail(50), 'cyan', linewidth=1.5, label='Price')
+                df_chart = df.tail(50).copy()
+                x = range(len(df_chart))
                 
-                # Entry line
-                ax.axhline(y=pos['entry_price'], color='yellow', linestyle='--', label=f'Entry: ${pos["entry_price"]:.4f}')
-                ax.axhline(y=pos['tp'], color='lime', linestyle='--', alpha=0.7, label=f'TP: ${pos["tp"]:.4f}')
-                ax.axhline(y=pos['sl'], color='red', linestyle='--', alpha=0.7, label=f'SL: ${pos["sl"]:.4f}')
+                # 🕯️ Candlestick สวยๆ
+                for i, (_, row) in enumerate(df_chart.iterrows()):
+                    color = '#00ff88' if row['close'] >= row['open'] else '#ff4757'
+                    # Wick
+                    ax.plot([i, i], [row['low'], row['high']], color=color, linewidth=0.8, alpha=0.7)
+                    # Body
+                    body_bottom = min(row['open'], row['close'])
+                    body_height = abs(row['close'] - row['open'])
+                    rect = plt.Rectangle((i - 0.35, body_bottom), 0.7, body_height,
+                                        facecolor=color, edgecolor=color, alpha=0.9)
+                    ax.add_patch(rect)
                 
-                # Current price
+                # 📈 EMAs
+                if 'ema_fast' in df_chart.columns:
+                    ax.plot(x, df_chart['ema_fast'], color='#ffd93d', linewidth=1.2, alpha=0.8)
+                if 'ema_slow' in df_chart.columns:
+                    ax.plot(x, df_chart['ema_slow'], color='#6c5ce7', linewidth=1.2, alpha=0.8)
+                
+                # Entry, TP, SL lines
+                ax.axhline(y=pos['entry_price'], color='#00d2d3', linestyle='--', linewidth=2, alpha=0.9)
+                ax.axhline(y=pos['tp'], color='#00ff88', linestyle='--', linewidth=1.5, alpha=0.7)
+                ax.axhline(y=pos['sl'], color='#ff4757', linestyle='--', linewidth=1.5, alpha=0.7)
+                
+                # Fill zones
+                ax.fill_between(x, pos['entry_price'], pos['tp'], alpha=0.08, color='#00ff88')
+                ax.fill_between(x, pos['entry_price'], pos['sl'], alpha=0.08, color='#ff4757')
+                
+                # Current price marker
                 current = float(df.iloc[-1]['close'])
+                ax.scatter([len(df_chart)-1], [current], color='#00d2d3', s=80, zorder=5, 
+                          marker='o', edgecolors='white', linewidths=1.5)
+                
+                # คำนวณ PnL
                 if pos['side'] == 'LONG':
                     pnl_pct = (current - pos['entry_price']) / pos['entry_price'] * LEVERAGE * 100
                 else:
                     pnl_pct = (pos['entry_price'] - current) / pos['entry_price'] * LEVERAGE * 100
                 
-                side_emoji = "LONG" if pos['side'] == 'LONG' else "SHORT"
-                status = "+" if pnl_pct > 0 else ""
-                ax.set_title(f"{symbol} | {side_emoji} | PnL: {status}{pnl_pct:.1f}%", fontsize=12, color='white')
-                ax.legend(loc='upper left', fontsize=8)
-                ax.grid(True, alpha=0.3)
+                total_pnl += pnl_pct
+                
+                # Title สวยๆ
+                side_color = '#00ff88' if pos['side'] == 'LONG' else '#ff4757'
+                pnl_color = '#00ff88' if pnl_pct > 0 else '#ff4757'
+                side_emoji = "🟢 LONG" if pos['side'] == 'LONG' else "🔴 SHORT"
+                pnl_emoji = "📈" if pnl_pct > 0 else "📉"
+                
+                title = f"{symbol.replace('/USDT', '')}\n{side_emoji} | {pnl_emoji} {pnl_pct:+.1f}%"
+                ax.set_title(title, fontsize=11, fontweight='bold', color='white', pad=10)
+                
+                # Grid
+                ax.grid(True, alpha=0.1, color='#30363d')
+                ax.tick_params(colors='#8b949e', labelsize=8)
+                
+                # Spine styling
+                for spine in ax.spines.values():
+                    spine.set_color('#30363d')
+                
+                # Price labels บนขวา
+                ax.annotate(f'${current:.4f}', xy=(1.02, current), xycoords=('axes fraction', 'data'),
+                           fontsize=8, color='#00d2d3', va='center')
             
-            plt.tight_layout()
+            # ซ่อน axes ที่ไม่ใช้
+            for idx in range(len(self.positions), len(axes)):
+                axes[idx].set_visible(False)
             
-            # Save to bytes
+            # 📊 Header
+            avg_pnl = total_pnl / num_pos if num_pos > 0 else 0
+            header_color = '#00ff88' if avg_pnl > 0 else '#ff4757'
+            
+            fig.suptitle(f'📊 PAPER TRADE POSITIONS | Total: {avg_pnl:+.1f}%', 
+                        fontsize=14, fontweight='bold', color='white', y=0.98)
+            
+            # 📝 Footer
+            fig.text(0.5, 0.01, f'📝 Paper Trade - {datetime.now().strftime("%Y-%m-%d %H:%M")} | 💰 ${self.balance:.2f}', 
+                    ha='center', fontsize=10, color='#8b949e')
+            
+            plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+            
+            # Save
             buf = io.BytesIO()
-            plt.savefig(buf, format='png', dpi=120, bbox_inches='tight', facecolor='#1a1a2e')
+            plt.savefig(buf, format='png', dpi=150, bbox_inches='tight', 
+                       facecolor='#0d1117', edgecolor='none')
             buf.seek(0)
             plt.close()
+            
+            # คำนวณสถิติ
+            winning = sum(1 for s, p in self.positions.items() 
+                         for df in [self.get_data_with_indicators(s)] if df is not None
+                         for c in [float(df.iloc[-1]['close'])]
+                         if ((c - p['entry_price']) / p['entry_price'] * LEVERAGE * 100 > 0 and p['side'] == 'LONG') or
+                            ((p['entry_price'] - c) / p['entry_price'] * LEVERAGE * 100 > 0 and p['side'] == 'SHORT'))
             
             caption = f"""📈 <b>POSITIONS CHART</b>
 ━━━━━━━━━━━━━━━━━━━━
 🕐 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-📊 {len(self.positions)} positions open
+💰 Balance: <b>${self.balance:.2f}</b>
+
+📊 <b>{num_pos} Positions Open</b>
+{'📈' if avg_pnl > 0 else '📉'} Avg PnL: <b>{avg_pnl:+.1f}%</b>
+✅ Winning: {winning} | ❌ Losing: {num_pos - winning}
 ━━━━━━━━━━━━━━━━━━━━
 📝 <i>Paper Trade - Hourly Update</i>"""
             
