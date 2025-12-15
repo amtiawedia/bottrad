@@ -121,8 +121,9 @@ class SimpleChart:
         ax.axhline(sl, color='#ff4757', linewidth=2, linestyle='--')
         ax.axhline(tp, color='#00d26a', linewidth=2, linestyle='--')
         
-        emoji = '🟢' if side == 'LONG' else '🔴'
-        ax.set_title(f'{emoji} {symbol} | {side}', color='white', fontsize=14, fontweight='bold')
+        side_marker = '[LONG]' if side == 'LONG' else '[SHORT]'
+        side_color = '#00d26a' if side == 'LONG' else '#ff4757'
+        ax.set_title(f'{side_marker} {symbol}', color=side_color, fontsize=14, fontweight='bold')
         ax.tick_params(colors='white')
         ax.grid(True, color='#21262d', alpha=0.3)
         
