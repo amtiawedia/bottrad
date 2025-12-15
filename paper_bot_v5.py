@@ -32,13 +32,13 @@ from pathlib import Path
 # CONFIGURATION V5 - BEST: กำไร + เทรดเยอะ
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# 🎯 20 COINS - รวม Meme ด้วย
+# 🎯 20 COINS - รวม Meme ด้วย (Binance Futures format)
 COINS = [
-    'BTC/USDT', 'ETH/USDT', 'BNB/USDT', 'XRP/USDT', 'SOL/USDT',
-    'ADA/USDT', 'AVAX/USDT', 'DOT/USDT', 'NEAR/USDT', 'SUI/USDT',
-    'ARB/USDT', 'OP/USDT', 'LINK/USDT', 'UNI/USDT',
-    'LTC/USDT', 'ETC/USDT', 'FIL/USDT', 'AAVE/USDT', 'INJ/USDT',
-    'DOGE/USDT',
+    'BTC/USDT:USDT', 'ETH/USDT:USDT', 'BNB/USDT:USDT', 'XRP/USDT:USDT', 'SOL/USDT:USDT',
+    'ADA/USDT:USDT', 'AVAX/USDT:USDT', 'DOT/USDT:USDT', 'NEAR/USDT:USDT', 'SUI/USDT:USDT',
+    'ARB/USDT:USDT', 'OP/USDT:USDT', 'LINK/USDT:USDT', 'UNI/USDT:USDT',
+    'LTC/USDT:USDT', 'ETC/USDT:USDT', 'FIL/USDT:USDT', 'AAVE/USDT:USDT', 'INJ/USDT:USDT',
+    'DOGE/USDT:USDT',
 ]
 
 # 🏆 BEST SETTINGS FROM BACKTEST
